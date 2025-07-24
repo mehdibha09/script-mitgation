@@ -77,48 +77,48 @@ def est_legitime(proc: psutil.Process) -> bool:
         name = proc.name().lower()
         user = proc.username().lower()
         exe  = (proc.exe() or "").lower()
+        log(f"[DEBUG] Vérification légitimité : name={name}, user={user}, exe={exe}")
     except psutil.Error:
         return True
 
     if name in PROCESSUS_LEGITIMES and \
        (exe.startswith(r"c:\\windows\\system32") or exe.startswith(r"c:\\windows\\syswow64")) and \
        user in UTILISATEURS_SYSTEME:
+        log(f"[DEBUG] Processus {name} considéré légitime")
         return True
+    log(f"[DEBUG] Processus {name} considéré NON légitime")
     return False
+
+
+import subprocess
 
 def kill_process_tree(pid: int, kill_parent: bool = True):
     try:
         parent = psutil.Process(pid)
+        log(f"[INFO] kill_process_tree appelé pour PID {pid} ({parent.name()})")
     except psutil.NoSuchProcess:
+        log(f"[WARN] Processus PID {pid} non trouvé")
         return
 
+    try:
+        # Kill l'arbre du PID directement avec /F (force) et /T (tous les enfants)
+        subprocess.run(["taskkill", "/PID", str(pid), "/F", "/T"], capture_output=True)
+        log(f"[🔪] Force kill PID {pid} et son arbre")
+    except Exception as e:
+        log(f"[ERROR] Erreur taskkill PID {pid} : {e}")
+
+    # Kill le parent si demandé
     if kill_parent:
         try:
             ppid = parent.ppid()
             if ppid and ppid != 0:
-                p = psutil.Process(ppid)
-                if not est_legitime(p):
-                    log(f"[🔪] Kill parent PID {ppid} ({p.name()})")
-                    p.kill()
-        except psutil.Error:
-            pass
-
-    try:
-        children = parent.children(recursive=True)
-        for c in children:
-            try:
-                c.kill()
-            except Exception:
-                pass
-        psutil.wait_procs(children, timeout=3)
-    except Exception:
-        pass
-
-    try:
-        if not est_legitime(parent):
-            parent.kill()
-    except Exception:
-        pass
+                try:
+                    subprocess.run(["taskkill", "/PID", str(ppid), "/F", "/T"], capture_output=True)
+                    log(f"[🔪] Force kill parent PID {ppid}")
+                except Exception as e:
+                    log(f"[ERROR] Erreur taskkill parent PID {ppid} : {e}")
+        except psutil.Error as e:
+            log(f"[ERROR] Erreur obtention parent PID {pid} : {e}")
 
 def is_python_cmd_suspicious(cmd: str) -> bool:
     if not cmd:
@@ -177,64 +177,90 @@ def est_commande_suspecte(commandline: str) -> bool:
             return True
     return False
 
-
 def detect_processus_suspect(event_data):
-    """
-    Analyse un événement Sysmon (ProcessCreate - EventID 1)
-    pour identifier un processus potentiellement malveillant.
-    """
-    nom_processus = (event_data.get("Image") or "").lower()
+    import os
+    
+    print("DEBUG event_data keys:", list(event_data.keys()))
+
+    nom_processus = os.path.basename(event_data.get("Image", "")).lower()
     ligne_commande = (event_data.get("CommandLine") or "").lower()
     pid_str = event_data.get("ProcessId")
+
+    parent_image = os.path.basename(event_data.get("ParentImage", "")).lower()
+    parent_cmd = (event_data.get("ParentCommandLine") or "").lower()
+    parent_user = (event_data.get("ParentUser") or "").lower()
+
+    print(f"DEBUG Nom processus: {nom_processus}")
+    print(f"DEBUG CommandLine: {ligne_commande}")
+    print(f"DEBUG Parent image: {parent_image}")
+    print(f"DEBUG Parent CommandLine: {parent_cmd}")
+    print(f"DEBUG Parent User: {parent_user}")
 
     processus_suspects = [
         "powershell.exe", "cmd.exe", "wscript.exe", "cscript.exe",
         "mshta.exe", "regsvr32.exe", "rundll32.exe",
         "taskschd.msc", "schtasks.exe", "certutil.exe", "curl.exe",
-        "python.exe", "pythonw.exe"
+        "python.exe", "pythonw.exe", "python3.exe", "python3.11.exe"
     ]
 
-    # Vérifie si le processus est dans la liste des suspects
-    if not any(p in nom_processus for p in processus_suspects):
-        return False
+    ransomware_keywords = [
+        "watchdog.vbs",
+        ".vbs",
+        "themes",
+        "ransomware",
+        ".locked",
+        "encoder.py",
+        "script-mitgation"
+    ]
 
     suspicious = False
 
-    if "python.exe" in nom_processus or "pythonw.exe" in nom_processus:
-        if is_python_cmd_suspicious(ligne_commande):
-            suspicious = True
-    else:
-        if "powershell.exe" in nom_processus or "cmd.exe" in nom_processus:
-            if est_commande_suspecte(ligne_commande):
-                suspicious = True
-        else:
-            suspicious = True
+    if nom_processus in processus_suspects:
+        suspicious = True
+
+    if any(keyword in ligne_commande for keyword in ransomware_keywords):
+        suspicious = True
+
+    if any(keyword in parent_cmd for keyword in ransomware_keywords):
+        suspicious = True
+
+    if "wscript.exe" == nom_processus and "python" in parent_image:
+        suspicious = True
 
     if not suspicious:
+        print("DEBUG Pas suspect")
         return False
 
-    log(f"[⚠️] Processus suspect détecté : {nom_processus}")
-    log(f"      Ligne de commande : {ligne_commande}")
+    print(f"[⚠️] Processus suspect détecté (ID 1): {nom_processus}")
+    print(f"      CommandLine : {ligne_commande}")
+    print(f"      Parent : {parent_image} ({parent_user}) -> {parent_cmd}")
 
     if pid_str and pid_str.isdigit():
         pid = int(pid_str)
         try:
-            log(f"[🔪] Kill tree PID={pid}")
-            kill_process_tree(pid, kill_parent=True)
+            print(f"[🔪] Kill tree PID={pid} (fonction kill_process_tree non implémentée ici)")
+            # kill_process_tree(pid, kill_parent=True)  # Implémenter selon besoin
         except Exception as e:
-            log(f"[!] Échec du kill du processus {pid} : {e}")
+            print(f"[!] Échec du kill du processus {pid} : {e}")
     return True
+
+
+
 
 
 # -------------------- Détections --------------------
 
 def detect_chiffrement(event_data):
-    fichier = (event_data.get("TargetFilename") or "").lower()
+    fichier = (event_data.get("TargetFilename") or "").lower().strip()
+    log(f"[DEBUG] Fichier cible détecté : '{fichier}'")
     if fichier.endswith((".locked", ".enc", ".crypt", ".encrypted")):
         log(f"[🧨] Fichier chiffré détecté : {fichier}")
         pid_str = event_data.get("ProcessId")
+        log(f"[DEBUG] ProcessId détecté : {pid_str}")
         if pid_str and pid_str.isdigit():
             kill_process_tree(int(pid_str), kill_parent=True)
+        else:
+            log("[WARN] ProcessId invalide ou manquant")
 
 def _open_reg_key(hive, path, rights):
     for flag in (0, winreg.KEY_WOW64_64KEY, winreg.KEY_WOW64_32KEY):
@@ -328,56 +354,81 @@ def analyser_event_xml(event_xml: str):
         # utilise ta fonction log si dispo
         print(f"[!] Erreur parsing XML: {e}")
         return None, None
+def get_event_record_id(xml_event):
+    """
+    Extrait EventRecordID depuis le XML de l'événement.
+    """
+    import xml.etree.ElementTree as ET
+    ns = {'e': 'http://schemas.microsoft.com/win/2004/08/events/event'}
+    root = ET.fromstring(xml_event)
+    erid_elem = root.find('./e:System/e:EventRecordID', ns)
+    if erid_elem is not None:
+        try:
+            return int(erid_elem.text)
+        except:
+            pass
+    return 0
+
 
 def monitor_sysmon_log():
     channel = "Microsoft-Windows-Sysmon/Operational"
-    query = "*"
-
-    query_handle = EvtQuery(None, channel, query, EVT_QUERY_CHANNEL_PATH)
-    if not query_handle:
-        err = ctypes.GetLastError()
-        raise RuntimeError(f"Impossible d'ouvrir le journal Sysmon (code {err})")
+    last_event_id = 0  # ID du dernier événement lu
 
     print("[*] Début de la surveillance Sysmon (Winevt API)…")
 
-    event_handles = (wintypes.HANDLE * 10)()
-    returned = wintypes.DWORD()
-
     while True:
-        success = EvtNext(query_handle, 10, event_handles, 1000, 0, byref(returned))
+        # Requête filtrée pour ne prendre que les événements nouveaux
+        query = f"*[System[EventRecordID > {last_event_id}]]"
 
-        if not success:
-            if ctypes.GetLastError() == ERROR_NO_MORE_ITEMS:
-                time.sleep(1)
-                continue
-            else:
-                print(f"[!] EvtNext error: {ctypes.GetLastError()}")
-                time.sleep(2)
-                continue
+        query_handle = EvtQuery(None, channel, query, EVT_QUERY_CHANNEL_PATH)
+        if not query_handle:
+            err = ctypes.GetLastError()
+            print(f"[!] Impossible d'ouvrir le journal Sysmon (code {err}), nouvelle tentative dans 2s")
+            time.sleep(2)
+            continue
 
-        for i in range(returned.value):
-            try:
-                xml_event = render_event(event_handles[i])
-                if not xml_event or "<Event" not in xml_event:
-                    continue
+        event_handles = (wintypes.HANDLE * 10)()
+        returned = wintypes.DWORD()
 
-                event_id, event_data = analyser_event_xml(xml_event)
-                if not event_id:
-                    continue
+        while True:
+            success = EvtNext(query_handle, 10, event_handles, 1000, 0, byref(returned))
 
-                if event_id == 11:
-                    detect_chiffrement(event_data)
-                elif event_id in (12, 13, 14):
-                    detect_registre(event_data)
-                elif event_id == 1:
-                    detect_processus_suspect(event_data)
+            if not success:
+                if ctypes.GetLastError() == ERROR_NO_MORE_ITEMS:
+                    break  # Plus d'événements, on refait une nouvelle requête filtrée
+                else:
+                    print(f"[!] EvtNext error: {ctypes.GetLastError()}")
+                    break
 
-            except Exception:
-                print("Exception:\n" + traceback.format_exc())
-            finally:
-                EvtClose(event_handles[i])
+            for i in range(returned.value):
+                try:
+                    xml_event = render_event(event_handles[i])
+                    if not xml_event or "<Event" not in xml_event:
+                        continue
 
-        time.sleep(0.2)
+                    event_id, event_data = analyser_event_xml(xml_event)
+                    if not event_id or event_id == 255:
+                        continue
+
+                    event_record_id = get_event_record_id(xml_event)
+                    if event_record_id > last_event_id:
+                        last_event_id = event_record_id
+
+                    #if event_id == 1:
+                     #   detect_processus_suspect(event_data)
+                    if event_id == 11:
+                         detect_chiffrement(event_data)
+                # elif event_id in (12, 13, 14):
+                #     detect_registre(event_data)
+                    print(event_id)
+
+                except Exception:
+                    print("Exception:\n" + traceback.format_exc())
+                finally:
+                    EvtClose(event_handles[i])
+
+        EvtClose(query_handle)
+        time.sleep(1)
 
 
 def render_event(event_handle):
@@ -395,6 +446,7 @@ def render_event(event_handle):
         raise RuntimeError(f"EvtRender failed: {ctypes.GetLastError()}")
 
     return buf.value
+
 
 if __name__ == "__main__":
     monitor_sysmon_log()

