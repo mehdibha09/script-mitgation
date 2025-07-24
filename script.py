@@ -177,6 +177,55 @@ def est_commande_suspecte(commandline: str) -> bool:
             return True
     return False
 
+
+def detect_processus_suspect(event_data):
+    """
+    Analyse un événement Sysmon (ProcessCreate - EventID 1)
+    pour identifier un processus potentiellement malveillant.
+    """
+    nom_processus = (event_data.get("Image") or "").lower()
+    ligne_commande = (event_data.get("CommandLine") or "").lower()
+    pid_str = event_data.get("ProcessId")
+
+    processus_suspects = [
+        "powershell.exe", "cmd.exe", "wscript.exe", "cscript.exe",
+        "mshta.exe", "regsvr32.exe", "rundll32.exe",
+        "taskschd.msc", "schtasks.exe", "certutil.exe", "curl.exe",
+        "python.exe", "pythonw.exe"
+    ]
+
+    # Vérifie si le processus est dans la liste des suspects
+    if not any(p in nom_processus for p in processus_suspects):
+        return False
+
+    suspicious = False
+
+    if "python.exe" in nom_processus or "pythonw.exe" in nom_processus:
+        if is_python_cmd_suspicious(ligne_commande):
+            suspicious = True
+    else:
+        if "powershell.exe" in nom_processus or "cmd.exe" in nom_processus:
+            if est_commande_suspecte(ligne_commande):
+                suspicious = True
+        else:
+            suspicious = True
+
+    if not suspicious:
+        return False
+
+    log(f"[⚠️] Processus suspect détecté : {nom_processus}")
+    log(f"      Ligne de commande : {ligne_commande}")
+
+    if pid_str and pid_str.isdigit():
+        pid = int(pid_str)
+        try:
+            log(f"[🔪] Kill tree PID={pid}")
+            kill_process_tree(pid, kill_parent=True)
+        except Exception as e:
+            log(f"[!] Échec du kill du processus {pid} : {e}")
+    return True
+
+
 # -------------------- Détections --------------------
 
 def detect_chiffrement(event_data):
@@ -316,7 +365,6 @@ def monitor_sysmon_log():
                 if not event_id:
                     continue
 
-                print(f"[*] Event {event_id} reçu")
                 if event_id == 11:
                     detect_chiffrement(event_data)
                 elif event_id in (12, 13, 14):
