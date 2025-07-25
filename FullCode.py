@@ -631,6 +631,8 @@ class SysmonMonitor:
                             self.detect_suspicious_dll_via_file_creation(event_data)
                         elif event_id == 1: # Process created
                             self.detect_suspicious_dll_via_process(event_data)
+                        elif event_id == 3:
+                            self.detect_smb_propagation(event_data)
 
                     except Exception as e:
                         self.logger.logger.error(f"[Sysmon] Exception processing event: {e}")
@@ -651,6 +653,23 @@ class SysmonMonitor:
         except:
             pass
         self.logger.logger.info("[Sysmon] Stopped monitoring Sysmon events.")
+        
+    def detect_smb_propagation(event_data: dict) -> bool:
+        """
+        Sysmon EventID 3 (NetworkConnect)
+        Détecte les connexions SMB (445/139) faites par des outils souvent utilisés en latéralisation.
+        """
+        try:
+            image = os.path.basename((event_data.get("Image") or "")).lower()
+            cmd   = (event_data.get("CommandLine") or "").lower()
+            dport = int(event_data.get("DestinationPort") or 0)
+            dip   = (event_data.get("DestinationIp") or "")
+            pid   = event_data.get("ProcessId")
+        except Exception:
+            return False
+
+        if dport not in SMB_PORTS:
+            return False
 
     def start_monitoring(self):
         """Start the Sysmon monitoring in a background thread."""
