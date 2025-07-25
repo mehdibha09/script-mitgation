@@ -503,46 +503,105 @@ def detect_pipe_lateral(event_data: dict) -> bool:
 
     return False
 
+def detect_pipe_lateral(event_data: dict) -> bool:
+    """
+    Sysmon EventID 17 (Pipe Created) / 18 (Pipe Connected)
+    Détecte PsExec et autres outils via les noms de pipes.
+    """
+    pipe = (event_data.get("PipeName") or "").lower()
+    pid  = event_data.get("ProcessId")
+
+    # Pipes typiques PsExec / RemCom / SMB lateralisation
+    SUSPICIOUS_PIPES = (r"\psexesvc", r"\remcom_communic", r"\paexec", r"\atsvc")
+
+    if any(p in pipe for p in SUSPICIOUS_PIPES):
+        log(f"[🚨] Pipe latérale suspecte : {pipe} (PID={pid})")
+        if pid and pid.isdigit():
+            try:
+                proc = psutil.Process(int(pid))
+                if not est_legitime(proc):
+                    kill_process_tree(int(pid), kill_parent=True)
+            except Exception as e:
+                log(f"[!] Impossible de tuer PID {pid}: {e}")
+        return True
+
+    return False
+
+
+def create_launcher_script(script_path, launcher_type="ps1"):
+    """
+    Crée un script lanceur PowerShell ou VBS qui exécute le script Python.
+    Retourne le chemin du script créé.
+    """
+    base_dir = os.path.dirname(script_path)
+    launcher_path = None
+
+    if launcher_type == "ps1":
+        launcher_path = os.path.join(base_dir, "launcher.ps1")
+        content = f'''
+Start-Process -FilePath "{sys.executable}" -ArgumentList '"{script_path}"' -Verb RunAs
+'''
+    elif launcher_type == "vbs":
+        launcher_path = os.path.join(base_dir, "launcher.vbs")
+        content = f'''
+Set objShell = CreateObject("Shell.Application")
+objShell.ShellExecute "{sys.executable}", """{script_path}""", "", "runas", 1
+'''
+    else:
+        raise ValueError("launcher_type doit être 'ps1' ou 'vbs'")
+
+    with open(launcher_path, "w", encoding="utf-8") as f:
+        f.write(content.strip())
+
+    return launcher_path
+
 def add_task_scheduler(task_name="SysmonMonitor", script_path=None):
     """
-    Ajoute le script Python au démarrage via Task Scheduler.
+    Ajoute une tâche planifiée au démarrage :
+    - Si script_path finit par .exe, ajoute directement le .exe à la tâche.
+    - Sinon, crée un script PS1 lanceur (avec élévation) et ajoute ce script à la tâche.
     """
     try:
         if script_path is None:
-            script_path = os.path.abspath(__file__)  # chemin complet du script actuel
+            script_path = os.path.abspath(__file__)
 
-        if script_path is None:
-            script_path = os.path.abspath(__file__)  # Script actuel
-
-        # 1) Vérifier si la tâche existe déjà
-        result = subprocess.run(
+        # Vérifier si la tâche existe déjà
+        result_check = subprocess.run(
             ["schtasks", "/Query", "/TN", task_name],
             capture_output=True, text=True
         )
-
-        if result.returncode == 0:
+        if result_check.returncode == 0:
             print(f"[✔] La tâche '{task_name}' existe déjà.")
-            return 
+            return
 
+        # Préparer la commande /TR à exécuter
+        if script_path.lower().endswith(".exe"):
+            # .exe direct
+            tr_command = f'"{script_path}"'
+        else:
+            # Créer un script PS1 lanceur pour exécuter le python avec élévation
+            launcher_script = create_launcher_script(script_path, launcher_type="ps1")
+            tr_command = f'powershell.exe -ExecutionPolicy Bypass -File "{launcher_script}"'
 
-        # Commande schtasks
+        # Construire commande schtasks
         cmd = [
             "schtasks", "/Create",
-            "/SC", "ONSTART",            # Tâche au démarrage
-            "/RL", "HIGHEST",            # Droits admin
-            "/TN", task_name,            # Nom de la tâche
-            "/TR", f'"{sys.executable} {script_path}"',  # Exécuter Python avec le script
-            "/F"                         # Forcer remplacement si déjà présent
+            "/SC", "ONSTART",
+            "/RL", "HIGHEST",
+            "/TN", task_name,
+            "/TR", tr_command,
+            "/F"
         ]
 
-        result = subprocess.run(" ".join(cmd), capture_output=True, text=True, shell=True)
-        if result.returncode == 0:
+        result_create = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+
+        if result_create.returncode == 0:
             print(f"[✔] Tâche planifiée '{task_name}' ajoutée avec succès.")
         else:
-            print(f"[!] Erreur ajout tâche: {result.stderr}")
+            print(f"[!] Erreur ajout tâche : {result_create.stderr}")
 
     except Exception as e:
-        print(f"[ERROR] Impossible de créer la tâche planifiée: {e}")
+        print(f"[ERROR] Impossible de créer la tâche planifiée : {e}")
 
 
 def monitor_sysmon_log():
