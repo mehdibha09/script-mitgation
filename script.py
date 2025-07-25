@@ -11,11 +11,20 @@ from ctypes import windll, wintypes, byref, create_unicode_buffer
 import time
 import xml.etree.ElementTree as ET
 import traceback
+import subprocess
+import sys
 
 # Constantes Winevt
 EVT_QUERY_CHANNEL_PATH = 0x1
 EVT_RENDER_EVENT_XML = 1
 ERROR_NO_MORE_ITEMS = 259
+
+SMB_PORTS = {445, 139}
+LATERAL_TOOLS = {
+    "powershell.exe", "cmd.exe", "psexec.exe", "wmic.exe", "wmiprvse.exe",
+    "sc.exe", "reg.exe", "rundll32.exe", "at.exe", "schtasks.exe",
+    "python.exe", "pythonw.exe", "python3.exe", "python3.11.exe"
+}
 
 # Chargement de l'API Winevt.dll
 wevtapi = windll.wevtapi
@@ -90,7 +99,6 @@ def est_legitime(proc: psutil.Process) -> bool:
     return False
 
 
-import subprocess
 
 def kill_process_tree(pid: int, kill_parent: bool = True):
     try:
@@ -100,25 +108,36 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
         log(f"[WARN] Processus PID {pid} non trouvé")
         return
 
-    try:
-        # Kill l'arbre du PID directement avec /F (force) et /T (tous les enfants)
-        subprocess.run(["taskkill", "/PID", str(pid), "/F", "/T"], capture_output=True)
-        log(f"[🔪] Force kill PID {pid} et son arbre")
-    except Exception as e:
-        log(f"[ERROR] Erreur taskkill PID {pid} : {e}")
+    pid_exclu = os.getpid()  # PID du script Python actuel, à exclure du kill
 
-    # Kill le parent si demandé
+    try:
+        enfants = parent.children(recursive=True)
+        for enfant in enfants:
+            if enfant.pid == pid_exclu:
+                log(f"[INFO] Exclusion du kill pour PID {enfant.pid} ({enfant.name()}) (processus actuel)")
+                continue
+            try:
+                subprocess.run(["taskkill", "/PID", str(enfant.pid), "/F", "/T"], capture_output=True)
+                log(f"[🔪] Force kill enfant PID {enfant.pid} ({enfant.name()})")
+            except Exception as e:
+                log(f"[ERROR] Erreur taskkill enfant PID {enfant.pid} : {e}")
+    except Exception as e:
+        log(f"[ERROR] Erreur récupération enfants PID {pid} : {e}")
+
     if kill_parent:
         try:
             ppid = parent.ppid()
-            if ppid and ppid != 0:
+            if ppid and ppid != 0 and ppid != pid_exclu:
                 try:
                     subprocess.run(["taskkill", "/PID", str(ppid), "/F", "/T"], capture_output=True)
                     log(f"[🔪] Force kill parent PID {ppid}")
                 except Exception as e:
                     log(f"[ERROR] Erreur taskkill parent PID {ppid} : {e}")
+            else:
+                log(f"[INFO] Parent PID {ppid} exclu ou non valide, pas tué")
         except psutil.Error as e:
             log(f"[ERROR] Erreur obtention parent PID {pid} : {e}")
+
 
 def is_python_cmd_suspicious(cmd: str) -> bool:
     if not cmd:
@@ -156,7 +175,30 @@ def is_python_cmd_suspicious(cmd: str) -> bool:
 
     return False
 
+def decode_powershell_base64(commandline: str) -> str:
+    """
+    Décode la commande Base64 d'une commande PowerShell s'il y en a une.
+    Retourne la chaîne décodée ou vide si rien trouvé.
+    """
+    try:
+        # Chercher les options -enc ou -EncodedCommand
+        match = re.search(r"(?:-enc\s+|-encodedcommand\s+)([a-z0-9+/=]+)", commandline, re.I)
+        if match:
+            encoded_str = match.group(1)
+            decoded_bytes = base64.b64decode(encoded_str)
+            try:
+                return decoded_bytes.decode('utf-16le')  # PowerShell encode souvent en UTF-16 LE
+            except UnicodeDecodeError:
+                return decoded_bytes.decode('utf-8', errors='ignore')
+    except Exception as e:
+        print(f"[!] Erreur de décodage Base64 : {e}")
+    return ""
+
 def est_commande_suspecte(commandline: str) -> bool:
+    """
+    Vérifie si la commande contient des motifs suspects
+    (téléchargements, exécution encodée, etc.)
+    """
     if not commandline:
         return False
     cl = commandline.lower()
@@ -175,11 +217,19 @@ def est_commande_suspecte(commandline: str) -> bool:
     for motif in motifs_suspects:
         if re.search(motif, cl):
             return True
+
+    # Vérification si une commande Base64 est présente
+    decoded_cmd = decode_powershell_base64(commandline)
+    if decoded_cmd:
+        print(f"[DEBUG] Contenu décodé PowerShell : {decoded_cmd}")
+        # Vérifier si la commande décodée contient des mots suspects
+        for motif in motifs_suspects:
+            if re.search(motif, decoded_cmd.lower()):
+                return True
+
     return False
 
 def detect_processus_suspect(event_data):
-    import os
-    
     print("DEBUG event_data keys:", list(event_data.keys()))
 
     nom_processus = os.path.basename(event_data.get("Image", "")).lower()
@@ -188,7 +238,7 @@ def detect_processus_suspect(event_data):
 
     parent_image = os.path.basename(event_data.get("ParentImage", "")).lower()
     parent_cmd = (event_data.get("ParentCommandLine") or "").lower()
-    parent_user = (event_data.get("ParentUser") or "").lower()
+    parent_user = (event_data.get("ParentUser", "")).lower()
 
     print(f"DEBUG Nom processus: {nom_processus}")
     print(f"DEBUG CommandLine: {ligne_commande}")
@@ -215,15 +265,21 @@ def detect_processus_suspect(event_data):
 
     suspicious = False
 
+    # Détection basique
     if nom_processus in processus_suspects:
         suspicious = True
 
+    # Vérification de mots clés dans les lignes de commande
     if any(keyword in ligne_commande for keyword in ransomware_keywords):
         suspicious = True
-
     if any(keyword in parent_cmd for keyword in ransomware_keywords):
         suspicious = True
 
+    # Vérification des commandes encodées ou suspectes (PowerShell, .bat, etc.)
+    if est_commande_suspecte(ligne_commande):
+        suspicious = True
+
+    # Cas spécifique : wscript lancé par python
     if "wscript.exe" == nom_processus and "python" in parent_image:
         suspicious = True
 
@@ -238,29 +294,49 @@ def detect_processus_suspect(event_data):
     if pid_str and pid_str.isdigit():
         pid = int(pid_str)
         try:
-            print(f"[🔪] Kill tree PID={pid} (fonction kill_process_tree non implémentée ici)")
-            # kill_process_tree(pid, kill_parent=True)  # Implémenter selon besoin
+            proc = psutil.Process(pid)
+            if not est_legitime(proc):
+                print(f"[🔪] Kill tree PID={pid}")
+                kill_process_tree(pid, kill_parent=True)
+            else:
+                print(f"[INFO] Processus {pid} ({proc.name()}) légitime - non tué.")
         except Exception as e:
             print(f"[!] Échec du kill du processus {pid} : {e}")
     return True
-
-
-
-
-
 # -------------------- Détections --------------------
 
-def detect_chiffrement(event_data):
+def detect_event_id_11(event_data):
+    """
+    Détection EventID 11 (FileCreate) combinée :
+    - Fichier chiffré détecté (.locked, .enc, .crypt, .encrypted)
+    - Création sur partage ADMIN$, C$, IPC$
+    """
     fichier = (event_data.get("TargetFilename") or "").lower().strip()
-    log(f"[DEBUG] Fichier cible détecté : '{fichier}'")
+    pid_str = event_data.get("ProcessId")
+
+    # 1) Détection fichier chiffré
     if fichier.endswith((".locked", ".enc", ".crypt", ".encrypted")):
         log(f"[🧨] Fichier chiffré détecté : {fichier}")
-        pid_str = event_data.get("ProcessId")
         log(f"[DEBUG] ProcessId détecté : {pid_str}")
         if pid_str and pid_str.isdigit():
             kill_process_tree(int(pid_str), kill_parent=True)
         else:
             log("[WARN] ProcessId invalide ou manquant")
+        return True
+
+    # 2) Détection création fichier sur partage admin$
+    if re.match(r"^\\\\[^\\]+\\(admin\$|c\$|ipc\$)\\", fichier):
+        log(f"[🚨] Création sur partage admin : {fichier} (PID={pid_str})")
+        if pid_str and pid_str.isdigit():
+            try:
+                proc = psutil.Process(int(pid_str))
+                if not est_legitime(proc):
+                    kill_process_tree(int(pid_str), kill_parent=True)
+            except Exception as e:
+                log(f"[!] Impossible de tuer PID {pid_str}: {e}")
+        return True
+
+    return False
 
 def _open_reg_key(hive, path, rights):
     for flag in (0, winreg.KEY_WOW64_64KEY, winreg.KEY_WOW64_32KEY):
@@ -307,8 +383,9 @@ def detect_registre(event_data):
             "HKLM": winreg.HKEY_LOCAL_MACHINE,
             "HKEY_CURRENT_USER": winreg.HKEY_CURRENT_USER,
             "HKCU": winreg.HKEY_CURRENT_USER,
+            "HKEY_USERS": winreg.HKEY_USERS,
+            "HKU": winreg.HKEY_USERS
         }.get(hive_name, None)
-
         if hive:
             if event_type == "setvalue":
                 with _open_reg_key(hive, sous_cle, winreg.KEY_SET_VALUE) as key:
@@ -369,6 +446,104 @@ def get_event_record_id(xml_event):
             pass
     return 0
 
+def detect_smb_propagation(event_data: dict) -> bool:
+    """
+    Sysmon EventID 3 (NetworkConnect)
+    Détecte les connexions SMB (445/139) faites par des outils souvent utilisés en latéralisation.
+    """
+    try:
+        image = os.path.basename((event_data.get("Image") or "")).lower()
+        cmd   = (event_data.get("CommandLine") or "").lower()
+        dport = int(event_data.get("DestinationPort") or 0)
+        dip   = (event_data.get("DestinationIp") or "")
+        pid   = event_data.get("ProcessId")
+    except Exception:
+        return False
+
+    if dport not in SMB_PORTS:
+        return False
+
+    # Processus potentiellement dangereux qui initie une connexion SMB
+    if image in LATERAL_TOOLS or est_commande_suspecte(cmd):
+        log(f"[🚨] Connexion SMB suspecte → {image} PID={pid} vers {dip}:{dport}")
+        log(f"     CMD: {cmd}")
+        # -> ici tu peux décider de tuer
+        if pid and pid.isdigit():
+            try:
+                proc = psutil.Process(int(pid))
+                if not est_legitime(proc):
+                    kill_process_tree(int(pid), kill_parent=True)
+            except Exception as e:
+                log(f"[!] Impossible de tuer PID {pid}: {e}")
+        return True
+
+    return False
+
+def detect_pipe_lateral(event_data: dict) -> bool:
+    """
+    Sysmon EventID 17 (Pipe Created) / 18 (Pipe Connected)
+    Détecte PsExec et autres outils via les noms de pipes.
+    """
+    pipe = (event_data.get("PipeName") or "").lower()
+    pid  = event_data.get("ProcessId")
+
+    # Pipes typiques PsExec / RemCom / SMB lateralisation
+    SUSPICIOUS_PIPES = (r"\psexesvc", r"\remcom_communic", r"\paexec", r"\atsvc")
+
+    if any(p in pipe for p in SUSPICIOUS_PIPES):
+        log(f"[🚨] Pipe latérale suspecte : {pipe} (PID={pid})")
+        if pid and pid.isdigit():
+            try:
+                proc = psutil.Process(int(pid))
+                if not est_legitime(proc):
+                    kill_process_tree(int(pid), kill_parent=True)
+            except Exception as e:
+                log(f"[!] Impossible de tuer PID {pid}: {e}")
+        return True
+
+    return False
+
+def add_task_scheduler(task_name="SysmonMonitor", script_path=None):
+    """
+    Ajoute le script Python au démarrage via Task Scheduler.
+    """
+    try:
+        if script_path is None:
+            script_path = os.path.abspath(__file__)  # chemin complet du script actuel
+
+        if script_path is None:
+            script_path = os.path.abspath(__file__)  # Script actuel
+
+        # 1) Vérifier si la tâche existe déjà
+        result = subprocess.run(
+            ["schtasks", "/Query", "/TN", task_name],
+            capture_output=True, text=True
+        )
+
+        if result.returncode == 0:
+            print(f"[✔] La tâche '{task_name}' existe déjà.")
+            return 
+
+
+        # Commande schtasks
+        cmd = [
+            "schtasks", "/Create",
+            "/SC", "ONSTART",            # Tâche au démarrage
+            "/RL", "HIGHEST",            # Droits admin
+            "/TN", task_name,            # Nom de la tâche
+            "/TR", f'"{sys.executable} {script_path}"',  # Exécuter Python avec le script
+            "/F"                         # Forcer remplacement si déjà présent
+        ]
+
+        result = subprocess.run(" ".join(cmd), capture_output=True, text=True, shell=True)
+        if result.returncode == 0:
+            print(f"[✔] Tâche planifiée '{task_name}' ajoutée avec succès.")
+        else:
+            print(f"[!] Erreur ajout tâche: {result.stderr}")
+
+    except Exception as e:
+        print(f"[ERROR] Impossible de créer la tâche planifiée: {e}")
+
 
 def monitor_sysmon_log():
     channel = "Microsoft-Windows-Sysmon/Operational"
@@ -413,14 +588,17 @@ def monitor_sysmon_log():
                     event_record_id = get_event_record_id(xml_event)
                     if event_record_id > last_event_id:
                         last_event_id = event_record_id
-
-                    #if event_id == 1:
-                     #   detect_processus_suspect(event_data)
-                    if event_id == 11:
-                         detect_chiffrement(event_data)
-                # elif event_id in (12, 13, 14):
-                #     detect_registre(event_data)
                     print(event_id)
+                    if event_id == 1:
+                        detect_processus_suspect(event_data)
+                    elif event_id == 11:
+                        detect_event_id_11(event_data)
+                    elif event_id == 3:
+                        detect_smb_propagation(event_data)
+                    elif event_id in (17, 18):
+                        detect_pipe_lateral(event_data)
+                    elif event_id in (12, 13, 14):
+                        detect_registre(event_data)
 
                 except Exception:
                     print("Exception:\n" + traceback.format_exc())
@@ -447,6 +625,27 @@ def render_event(event_handle):
 
     return buf.value
 
+def run_as_admin():
+    """Relance le script avec droits administrateur si nécessaire."""
+    try:
+        # Vérifie si le script est déjà en admin
+        is_admin = ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        is_admin = False
+
+    if not is_admin:
+        # Relance en admin
+        params = " ".join([f'"{arg}"' for arg in sys.argv])
+        try:
+            ctypes.windll.shell32.ShellExecuteW(
+                None, "runas", sys.executable, params, None, 1
+            )
+        except Exception as e:
+            print(f"[!] Impossible de demander les droits admin: {e}")
+        sys.exit(0)  # Quitte le script courant
+
 
 if __name__ == "__main__":
+    run_as_admin()
+    add_task_scheduler()
     monitor_sysmon_log()
