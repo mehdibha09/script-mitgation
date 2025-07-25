@@ -644,5 +644,5 @@ def run_as_admin():
 
 if __name__ == "__main__":
     run_as_admin()
-    add_task_scheduler()
+    add_to_registry()
     monitor_sysmon_log()
