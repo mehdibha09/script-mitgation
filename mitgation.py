@@ -21,8 +21,8 @@ import traceback
 import ctypes
 from ctypes import windll, wintypes, byref, create_unicode_buffer
 import base64
-# At the top of your file with other imports
-from ctypes import windll, wintypes, byref, create_unicode_buffer
+import requests
+from urllib.parse import urlparse
 
 # Then define the Windows Event Log API functions properly
 wevtapi = windll.wevtapi
@@ -86,6 +86,19 @@ UTILISATEURS_SYSTEME = {
     "trustedinstaller"
 }
 
+processus_suspects = {"python.exe", "powershell.exe", "cmd.exe", "wscript.exe", "cscript.exe"}
+ports_suspects = {4444, 5555, 8080, 8443}  # ports atypiques souvent utilisés par malware
+ips_bloc = {"1.2.3.4", "5.6.7.8"}  # Exemples IP malveillantes connues
+
+event_data_example = {
+    "Image": r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe",
+    "CommandLine": "powershell -Command Invoke-Command ...",
+    "DestinationPort": "445",
+    "DestinationIp": "192.168.1.10",
+    "ProcessId": "1234"
+}
+
+
 # --- Logging ---
 class SecurityLogger:
     """Unified logger for security events."""
@@ -130,54 +143,53 @@ DLL_LOGGER = SecurityLogger(DLL_LOG_FILE)
 
 # Example corrected logic (conceptual)
 def est_legitime(proc: psutil.Process) -> bool:
+    """
+    Vérifie si un processus est légitime (chemin + nom + utilisateur)
+    """
     try:
         with proc.oneshot():
             name = proc.name().lower()
             exe = (proc.exe() or "").lower()
             user = (proc.username() or "").lower()
     except psutil.Error:
-        MAIN_LOGGER.logger.warning(f"[WARN] Cannot access process {proc.pid}. Assuming legitimate.")
-        return True
+        MAIN_LOGGER.logger.warning(f"[⚠️] Impossible d'accéder à {proc.pid}. Considéré légitime par précaution.")
+        return True  # Fallback safe: ne tue pas si doute
 
-    # Critical: Always protect explorer.exe (this part is correct)
+    from pathlib import Path
+    exe_path = Path(exe)
+
+    # --- Protection absolue ---
     if name == "explorer.exe":
-        MAIN_LOGGER.logger.info(f"[INFO] 'explorer.exe' (PID {proc.pid}) protected.")
+        MAIN_LOGGER.logger.info(f"[✅] 'explorer.exe' protégé (PID {proc.pid})")
         return True
 
-    # Check against known legitimate combinations
+    # --- Vérification si nom légitime connu ---
     if name in PROCESSUS_LEGITIMES:
-        # Check user
         is_system_user = user in UTILISATEURS_SYSTEME
-        # Check path
-        from pathlib import Path
-        exe_path = Path(exe)
-        is_system_path = False
-        try:
-            # Check if the executable is in a system directory
-            for sys_dir in [Path(r"c:\windows\system32"), Path(r"c:\windows\syswow64")]:
-                if exe_path.is_relative_to(sys_dir):
-                     is_system_path = True
-                     break
-        except ValueError:
-             is_system_path = False # Not relative, so not in system dir
 
-        # ONLY consider legitimate if BOTH user and path are correct
+        try:
+            is_system_path = any(exe_path.is_relative_to(Path(p)) for p in [
+                r"c:\windows\system32", r"c:\windows\syswow64"
+            ])
+        except Exception:
+            is_system_path = False
+
         if is_system_user and is_system_path:
-            MAIN_LOGGER.logger.debug(f"[DEBUG] Legitimate system process: {name} (PID {proc.pid})")
+            MAIN_LOGGER.logger.debug(f"[✔] Processus légitime détecté : {name} (PID {proc.pid})")
             return True
         else:
-            # This specific process name is in the list, but running in wrong context
-            MAIN_LOGGER.logger.warning(f"[WARN] Suspicious {name} (PID {proc.pid}): User={user}, Path={exe}. Not killed due to name, but flagged.")
-            # Decide policy: Kill or just log? Current logic protects by name.
-            # Consider refining: return False if NOT system context?
-            # For now, keep protection by name, but log the anomaly.
-            # If you want to be stricter: return False if not system context.
-            # Let's assume the name protection is absolute for these specific names:
-            return True # Keep existing behavior for named processes
+            MAIN_LOGGER.logger.warning(
+                f"[⚠️] {name} (PID {proc.pid}) détecté dans contexte anormal : "
+                f"user={user}, chemin={exe}"
+            )
+            # 🔧 Politique actuelle : ne pas tuer les noms "protégés" même en contexte douteux
+            # Pour politique stricte : return False ici
+            return True  # 🔒 Si tu veux durcir : return False
 
-    # For all other processes
-    MAIN_LOGGER.logger.debug(f"[DEBUG] Non-listed process: {name} (PID {proc.pid})")
+    # --- Cas par défaut (non listé) ---
+    MAIN_LOGGER.logger.debug(f"[🕵️‍♂️] Processus non listé : {name} (PID {proc.pid})")
     return False
+
 
 def kill_process_tree(pid: int, kill_parent: bool = True):
     """Kill a process tree using psutil."""
@@ -232,7 +244,7 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
             MAIN_LOGGER.logger.error(f"[ERROR] Exception killing {proc_to_kill.pid}: {e}")
 
 # --- Sysmon Monitoring ---
-def decode_powershell_base64(commandline: str) -> str:
+def decode_powershell_base64(commandline):
     """Decode Base64 encoded PowerShell commands."""
     try:
         match = re.search(r"(?:-enc\s+|-encodedcommand\s+)([a-z0-9+/=]+)", commandline, re.I)
@@ -264,37 +276,92 @@ def est_commande_suspecte(commandline: str) -> bool:
     ]
     return any(re.search(motif, full_cmd) for motif in motifs_suspects)
 
+def extract_urls(command_line):
+    return [word for word in command_line.split() if word.startswith("http")]
+
+def extract_urls(command_line):
+    return [word for word in command_line.split() if word.startswith("http")]
+
+def est_url_suspecte(url):
+    parsed = urlparse(url)
+    domain = parsed.hostname or ""
+    domaines_dangereux = ["github.com", "raw.githubusercontent.com", "cdn.discordapp.com"]
+    return any(d in domain for d in domaines_dangereux)
+
+def get_hash(file_path):
+    try:
+        with open(file_path, "rb") as f:
+            return hashlib.sha256(f.read()).hexdigest()
+    except Exception as e:
+        return f"[Erreur hash] {e}"
+
+def sauvegarder_binaire_suspect(path):
+    try:
+        if os.path.exists(path):
+            os.makedirs("samples_suspects", exist_ok=True)
+            dst = f"samples_suspects/{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}_{os.path.basename(path)}"
+            shutil.copy2(path, dst)
+            MAIN_LOGGER.logger.info(f"[🔍] Binaire suspect sauvegardé : {dst}")
+    except Exception as e:
+        MAIN_LOGGER.logger.warning(f"[!] Échec de sauvegarde binaire : {e}")
+
 def detect_processus_suspect(event_data):
-    """Detect suspicious processes (Sysmon Event ID 1)."""
+    """Détection des processus suspects (Sysmon Event ID 1)"""
     nom_processus = os.path.basename(event_data.get("Image", "")).lower()
     ligne_commande = event_data.get("CommandLine") or ""
     pid_str = event_data.get("ProcessId")
     parent_image = os.path.basename(event_data.get("ParentImage", "")).lower()
+
     processus_suspects = [
         "powershell.exe", "cmd.exe", "wscript.exe", "cscript.exe", "mshta.exe",
         "regsvr32.exe", "rundll32.exe", "schtasks.exe", "certutil.exe", "curl.exe",
         "python.exe", "pythonw.exe", "python3.exe", "python3.11.exe"
     ]
     ransomware_keywords = [".vbs", "ransomware", ".locked", "encoder.py"]
-    if (nom_processus in processus_suspects or
+
+    # Détection
+    if (
+        nom_processus in processus_suspects or
         any(kw in ligne_commande.lower() for kw in ransomware_keywords) or
         est_commande_suspecte(ligne_commande) or
-        ("wscript.exe" == nom_processus and "python" in parent_image)):
+        (nom_processus == "wscript.exe" and "python" in parent_image)
+    ):
         MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious process detected (ID 1): {nom_processus}")
         MAIN_LOGGER.logger.info(f"      CommandLine: {ligne_commande}")
+
+        # Vérifie présence d’URL malveillante dans la ligne de commande
+        urls = extract_urls(ligne_commande)
+        for url in urls:
+            if est_url_suspecte(url):
+                MAIN_LOGGER.logger.warning(f"[⚠️] URL suspecte détectée dans la ligne de commande : {url}")
+                try:
+                    if analyse_code_url(url):  # Cette fonction doit être définie par toi
+                        if pid_str and pid_str.isdigit():
+                            kill_process_tree(int(pid_str), kill_parent=True)
+                            return
+                except Exception as e:
+                    MAIN_LOGGER.logger.error(f"[!] Erreur pendant analyse code URL : {e}")
+
+        # Hash et sauvegarde binaire
+        image_path = event_data.get("Image", "")
+        sha256 = get_hash(image_path)
+        MAIN_LOGGER.logger.info(f"      SHA256 du binaire : {sha256}")
+        sauvegarder_binaire_suspect(image_path)
+
+        # Vérification et terminaison du processus
         if pid_str and pid_str.isdigit():
             try:
                 proc = psutil.Process(int(pid_str))
                 if not est_legitime(proc):
-                    kill_process_tree(int(pid_str), kill_parent=True) # Kill parent and children
+                    kill_process_tree(int(pid_str), kill_parent=True)
                 else:
                     MAIN_LOGGER.logger.info(f"[INFO] Process {pid_str} is legitimate.")
             except psutil.NoSuchProcess:
-                 MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} disappeared before action.")
+                MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} disparu avant action.")
             except psutil.AccessDenied:
-                 MAIN_LOGGER.logger.error(f"[ERROR] Access denied checking process {pid_str}.")
+                MAIN_LOGGER.logger.error(f"[ERROR] Accès refusé au processus {pid_str}.")
             except Exception as e:
-                MAIN_LOGGER.logger.error(f"[!] Error handling process {pid_str}: {e}")
+                MAIN_LOGGER.logger.error(f"[!] Erreur gestion processus {pid_str}: {e}")
                 
 def _open_reg_key(hive, path, rights):
     """Open a registry key, trying WOW64 variations."""
@@ -341,29 +408,45 @@ def detect_event_id_11(event_data):
                 MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid_str} (admin share creator): {e}")
         return True
     return False
+
 def detect_registre(event_data):
     """Detect suspicious registry modifications (Sysmon Event ID 12/13/14)."""
     cle = (event_data.get("TargetObject") or "").lower()
     valeur = (event_data.get("Details") or "").lower()
     event_type = (event_data.get("EventType") or "").lower()
     pid_str = event_data.get("ProcessId")
+    image = (event_data.get("Image") or "").lower()
+
     cles_suspectes = [
-        r"\\run", r"\\runonce", r"\\image file execution options",
-        r"\\winlogon", r"\\shell", r"\\services"
+        r"\\run", r"\\runonce", r"\\image file execution options", r"\\winlogon",
+        r"\\shell", r"\\services", r"\\policies\\explorer\\run",
+        r"\\software\\microsoft\\windows\\currentversion\\policies",
+        r"\\software\\microsoft\\windows nt\\currentversion\\winlogon",
+        r"\\wow6432node\\microsoft\\windows\\currentversion\\run"
     ]
     commandes_suspectes = [
-        "powershell", "cmd.exe", "wscript", "regsvr32", ".vbs", ".js", ".bat",
-        ".ps1", "frombase64string", "-enc", "iex"
+        "powershell", "cmd.exe", "wscript", "regsvr32", ".vbs", ".js", ".bat", ".ps1",
+        "frombase64string", "-enc", "iex", "b64decode", "rundll32"
     ]
-    if any(re.search(cle_suspecte, cle) for cle_suspecte in cles_suspectes) and \
-       any(cmd in valeur for cmd in commandes_suspectes):
-        MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious registry modification: {cle}")
-        # Attempt to undo the registry change (existing logic)
+
+    chemins_suspects = [r"\appdata\\", r"\temp\\", r"\local\\", r"\roaming\\"]
+
+    if len(valeur) > 500:
+        MAIN_LOGGER.logger.warning(f"[⚠️] Valeur très longue, probablement encodée/obfuscée : {valeur[:100]}...")
+
+    if any(re.search(p, cle) for p in cles_suspectes) or \
+       any(cmd in valeur for cmd in commandes_suspectes) or \
+       any(p in valeur for p in chemins_suspects):
+        
+        MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious registry modification: {cle} => {valeur}")
+
+        # Tentative suppression de la clé ou valeur
         try:
             parts = cle.split("\\")
             hive_name = parts[0].upper()
             sous_cle = "\\".join(parts[1:-1])
             nom_valeur = parts[-1]
+
             hive_map = {
                 "HKEY_LOCAL_MACHINE": winreg.HKEY_LOCAL_MACHINE,
                 "HKLM": winreg.HKEY_LOCAL_MACHINE,
@@ -371,38 +454,50 @@ def detect_registre(event_data):
                 "HKCU": winreg.HKEY_CURRENT_USER,
             }
             hive = hive_map.get(hive_name)
+
             if hive:
                 if event_type == "setvalue":
                     with _open_reg_key(hive, sous_cle, winreg.KEY_SET_VALUE) as key:
-                        winreg.DeleteValue(key, nom_valeur)
-                        MAIN_LOGGER.logger.info(f"[✔] Registry value deleted: {nom_valeur}")
+                        try:
+                            winreg.DeleteValue(key, nom_valeur)
+                            MAIN_LOGGER.logger.info(f"[✔] Valeur registre supprimée : {nom_valeur}")
+                        except FileNotFoundError:
+                            pass
+                        except Exception as e:
+                            # Si suppression échoue, écrase avec chaîne vide
+                            winreg.SetValueEx(key, nom_valeur, 0, winreg.REG_SZ, "")
+                            MAIN_LOGGER.logger.warning(f"[!] Écrasé avec valeur vide : {nom_valeur}")
                 elif event_type == "createkey":
                     parent_path = "\\".join(parts[1:-1])
                     with _open_reg_key(hive, parent_path, winreg.KEY_ALL_ACCESS) as parent_key:
                         winreg.DeleteKey(parent_key, nom_valeur)
-                        MAIN_LOGGER.logger.info(f"[✔] Registry key deleted: {cle}")
+                        MAIN_LOGGER.logger.info(f"[✔] Clé registre supprimée : {cle}")
             else:
-                MAIN_LOGGER.logger.error(f"[!] Unknown registry hive: {hive_name}")
+                MAIN_LOGGER.logger.error(f"[!] Hive inconnue : {hive_name}")
         except Exception as e:
-            MAIN_LOGGER.logger.error(f"[!] Error modifying registry: {e}")
-        # Kill the associated process if not legitimate
-        if pid_str and pid_str.isdigit():
-            try:
-                proc = psutil.Process(int(pid_str))
-                if not est_legitime(proc):
-                    # Use the unified kill function
-                    kill_process_tree(int(pid_str), kill_parent=True)
-                    # Removed the direct proc.kill() call
-                else:
-                     MAIN_LOGGER.logger.info(f"[INFO] Registry modifier process {pid_str} is legitimate.")
-            except psutil.NoSuchProcess:
-                 MAIN_LOGGER.logger.warning(f"[WARN] Registry modifier process {pid_str} disappeared.")
-            except psutil.AccessDenied:
-                 MAIN_LOGGER.logger.error(f"[ERROR] Access denied checking registry modifier process {pid_str}.")
-            except Exception as e:
-                MAIN_LOGGER.logger.error(f"[!] Error accessing process {pid_str}: {e}")
+            MAIN_LOGGER.logger.error(f"[!] Erreur lors de la suppression dans le registre : {e}")
 
-def detect_smb_propagation(event_data: dict) -> bool:
+        # Kill process relié si PID fourni ou via nom image
+        try:
+            if pid_str and pid_str.isdigit():
+                proc = psutil.Process(int(pid_str))
+            elif image:
+                procs = [p for p in psutil.process_iter(['pid', 'name', 'exe']) if p.info['name'].lower() in image]
+                proc = procs[0] if procs else None
+            else:
+                proc = None
+
+            if proc:
+                if not est_legitime(proc):
+                    kill_process_tree(proc.pid, kill_parent=True)
+                else:
+                    MAIN_LOGGER.logger.info(f"[INFO] Processus légitime modifiant le registre : {proc.pid}")
+            else:
+                MAIN_LOGGER.logger.warning("[⚠️] Impossible d’identifier le processus à tuer (PID manquant ou non trouvé).")
+        except Exception as e:
+            MAIN_LOGGER.logger.error(f"[!] Erreur accès processus : {e}")
+
+def detect_smb_propagation(event_data):
     """Detect SMB propagation attempts (Sysmon Event ID 3)."""
     try:
         image = os.path.basename(event_data.get("Image", "")).lower()
@@ -412,7 +507,6 @@ def detect_smb_propagation(event_data: dict) -> bool:
         pid = event_data.get("ProcessId")
     except (ValueError, TypeError):
         return False
-
     if dport in SMB_PORTS and (image in LATERAL_TOOLS or est_commande_suspecte(cmd)):
         MAIN_LOGGER.logger.warning(f"[🚨] Suspicious SMB connection: {image} PID={pid} to {dip}:{dport}")
         if pid and pid.isdigit():
@@ -425,7 +519,121 @@ def detect_smb_propagation(event_data: dict) -> bool:
         return True
     return False
 
+
+def detect_hollowing_and_spoofing_standalone():
+    """
+    Detect process hollowing and parent spoofing without Sysmon.
+    Uses Windows API for true parent PIDs and checks for suspended system processes.
+    """
+    # Windows API constants
+    TH32CS_SNAPPROCESS = 0x00000002
+    INVALID_HANDLE_VALUE = -1
+
+    class PROCESSENTRY32(ctypes.Structure):
+        _fields_ = [
+            ("dwSize", wintypes.DWORD),
+            ("cntUsage", wintypes.DWORD),
+            ("th32ProcessID", wintypes.DWORD),
+            ("th32DefaultHeapID", ctypes.POINTER(wintypes.ULONG)),
+            ("th32ModuleID", wintypes.DWORD),
+            ("cntThreads", wintypes.DWORD),
+            ("th32ParentProcessID", wintypes.DWORD),
+            ("pcPriClassBase", wintypes.LONG),
+            ("dwFlags", wintypes.DWORD),
+            ("szExeFile", wintypes.CHAR * 260),
+        ]
+
+    kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+    CreateToolhelp32Snapshot = kernel32.CreateToolhelp32Snapshot
+    Process32First = kernel32.Process32First
+    Process32Next = kernel32.Process32Next
+    CloseHandle = kernel32.CloseHandle
+
+    # Get true parent mapping from Windows API
+    true_parent_map = {}
+    snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
+    if snapshot == INVALID_HANDLE_VALUE:
+        MAIN_LOGGER.logger.error("Failed to create process snapshot (permission issue?)")
+        return
+
+    try:
+        entry = PROCESSENTRY32()
+        entry.dwSize = ctypes.sizeof(PROCESSENTRY32)
+        success = Process32First(snapshot, ctypes.byref(entry))
+        while success:
+            pid = entry.th32ProcessID
+            ppid = entry.th32ParentProcessID
+            name = entry.szExeFile.decode('utf-8', errors='ignore').lower()
+            true_parent_map[pid] = (name, ppid)
+            success = Process32Next(snapshot, ctypes.byref(entry))
+    except Exception as e:
+        MAIN_LOGGER.logger.error(f"[!] Error reading process snapshot: {e}")
+    finally:
+        CloseHandle(snapshot)
+
+    # Check all running processes
+    for proc in psutil.process_iter(['pid', 'name', 'status']):
+        try:
+            pid = proc.pid
+            name = proc.name().lower()
+            status = proc.status()
+            if pid not in true_parent_map:
+                continue
+            reported_parent_pid = proc.parent().pid if proc.parent() else None
+            _, true_parent_pid = true_parent_map[pid]
+
+            # --- 1. PROCESS HOLLOWING: Suspended system process ---
+            hollowing_targets = {"svchost.exe", "lsass.exe", "winlogon.exe", "csrss.exe", "services.exe"}
+            if name in hollowing_targets:
+                if status == 'stopped':  # 'stopped' = suspended
+                    MAIN_LOGGER.logger.warning(
+                        f"[⚠️] PROCESS HOLLOWING SUSPECT: {name} (PID: {pid}) is SUSPENDED"
+                    )
+                    if not est_legitime(proc):
+                        kill_process_tree(pid, kill_parent=True)
+
+            # --- 2. PARENT SPOOFING: Parent mismatch ---
+             # --- 2. PARENT SPOOFING: Parent mismatch ---
+            if reported_parent_pid != true_parent_pid:
+                MAIN_LOGGER.logger.warning(
+                    f"[!] Parent Spoofing detected: {name} (PID: {pid}) | Reported PPID: {reported_parent_pid} vs Actual PPID: {true_parent_pid}"
+                )
+                try:
+                    ppid_name = psutil.Process(true_parent_pid).name()
+                    if ppid_name.lower() in ['explorer.exe', 'wininit.exe', 'csrss.exe']:
+                        MAIN_LOGGER.logger.warning(
+                            f"[✓] Spoofed child with system parent '{ppid_name}', terminating suspicious child PID {pid}"
+                        )
+                        os.kill(pid, 9)
+                except Exception as ex:
+                    MAIN_LOGGER.logger.error(f"[!] Error checking true parent process name: {ex}")
+
+
+
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+        except Exception as e:
+            MAIN_LOGGER.logger.error(f"[!] Error analyzing PID {pid}: {e}")
+
+def start_hollowing_spoofing_monitor():
+    """Run hollowing/spoofing detection in a background thread."""
+    def loop():
+        while True:
+            try:
+                detect_hollowing_and_spoofing_standalone()
+            except Exception as e:
+                MAIN_LOGGER.logger.error(f"[!] Hollowing/spoofing monitor error: {e}")
+            time.sleep(1)  # Check every 5 seconds
+
+    thread = threading.Thread(target=loop, daemon=True, name="HollowingMonitor")
+    thread.start()
+    MAIN_LOGGER.logger.info("Started standalone hollowing & spoofing monitor.")
+
 def detect_pipe_lateral(event_data: dict) -> bool:
+=======
+    
+def detect_pipe_lateral(event_data):
+
     """Detect lateral movement via named pipes (Sysmon Event ID 17/18)."""
     pipe = (event_data.get("PipeName") or "").lower()
     pid = event_data.get("ProcessId")
@@ -443,7 +651,7 @@ def detect_pipe_lateral(event_data: dict) -> bool:
         return True
     return False
 
-def analyser_event_xml(event_xml: str):
+def analyser_event_xml(event_xml):
     """Parse Sysmon XML event."""
     try:
         root = ET.fromstring(event_xml)
@@ -490,8 +698,94 @@ def render_event(event_handle):
         MAIN_LOGGER.logger.error(f"EvtRender failed with error: {ctypes.GetLastError()}")
         return None
     
-    return buf.value
+    return buf.value    
 
+def reconstruire_url_depuis_event(event_data):
+    ip = event_data.get("DestinationIp", "")
+    hostname = event_data.get("DestinationHostname", "")
+    port = str(event_data.get("DestinationPort", ""))
+    
+    # S'il y a un hostname, on le prend (plus fiable que l'IP seule)
+    domaine = hostname if hostname else ip
+    
+    # Ajoute un schéma probable (basé sur le port)
+    if port == "443":
+        url = f"https://{domaine}"
+    elif port == "80":
+        url = f"http://{domaine}"
+    else:
+        url = f"http://{domaine}:{port}"
+
+    return url
+
+def mitiger_connexion_reseau(event_data):
+    """
+    Analyse un événement Sysmon NetworkConnect et tue le processus
+    s'il fait une connexion suspecte, ou si l'URL/commande contient des mots suspects.
+    """
+    try:
+        proc_name = (event_data.get("Image") or "").lower()
+        pid = int(event_data.get("ProcessId", 0))
+        dest_ip = event_data.get("DestinationIp", "")
+        dest_port = int(event_data.get("DestinationPort", 0))
+        command_line = (event_data.get("CommandLine") or "").lower()
+        url = (event_data.get("Url") or "").lower()  # Si Sysmon capture cet attribut
+    except Exception as e:
+        MAIN_LOGGER.error(f"Erreur d'extraction dans event_data : {e}")
+        return False
+    url = reconstruire_url_depuis_event(event_data)
+
+
+=======
+        # Détection basée sur nom de domaine uniquement
+    domaines_suspects = ["github.com", "pastebin.com", "anonfiles.com", "cdn.discordapp.com"]
+
+    if any(domaine in url for domaine in domaines_suspects):
+        MAIN_LOGGER.logger.warning(f"[⚠️] Connexion vers domaine suspect détectée : {url}")
+        try:
+            p = psutil.Process(pid)
+            p.kill()
+            MAIN_LOGGER.logger.warning(f"Processus {proc_name} (PID {pid}) tué pour connexion vers {url}")
+        except psutil.NoSuchProcess:
+            MAIN_LOGGER.logger.info(f"Processus PID {pid} déjà arrêté.")
+        except Exception as e:
+            MAIN_LOGGER.logger.error(f"Erreur lors de la suppression du processus PID {pid} : {e}")
+        return True
+
+
+    # Ignore si processus non suspect
+    if proc_name not in processus_suspects:
+        MAIN_LOGGER.logger.debug(f"Processus non suspect {proc_name} (PID {pid}), pas d'action.")
+        return False
+
+    mots_cles_suspects = ["malware", "ransomware", "encoder", "dropper", "suspect", "encrypt", "crypt", "locked"]
+
+    # Détection par IP/port
+    ip_suspecte = dest_ip in ips_bloc or (not dest_ip.startswith("192.") and not dest_ip.startswith("10.") and not dest_ip.startswith("172."))
+    port_suspect = dest_port in ports_suspects
+
+    # Détection par mots clés dans URL ou commande
+    suspect_url_cmd = any(mot in command_line for mot in mots_cles_suspects) or any(mot in url for mot in mots_cles_suspects)
+
+    if ip_suspecte or port_suspect or suspect_url_cmd:
+        MAIN_LOGGER.logger.warning(f"Connexion suspecte détectée de {proc_name} (PID {pid}) vers {dest_ip}:{dest_port} avec URL/commande suspecte.")
+        try:
+            p = psutil.Process(pid)
+            p.kill()
+            MAIN_LOGGER.logger.warning(f"Processus {proc_name} (PID {pid}) tué pour connexion suspecte ou URL/commande suspecte.")
+        except psutil.NoSuchProcess:
+            MAIN_LOGGER.logger.info(f"Processus PID {pid} déjà arrêté.")
+        except Exception as e:
+            MAIN_LOGGER.logger.error(f"Erreur lors de la suppression du processus PID {pid} : {e}")
+    else:
+        MAIN_LOGGER.logger.debug(f"Connexion non suspecte de {proc_name} vers {dest_ip}:{dest_port} avec URL/commande : OK")
+
+def mitigation_event_id_3(event_data):
+    """Mitigation sur événement Sysmon ID 3 (NetworkConnect)"""
+    if detect_smb_propagation(event_data):
+        return
+    if mitiger_connexion_reseau(event_data):
+        return 
 
 
 def monitor_sysmon_log():
@@ -500,7 +794,7 @@ def monitor_sysmon_log():
     last_event_id = 0
     MAIN_LOGGER.logger.info("[*] Starting Sysmon monitoring (Winevt API)...")
 
-    event_id_query = "*[System[(EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
+    event_id_query = "*[System[( EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
 
     try:
         while True:
@@ -534,7 +828,7 @@ def monitor_sysmon_log():
                                 continue
 
                             event_id, event_data = analyser_event_xml(xml_event)
-                            if not event_id:
+                            if not event_id and event_id == 255:
                                 continue
 
                             event_record_id = get_event_record_id(xml_event)
@@ -542,21 +836,16 @@ def monitor_sysmon_log():
                                 last_event_id = event_record_id
                                 if event_id == 1:
                                     detect_processus_suspect(event_data)
+                                    detect_hollowing_and_spoofing_standalone(event_data)
                                 # Keep Event ID 11 for .locked files
-                                if event_id == 11:
+                                elif event_id == 11:
                                     detect_event_id_11(event_data)
                                 elif event_id == 3:
-                                    detect_smb_propagation(event_data)
+                                    mitigation_event_id_3(event_data)
                                 elif event_id in (17, 18):
                                     detect_pipe_lateral(event_data)
                                 elif event_id in (12, 13, 14):
                                     detect_registre(event_data)
-                                # Add more elif blocks for other event IDs as needed
-                            else:
-                                # Optional: Log skipped old events if debugging
-                                # MAIN_LOGGER.logger.debug(f"[DEBUG] Skipping old event ID {event_id}, Record ID {event_record_id} (Last: {last_event_id})")
-                                pass
-
                         except Exception as e:
                             MAIN_LOGGER.logger.error(f"[!] Error processing individual event: {e}")
                             MAIN_LOGGER.logger.error(traceback.format_exc())
@@ -872,7 +1161,7 @@ def main():
     dll_scan_thread = threading.Thread(target=run_dll_scanner_periodically, args=(DLL_LOGGER,1), daemon=True)
     dll_scan_thread.start()
     MAIN_LOGGER.logger.info("DLL Scanner thread started.")
-
+    start_hollowing_spoofing_monitor()
    
     try:
         monitor_sysmon_log() 
