@@ -5,6 +5,7 @@ Integrated Security Monitor
 Combines Sysmon log monitoring with periodic DLL scanning/removal.
 """
 import os
+import shutil
 import sys
 import time
 import json
@@ -335,7 +336,7 @@ def detect_processus_suspect(event_data):
             if est_url_suspecte(url):
                 MAIN_LOGGER.logger.warning(f"[⚠️] URL suspecte détectée dans la ligne de commande : {url}")
                 try:
-                    if analyse_code_url(url):  # Cette fonction doit être définie par toi
+                    #if analyse_code_url(url):  # Cette fonction doit être définie par toi
                         if pid_str and pid_str.isdigit():
                             kill_process_tree(int(pid_str), kill_parent=True)
                             return
