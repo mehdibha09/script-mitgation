@@ -425,6 +425,115 @@ def detect_smb_propagation(event_data: dict) -> bool:
         return True
     return False
 
+def detect_hollowing_and_spoofing_standalone():
+    """
+    Detect process hollowing and parent spoofing without Sysmon.
+    Uses Windows API for true parent PIDs and checks for suspended system processes.
+    """
+    # Windows API constants
+    TH32CS_SNAPPROCESS = 0x00000002
+    INVALID_HANDLE_VALUE = -1
+
+    class PROCESSENTRY32(ctypes.Structure):
+        _fields_ = [
+            ("dwSize", wintypes.DWORD),
+            ("cntUsage", wintypes.DWORD),
+            ("th32ProcessID", wintypes.DWORD),
+            ("th32DefaultHeapID", ctypes.POINTER(wintypes.ULONG)),
+            ("th32ModuleID", wintypes.DWORD),
+            ("cntThreads", wintypes.DWORD),
+            ("th32ParentProcessID", wintypes.DWORD),
+            ("pcPriClassBase", wintypes.LONG),
+            ("dwFlags", wintypes.DWORD),
+            ("szExeFile", wintypes.CHAR * 260),
+        ]
+
+    kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
+    CreateToolhelp32Snapshot = kernel32.CreateToolhelp32Snapshot
+    Process32First = kernel32.Process32First
+    Process32Next = kernel32.Process32Next
+    CloseHandle = kernel32.CloseHandle
+
+    # Get true parent mapping from Windows API
+    true_parent_map = {}
+    snapshot = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)
+    if snapshot == INVALID_HANDLE_VALUE:
+        MAIN_LOGGER.logger.error("Failed to create process snapshot (permission issue?)")
+        return
+
+    try:
+        entry = PROCESSENTRY32()
+        entry.dwSize = ctypes.sizeof(PROCESSENTRY32)
+        success = Process32First(snapshot, ctypes.byref(entry))
+        while success:
+            pid = entry.th32ProcessID
+            ppid = entry.th32ParentProcessID
+            name = entry.szExeFile.decode('utf-8', errors='ignore').lower()
+            true_parent_map[pid] = (name, ppid)
+            success = Process32Next(snapshot, ctypes.byref(entry))
+    except Exception as e:
+        MAIN_LOGGER.logger.error(f"[!] Error reading process snapshot: {e}")
+    finally:
+        CloseHandle(snapshot)
+
+    # Check all running processes
+    for proc in psutil.process_iter(['pid', 'name', 'status']):
+        try:
+            pid = proc.pid
+            name = proc.name().lower()
+            status = proc.status()
+            if pid not in true_parent_map:
+                continue
+            reported_parent_pid = proc.parent().pid if proc.parent() else None
+            _, true_parent_pid = true_parent_map[pid]
+
+            # --- 1. PROCESS HOLLOWING: Suspended system process ---
+            hollowing_targets = {"svchost.exe", "lsass.exe", "winlogon.exe", "csrss.exe", "services.exe"}
+            if name in hollowing_targets:
+                if status == 'stopped':  # 'stopped' = suspended
+                    MAIN_LOGGER.logger.warning(
+                        f"[⚠️] PROCESS HOLLOWING SUSPECT: {name} (PID: {pid}) is SUSPENDED"
+                    )
+                    if not est_legitime(proc):
+                        kill_process_tree(pid, kill_parent=True)
+
+            # --- 2. PARENT SPOOFING: Parent mismatch ---
+             # --- 2. PARENT SPOOFING: Parent mismatch ---
+            if reported_parent_pid != true_parent_pid:
+                MAIN_LOGGER.logger.warning(
+                    f"[!] Parent Spoofing detected: {name} (PID: {pid}) | Reported PPID: {reported_parent_pid} vs Actual PPID: {true_parent_pid}"
+                )
+                try:
+                    ppid_name = psutil.Process(true_parent_pid).name()
+                    if ppid_name.lower() in ['explorer.exe', 'wininit.exe', 'csrss.exe']:
+                        MAIN_LOGGER.logger.warning(
+                            f"[✓] Spoofed child with system parent '{ppid_name}', terminating suspicious child PID {pid}"
+                        )
+                        os.kill(pid, 9)
+                except Exception as ex:
+                    MAIN_LOGGER.logger.error(f"[!] Error checking true parent process name: {ex}")
+
+
+
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+        except Exception as e:
+            MAIN_LOGGER.logger.error(f"[!] Error analyzing PID {pid}: {e}")
+
+def start_hollowing_spoofing_monitor():
+    """Run hollowing/spoofing detection in a background thread."""
+    def loop():
+        while True:
+            try:
+                detect_hollowing_and_spoofing_standalone()
+            except Exception as e:
+                MAIN_LOGGER.logger.error(f"[!] Hollowing/spoofing monitor error: {e}")
+            time.sleep(1)  # Check every 5 seconds
+
+    thread = threading.Thread(target=loop, daemon=True, name="HollowingMonitor")
+    thread.start()
+    MAIN_LOGGER.logger.info("Started standalone hollowing & spoofing monitor.")
+
 def detect_pipe_lateral(event_data: dict) -> bool:
     """Detect lateral movement via named pipes (Sysmon Event ID 17/18)."""
     pipe = (event_data.get("PipeName") or "").lower()
@@ -493,14 +602,13 @@ def render_event(event_handle):
     return buf.value
 
 
-
 def monitor_sysmon_log():
     """Main Sysmon monitoring loop."""
     channel = "Microsoft-Windows-Sysmon/Operational"
     last_event_id = 0
     MAIN_LOGGER.logger.info("[*] Starting Sysmon monitoring (Winevt API)...")
 
-    event_id_query = "*[System[(EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
+    event_id_query = "*[System[( EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
 
     try:
         while True:
@@ -542,6 +650,7 @@ def monitor_sysmon_log():
                                 last_event_id = event_record_id
                                 if event_id == 1:
                                     detect_processus_suspect(event_data)
+                                    detect_hollowing_and_spoofing_standalone(event_data)
                                 # Keep Event ID 11 for .locked files
                                 if event_id == 11:
                                     detect_event_id_11(event_data)
@@ -872,7 +981,7 @@ def main():
     dll_scan_thread = threading.Thread(target=run_dll_scanner_periodically, args=(DLL_LOGGER,1), daemon=True)
     dll_scan_thread.start()
     MAIN_LOGGER.logger.info("DLL Scanner thread started.")
-
+    start_hollowing_spoofing_monitor()
    
     try:
         monitor_sysmon_log() 
