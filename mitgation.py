@@ -629,8 +629,6 @@ def start_hollowing_spoofing_monitor():
     thread.start()
     MAIN_LOGGER.logger.info("Started standalone hollowing & spoofing monitor.")
 
-def detect_pipe_lateral(event_data: dict) -> bool:
-=======
     
 def detect_pipe_lateral(event_data):
 
@@ -736,7 +734,6 @@ def mitiger_connexion_reseau(event_data):
     url = reconstruire_url_depuis_event(event_data)
 
 
-=======
         # Détection basée sur nom de domaine uniquement
     domaines_suspects = ["github.com", "pastebin.com", "anonfiles.com", "cdn.discordapp.com"]
 
