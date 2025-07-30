@@ -792,7 +792,7 @@ def monitor_sysmon_log():
     last_event_id = 0
     MAIN_LOGGER.logger.info("[*] Starting Sysmon monitoring (Winevt API)...")
 
-    event_id_query = "*[System[( EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
+    event_id_query = "*[System[( EventID-1 or EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
 
     try:
         while True:
@@ -834,8 +834,6 @@ def monitor_sysmon_log():
                                 last_event_id = event_record_id
                                 if event_id == 1:
                                     detect_processus_suspect(event_data)
-                                    detect_hollowing_and_spoofing_standalone(event_data)
-                                # Keep Event ID 11 for .locked files
                                 elif event_id == 11:
                                     detect_event_id_11(event_data)
                                 elif event_id == 3:
