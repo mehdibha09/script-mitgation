@@ -196,12 +196,12 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
     """Kill a process tree using psutil."""
     try:
         parent = psutil.Process(pid)
-        MAIN_LOGGER.logger.info(f"[INFO] Killing process tree for PID {pid} ({parent.name()})")
+        #MAIN_LOGGER.logger.info(f"[INFO] Killing process tree for PID {pid} ({parent.name()})")
     except psutil.NoSuchProcess:
-        MAIN_LOGGER.logger.warning(f"[WARN] Process PID {pid} not found.")
+        #MAIN_LOGGER.logger.warning(f"[WARN] Process PID {pid} not found.")
         return
     except psutil.AccessDenied:
-        MAIN_LOGGER.logger.error(f"[ERROR] Access denied to process PID {pid}. Cannot kill tree.")
+        #MAIN_LOGGER.logger.error(f"[ERROR] Access denied to process PID {pid}. Cannot kill tree.")
         return # Cannot proceed if we can't access the parent
 
     current_pid = os.getpid()
@@ -212,7 +212,8 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
         children = parent.children(recursive=True)
         to_kill.extend([p for p in children if p.pid != current_pid])
     except psutil.Error as e:
-        MAIN_LOGGER.logger.error(f"[ERROR] Failed to get children of PID {pid}: {e}")
+        pass
+        #MAIN_LOGGER.logger.error(f"[ERROR] Failed to get children of PID {pid}: {e}")
 
     # Optionally add the parent itself
     if kill_parent and parent.pid != current_pid:
@@ -229,7 +230,7 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
             # for p in alive:
             #     p.kill() # Force kill if it didn't terminate
 
-            MAIN_LOGGER.logger.info(f"[INFO] Attempting to kill process in tree: {proc_to_kill.name()} (PID {proc_to_kill.pid})")
+            # MAIN_LOGGER.logger.info(f"[INFO] Attempting to kill process in tree: {proc_to_kill.name()} (PID {proc_to_kill.pid})")
 
             proc_to_kill.kill() # This sends SIGKILL on Unix, terminates on Windows
             killed_pids.append(proc_to_kill.pid)
@@ -238,9 +239,9 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
              # Process might have died already
             MAIN_LOGGER.logger.debug(f"[DEBUG] Process {proc_to_kill.pid} seems to have died already.")
         except psutil.AccessDenied:
-            MAIN_LOGGER.logger.warning(
+            """MAIN_LOGGER.logger.warning(
                 f"[⚠️] Access denied killing {proc_to_kill.name()} (PID {proc_to_kill.pid})."
-            )
+            )"""
         except Exception as e:
             MAIN_LOGGER.logger.error(f"[ERROR] Exception killing {proc_to_kill.pid}: {e}")
 
@@ -386,8 +387,10 @@ def detect_event_id_11(event_data):
             except psutil.NoSuchProcess:
                  MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} (file creator) disappeared.")
             except psutil.AccessDenied:
+                 pass
                  MAIN_LOGGER.logger.error(f"[ERROR] Access denied killing process {pid_str} (file creator).")
             except Exception as e:
+                pass
                 MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid_str} (file creator): {e}")
         else:
             MAIN_LOGGER.logger.warning("[WARN] Invalid or missing ProcessId for encrypted file creation")
@@ -439,7 +442,7 @@ def detect_registre(event_data):
        any(cmd in valeur for cmd in commandes_suspectes) or \
        any(p in valeur for p in chemins_suspects):
         
-        MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious registry modification: {cle} => {valeur}")
+        #MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious registry modification: {cle} => {valeur}")
 
         # Tentative suppression de la clé ou valeur
         try:
@@ -474,9 +477,11 @@ def detect_registre(event_data):
                         winreg.DeleteKey(parent_key, nom_valeur)
                         MAIN_LOGGER.logger.info(f"[✔] Clé registre supprimée : {cle}")
             else:
-                MAIN_LOGGER.logger.error(f"[!] Hive inconnue : {hive_name}")
+                pass
+                #MAIN_LOGGER.logger.error(f"[!] Hive inconnue : {hive_name}")
         except Exception as e:
-            MAIN_LOGGER.logger.error(f"[!] Erreur lors de la suppression dans le registre : {e}")
+            pass
+           # MAIN_LOGGER.logger.error(f"[!] Erreur lors de la suppression dans le registre : {e}")
 
         # Kill process relié si PID fourni ou via nom image
         try:
@@ -494,9 +499,9 @@ def detect_registre(event_data):
                 else:
                     MAIN_LOGGER.logger.info(f"[INFO] Processus légitime modifiant le registre : {proc.pid}")
             else:
-                MAIN_LOGGER.logger.warning("[⚠️] Impossible d’identifier le processus à tuer (PID manquant ou non trouvé).")
+                MAIN_LOGGER.logger.warning("[] Impossible d’identifier le processus à tuer (PID manquant ou non trouvé).")
         except Exception as e:
-            MAIN_LOGGER.logger.error(f"[!] Erreur accès processus : {e}")
+            pass
 
 def detect_smb_propagation(event_data):
     """Detect SMB propagation attempts (Sysmon Event ID 3)."""
@@ -509,14 +514,15 @@ def detect_smb_propagation(event_data):
     except (ValueError, TypeError):
         return False
     if dport in SMB_PORTS and (image in LATERAL_TOOLS or est_commande_suspecte(cmd)):
-        MAIN_LOGGER.logger.warning(f"[🚨] Suspicious SMB connection: {image} PID={pid} to {dip}:{dport}")
+        MAIN_LOGGER.logger.warning(f"[*] Suspicious SMB connection: {image} PID={pid} to {dip}:{dport}")
         if pid and pid.isdigit():
             try:
                 proc = psutil.Process(int(pid))
                 if not est_legitime(proc):
                     kill_process_tree(int(pid), kill_parent=True)
             except Exception as e:
-                MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid}: {e}")
+                pass
+                #MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid}: {e}")
         return True
     return False
 
@@ -568,7 +574,8 @@ def detect_hollowing_and_spoofing_standalone():
             true_parent_map[pid] = (name, ppid)
             success = Process32Next(snapshot, ctypes.byref(entry))
     except Exception as e:
-        MAIN_LOGGER.logger.error(f"[!] Error reading process snapshot: {e}")
+        pass
+        #MAIN_LOGGER.logger.error(f"[!] Error reading process snapshot: {e}")
     finally:
         CloseHandle(snapshot)
 
@@ -587,18 +594,18 @@ def detect_hollowing_and_spoofing_standalone():
             hollowing_targets = {"svchost.exe", "lsass.exe", "winlogon.exe", "csrss.exe", "services.exe"}
             if name in hollowing_targets:
                 if status == 'stopped':  # 'stopped' = suspended
-                    MAIN_LOGGER.logger.warning(
+                    """MAIN_LOGGER.logger.warning(
                         f"[⚠️] PROCESS HOLLOWING SUSPECT: {name} (PID: {pid}) is SUSPENDED"
-                    )
+                    )"""
                     if not est_legitime(proc):
                         kill_process_tree(pid, kill_parent=True)
 
             # --- 2. PARENT SPOOFING: Parent mismatch ---
              # --- 2. PARENT SPOOFING: Parent mismatch ---
             if reported_parent_pid != true_parent_pid:
-                MAIN_LOGGER.logger.warning(
+                """ MAIN_LOGGER.logger.warning(
                     f"[!] Parent Spoofing detected: {name} (PID: {pid}) | Reported PPID: {reported_parent_pid} vs Actual PPID: {true_parent_pid}"
-                )
+                )"""
                 try:
                     ppid_name = psutil.Process(true_parent_pid).name()
                     if ppid_name.lower() in ['explorer.exe', 'wininit.exe', 'csrss.exe']:
@@ -607,13 +614,15 @@ def detect_hollowing_and_spoofing_standalone():
                         )
                         os.kill(pid, 9)
                 except Exception as ex:
-                    MAIN_LOGGER.logger.error(f"[!] Error checking true parent process name: {ex}")
+                    pass
+                    #MAIN_LOGGER.logger.error(f"[!] Error checking true parent process name: {ex}")
 
 
 
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
         except Exception as e:
+            pass
             MAIN_LOGGER.logger.error(f"[!] Error analyzing PID {pid}: {e}")
 
 def start_hollowing_spoofing_monitor():
@@ -639,14 +648,15 @@ def detect_pipe_lateral(event_data):
 
     SUSPICIOUS_PIPES = (r"\psexesvc", r"\remcom_communic", r"\paexec", r"\atsvc")
     if any(p in pipe for p in SUSPICIOUS_PIPES):
-        MAIN_LOGGER.logger.warning(f"[🚨] Suspicious named pipe: {pipe} (PID={pid})")
+        #MAIN_LOGGER.logger.warning(f"[🚨] Suspicious named pipe: {pipe} (PID={pid})")
         if pid and pid.isdigit():
             try:
                 proc = psutil.Process(int(pid))
                 if not est_legitime(proc):
                     kill_process_tree(int(pid), kill_parent=True)
             except Exception as e:
-                MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid}: {e}")
+                pass
+                #MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid}: {e}")
         return True
     return False
 
@@ -745,8 +755,10 @@ def mitiger_connexion_reseau(event_data):
             p.kill()
             MAIN_LOGGER.logger.warning(f"Processus {proc_name} (PID {pid}) tué pour connexion vers {url}")
         except psutil.NoSuchProcess:
+            pass
             MAIN_LOGGER.logger.info(f"Processus PID {pid} déjà arrêté.")
         except Exception as e:
+            pass
             MAIN_LOGGER.logger.error(f"Erreur lors de la suppression du processus PID {pid} : {e}")
         return True
 
@@ -1089,16 +1101,17 @@ def run_dll_scanner_periodically(logger_instance, interval_seconds=60):
     scanner = DLLSecurityScanner(logger_instance)
     try:
         while True:
-            print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] --- Initiating DLL Scan Cycle ---")
-            results = scanner.scan_and_delete_suspicious_dlls(risk_threshold=50)
-            print(f"--- Scan Cycle Summary ---")
-            print(f"  Cycle ID: {results.get('cycle_id', 'N/A')}")
-            print(f"  Scanned: {results['scanned']} DLLs")
-            print(f"  Suspicious: {results['suspicious']} DLLs")
-            print(f"  Deleted: {results['deleted']} DLLs")
-            print(f"  Errors: {results['errors']}")
-            print(f"  Duration: {results.get('duration_seconds', 'N/A'):.2f} seconds")
-            print(f"--- Waiting {interval_seconds} seconds ---\n")
+            if results['suspicious']!=0 or results['deleted']!=0:
+                print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] --- Initiating DLL Scan Cycle ---")
+                results = scanner.scan_and_delete_suspicious_dlls(risk_threshold=50)
+                print(f"--- Scan Cycle Summary ---")
+                print(f"  Cycle ID: {results.get('cycle_id', 'N/A')}")
+                print(f"  Scanned: {results['scanned']} DLLs")
+                print(f"  Suspicious: {results['suspicious']} DLLs")
+                print(f"  Deleted: {results['deleted']} DLLs")
+                print(f"  Errors: {results['errors']}")
+                print(f"  Duration: {results.get('duration_seconds', 'N/A'):.2f} seconds")
+                print(f"--- Waiting {interval_seconds} seconds ---\n")
             time.sleep(interval_seconds)
     except Exception as e:
         logger_instance.logger.critical(f"DLL Scanner crashed: {e}")
