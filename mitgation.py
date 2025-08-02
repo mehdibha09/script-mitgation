@@ -1,9 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Integrated Security Monitor
-Combines Sysmon log monitoring with periodic DLL scanning/removal.
-"""
 import os
 import shutil
 import sys
@@ -22,9 +16,9 @@ import traceback
 import ctypes
 from ctypes import windll, wintypes, byref, create_unicode_buffer
 import base64
-import requests
 from urllib.parse import urlparse
-from pynput import keyboard
+import psutil
+import ipaddress
 
 # Then define the Windows Event Log API functions properly
 wevtapi = windll.wevtapi
@@ -208,7 +202,7 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
     """Kill a process tree using psutil."""
     try:
         parent = psutil.Process(pid)
-        #MAIN_LOGGER.logger.info(f"[INFO] Killing process tree for PID {pid} ({parent.name()})")
+        MAIN_LOGGER.logger.info(f"[INFO] Killing process tree for PID {pid} ({parent.name()})")
     except psutil.NoSuchProcess:
         #MAIN_LOGGER.logger.warning(f"[WARN] Process PID {pid} not found.")
         return
@@ -319,6 +313,8 @@ def sauvegarder_binaire_suspect(path):
     except Exception as e:
         MAIN_LOGGER.logger.warning(f"[!] Échec de sauvegarde binaire : {e}")
 
+
+
 def detect_processus_suspect(event_data):
     """Détection des processus suspects (Sysmon Event ID 1)"""
     nom_processus = os.path.basename(event_data.get("Image", "")).lower()
@@ -333,15 +329,37 @@ def detect_processus_suspect(event_data):
     ]
     ransomware_keywords = [".vbs", "ransomware", ".locked", "encoder.py"]
 
-    # Détection
+    # Clés spécifiques pour keylogger (à compléter si besoin)
+    indicateurs_keylogger = [
+        "pynput", "keyboard", "keylogger", "getasynckeystate", 
+        "getforegroundwindow", "listener", "win32gui", "win32api"
+    ]
+
+    # Vérification suspicion keylogger via ligne_commande ou image
+    is_keylogger = any(ind in ligne_commande.lower() for ind in indicateurs_keylogger) or \
+                   any(ind in nom_processus for ind in indicateurs_keylogger)
+
+    # Détection globale
     if (
         nom_processus in processus_suspects or
         any(kw in ligne_commande.lower() for kw in ransomware_keywords) or
         est_commande_suspecte(ligne_commande) or
-        (nom_processus == "wscript.exe" and "python" in parent_image)
+        (nom_processus == "wscript.exe" and "python" in parent_image) or
+        is_keylogger
     ):
         MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious process detected (ID 1): {nom_processus}")
         MAIN_LOGGER.logger.info(f"      CommandLine: {ligne_commande}")
+
+        # Kill direct si keylogger détecté
+        if is_keylogger and pid_str and pid_str.isdigit():
+            try:
+                proc = psutil.Process(int(pid_str))
+                proc.terminate()
+                MAIN_LOGGER.logger.warning(f"[🚨] Keylogger process killed (PID {pid_str})")
+                return
+            except Exception as e:
+                MAIN_LOGGER.logger.error(f"[!] Erreur kill keylogger PID {pid_str}: {e}")
+                return
 
         # Vérifie présence d’URL malveillante dans la ligne de commande
         urls = extract_urls(ligne_commande)
@@ -362,7 +380,7 @@ def detect_processus_suspect(event_data):
         MAIN_LOGGER.logger.info(f"      SHA256 du binaire : {sha256}")
         sauvegarder_binaire_suspect(image_path)
 
-        # Vérification et terminaison du processus
+        # Vérification et terminaison du processus si pas légitime
         if pid_str and pid_str.isdigit():
             try:
                 proc = psutil.Process(int(pid_str))
@@ -763,8 +781,7 @@ def mitiger_connexion_reseau(event_data):
     if any(domaine in url for domaine in domaines_suspects):
         MAIN_LOGGER.logger.warning(f"[⚠️] Connexion vers domaine suspect détectée : {url}")
         try:
-            p = psutil.Process(pid)
-            p.kill()
+            kill_process_tree(pid, kill_parent=True)
             MAIN_LOGGER.logger.warning(f"Processus {proc_name} (PID {pid}) tué pour connexion vers {url}")
         except psutil.NoSuchProcess:
             pass
@@ -792,8 +809,7 @@ def mitiger_connexion_reseau(event_data):
     if ip_suspecte or port_suspect or suspect_url_cmd:
         MAIN_LOGGER.logger.warning(f"Connexion suspecte détectée de {proc_name} (PID {pid}) vers {dest_ip}:{dest_port} avec URL/commande suspecte.")
         try:
-            p = psutil.Process(pid)
-            p.kill()
+            kill_process_tree(pid, kill_parent=True)
             MAIN_LOGGER.logger.warning(f"Processus {proc_name} (PID {pid}) tué pour connexion suspecte ou URL/commande suspecte.")
         except psutil.NoSuchProcess:
             MAIN_LOGGER.logger.info(f"Processus PID {pid} déjà arrêté.")
@@ -802,21 +818,130 @@ def mitiger_connexion_reseau(event_data):
     else:
         MAIN_LOGGER.logger.debug(f"Connexion non suspecte de {proc_name} vers {dest_ip}:{dest_port} avec URL/commande : OK")
 
+def est_processus_suspect(image, dest_port, dest_ip, chemin):
+    noms_suspects = ["python", "pythonw", "powershell", "wscript", "cmd"]
+    ports_suspects = [80, 443, 9999, 8080, 8443]
+    chemins_douteux = ["\\appdata\\", "\\temp\\", "\\programdata\\"]
+
+    if not any(n in image for n in noms_suspects):
+        return False
+    if dest_port not in ports_suspects:
+        return False
+    chemin = chemin.lower()
+    if not any(p in chemin for p in chemins_douteux):
+        return False
+
+    return True
+
+import re
+
+def payload_contient_donnees_keylogger(payload):
+    """
+    Vérifie si le contenu réseau (payload) contient des signes de keylogger,
+    comme la capture de frappes, le presse-papiers ou l'activité de fenêtres.
+    """
+    if not payload:
+        return False
+
+    payload = payload.lower()
+
+    # Indicateurs directs de keylogging
+    mots_cles = [
+        "keystroke", "keydown", "keyup", "keypress", "pynput",
+        "win32api", "getasynckeystate", "keyboardevent", "keylogger",
+        "clipboard", "windowtitle", "activewindow", "input captured",
+        "ctrl", "alt", "shift", "enter", "space", "backspace", "delete"
+    ]
+
+    # Motifs regex de journaux de frappe clavier
+    motifs_regex = [
+        r"\[key: .+?\]",              # [key: a]
+        r"\[window: .+?\]",           # [window: Notepad]
+        r"(ctrl|alt|shift)\s*\+\s*\w", # Ctrl + C, Alt + F4
+        r"pressed: ['\"].+?['\"]",     # pressed: 'a'
+        r"copied from clipboard: .+",  # clipboard logs
+    ]
+
+    # Détection mots-clés
+    if any(mot in payload for mot in mots_cles):
+        return True
+
+    # Détection via regex
+    for motif in motifs_regex:
+        if re.search(motif, payload):
+            return True
+
+    return False
+
+
+def est_ip_locale(ip):
+    """
+    Vérifie si l'IP appartient à un réseau privé.
+    """
+    try:
+        ip_obj = ipaddress.ip_address(ip)
+        return ip_obj.is_private
+    except ValueError:
+        return False  # IP invalide
+
+def detect_keylogger_activity(event_data):
+    """
+    Détecte une activité suspecte pouvant indiquer un keylogger.
+    Critères :
+    - Processus courant de type script/exécution interactive
+    - Connexion réseau vers IP publique (externe)
+    - Ports utilisés typiquement pour exfiltration : 9999, 44444
+    - Payload contenant des données indicatives de keylogging
+    """
+
+    try:
+        image = (event_data.get("Image") or "").lower()
+        pid = int(event_data.get("ProcessId", 0))
+        dest_ip = event_data.get("DestinationIp", "")
+        dest_port = int(event_data.get("DestinationPort", 0))
+        payload = event_data.get("Payload", "") or ""
+
+        chemin_exec = image
+        nom_processus = os.path.basename(image)
+
+        processus_suspects = [
+            "powershell.exe", "cmd.exe", "python.exe", "pythonw.exe",
+            "wscript.exe", "cscript.exe", "mshta.exe", "node.exe","python 3.11"
+        ]
+        ports_suspects = [9999, 44444]
+
+        est_connexion_externe = dest_ip and not est_ip_locale(dest_ip)
+        est_port_suspect = dest_port in ports_suspects
+        est_processus_douteux = nom_processus in processus_suspects
+
+        if est_processus_douteux or est_connexion_externe or est_port_suspect:
+            MAIN_LOGGER.logger.warning(
+                f"[⚠️] Connexion suspecte détectée : {nom_processus} -> {dest_ip}:{dest_port}"
+            )
+            try:
+                    proc = psutil.Process(pid)
+                    sauvegarder_binaire_suspect(chemin_exec)
+                    kill_process_tree(pid, kill_parent=True)
+                    MAIN_LOGGER.logger.warning(f"[🔥] Processus keylogger stoppé (PID {pid})")
+                    return True
+            except Exception as e:
+                    MAIN_LOGGER.logger.error(f"[!] Échec arrêt processus keylogger : {e}")
+        return False
+
+    except Exception as e:
+        MAIN_LOGGER.logger.error(f"[!] Erreur dans detect_keylogger_activity : {e}")
+        return False
+
 def mitigation_event_id_3(event_data):
     """Mitigation sur événement Sysmon ID 3 (NetworkConnect)"""
+    print("test conexion")
     if detect_smb_propagation(event_data):
         return
     if mitiger_connexion_reseau(event_data):
         return 
+    if detect_keylogger_activity(event_data):
+        return
 
-def start_keyboard_listener():
-    """
-    Start a non-blocking keyboard listener.
-    Returns the listener object so it can be stopped later.
-    """
-    listener = keyboard.Listener(on_press=on_press)
-    listener.start()
-    return listener  
 def monitor_sysmon_log():
     """Main Sysmon monitoring loop."""
     channel = "Microsoft-Windows-Sysmon/Operational"
@@ -891,10 +1016,7 @@ def monitor_sysmon_log():
                             # Always close the individual event handle
                             if event_handles[i]: # Check if handle seems valid
                                 EvtClose(event_handles[i])
-                            kb_listener=start_keyboard_listener()
                             
-                            if kb_listener:
-                                kb_listener.stop()
 
             finally:
                 if query_handle:
@@ -1235,21 +1357,7 @@ def detect_screenshot_activity():
 
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
-def on_press(key):
-    """Callback for keyboard events. Detect PrintScreen key."""
-    try:
-        if PRINTSCREEN_ALERT_ENABLED and key == keyboard.Key.print_screen:
-            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            MAIN_LOGGER.logger.critical(f"PrintScreen key pressed at {now}")
-            # Optionally, you could take a counter-screenshot or alert the user.
-    except Exception as e:
-        MAIN_LOGGER.logger.error(f"Keyboard event error: {e}")
 
-def start_keyboard_listener():
-    """Start a non-blocking keyboard listener for PrintScreen."""
-    listener = keyboard.Listener(on_press=on_press)
-    listener.start()
-    return listener
 SUSPICIOUS_PROCESS_NAMES = {"python.exe", "pythonw.exe", "powershell.exe", "wscript.exe"}
 SUSPICIOUS_CMDLINE_PATTERNS = [
     r'.*keylogger.*\.py',
@@ -1317,7 +1425,6 @@ def proactive_defense_thread():
 def proactive_defense_thread():
     """A high-frequency thread that actively blocks threats."""
     MAIN_LOGGER.logger.info(" Starting proactive defense thread (5Hz).")
-    kb_listener = start_keyboard_listener()  
 
     while True:
         try:
@@ -1391,7 +1498,7 @@ def main():
     run_as_admin()
     add_task_scheduler()
 
-    # Start the DLL scanner in the background
+    #Start the DLL scanner in the background
     dll_scan_thread = threading.Thread(target=run_dll_scanner_periodically, args=(DLL_LOGGER, 1), daemon=True)
     dll_scan_thread.start()
     MAIN_LOGGER.logger.info("DLL Scanner thread started.")
@@ -1399,7 +1506,8 @@ def main():
     proactive_thread = threading.Thread(target=proactive_defense_thread, daemon=True)
     proactive_thread.start()
     MAIN_LOGGER.logger.info("Proactive defense thread started.")
-
+    print("start scan sysmon")
+    monitor_sysmon_log()
     try:
         while True:
             time.sleep(1)
