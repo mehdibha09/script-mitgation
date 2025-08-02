@@ -24,6 +24,7 @@ from ctypes import windll, wintypes, byref, create_unicode_buffer
 import base64
 import requests
 from urllib.parse import urlparse
+from pynput import keyboard
 
 # Then define the Windows Event Log API functions properly
 wevtapi = windll.wevtapi
@@ -47,6 +48,17 @@ EvtRender.restype = wintypes.BOOL
 EvtClose = wevtapi.EvtClose
 EvtClose.argtypes = [wintypes.HANDLE]
 EvtClose.restype = wintypes.BOOL
+
+SCREENSHOT_BLOCKER_ENABLED = True
+REGISTRY_BLOCKER_ENABLED = True
+
+# Registry persistence configuration
+PERSISTENCE_NAME = "WatchdogAuto"
+REGISTRY_RUN_KEY = r"Software\Microsoft\Windows\CurrentVersion\Run"
+
+# Screenshot detection configuration
+SUSPICIOUS_MODULES = {"PIL", "ImageGrab", "screenshot"}
+PRINTSCREEN_ALERT_ENABLED = True
 # --- Dependency Check ---
 try:
     import psutil
@@ -797,7 +809,14 @@ def mitigation_event_id_3(event_data):
     if mitiger_connexion_reseau(event_data):
         return 
 
-
+def start_keyboard_listener():
+    """
+    Start a non-blocking keyboard listener.
+    Returns the listener object so it can be stopped later.
+    """
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
+    return listener  
 def monitor_sysmon_log():
     """Main Sysmon monitoring loop."""
     channel = "Microsoft-Windows-Sysmon/Operational"
@@ -854,13 +873,28 @@ def monitor_sysmon_log():
                                     detect_pipe_lateral(event_data)
                                 elif event_id in (12, 13, 14):
                                     detect_registre(event_data)
+                            if REGISTRY_BLOCKER_ENABLED:
+                                check_and_remove_registry_persistence()
+
+                            if SCREENSHOT_BLOCKER_ENABLED:
+                                detect_screenshot_activity()
                         except Exception as e:
                             MAIN_LOGGER.logger.error(f"[!] Error processing individual event: {e}")
                             MAIN_LOGGER.logger.error(traceback.format_exc())
+                        except KeyboardInterrupt:
+                            MAIN_LOGGER.logger.info("Monitor stopped by user.")
+                        except Exception as e:
+                            MAIN_LOGGER.logger.critical(f"Monitoring loop crashed: {e}")
+                            MAIN_LOGGER.logger.critical(traceback.format_exc())
+                            
                         finally:
                             # Always close the individual event handle
                             if event_handles[i]: # Check if handle seems valid
                                 EvtClose(event_handles[i])
+                            kb_listener=start_keyboard_listener()
+                            
+                            if kb_listener:
+                                kb_listener.stop()
 
             finally:
                 if query_handle:
@@ -1154,33 +1188,226 @@ def run_as_admin():
         except Exception as e:
             MAIN_LOGGER.logger.error(f"[!] Cannot request admin rights: {e}")
         sys.exit(0)
+def check_and_remove_registry_persistence():
+    """Actively check for and remove the keylogger's registry persistence."""
+    try:
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REGISTRY_RUN_KEY, 0, winreg.KEY_READ)
+        i = 0
+        while True:
+            try:
+                name, value, _ = winreg.EnumValue(key, i)
+                if name == PERSISTENCE_NAME:
+                    value_str = str(value)
+                    MAIN_LOGGER.logger.critical(f" REGISTRY PERSISTENCE DETECTED: {name} = {value_str}")
+                    # Remove it
+                    remove_registry_key(PERSISTENCE_NAME)
+                    return
+                i += 1
+            except WindowsError:
+                break
+    except Exception as e:
+        MAIN_LOGGER.logger.error(f"Error reading registry for persistence: {e}")
 
-# - Main Execution -
+def remove_registry_key(value_name):
+    """Remove a specific value from the Run key."""
+    try:
+        key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REGISTRY_RUN_KEY, 0, winreg.KEY_SET_VALUE)
+        winreg.DeleteValue(key, value_name)
+        winreg.CloseKey(key)
+        MAIN_LOGGER.logger.info(f" Removed registry persistence key: {value_name}")
+    except Exception as e:
+        MAIN_LOGGER.logger.error(f"Failed to remove registry key {value_name}: {e}")
+
+def detect_screenshot_activity():
+    """Scan running processes for screenshot-related activity."""
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline', 'memory_info']):
+        try:
+            name = proc.info['name'].lower()
+            cmdline = ' '.join(proc.info['cmdline']).lower() if proc.info['cmdline'] else ''
+            pid = proc.info['pid']
+
+            # Check for processes using PIL.ImageGrab
+            if any(susp in cmdline for susp in SUSPICIOUS_MODULES):
+                alert = f"Suspicious screenshot attempt detected: PID={pid} Name={name} CMD={cmdline}"
+                MAIN_LOGGER.logger.critical(alert)
+                kill_process_tree(pid, kill_parent=True)
+                return
+
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+def on_press(key):
+    """Callback for keyboard events. Detect PrintScreen key."""
+    try:
+        if PRINTSCREEN_ALERT_ENABLED and key == keyboard.Key.print_screen:
+            now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            MAIN_LOGGER.logger.critical(f"PrintScreen key pressed at {now}")
+            # Optionally, you could take a counter-screenshot or alert the user.
+    except Exception as e:
+        MAIN_LOGGER.logger.error(f"Keyboard event error: {e}")
+
+def start_keyboard_listener():
+    """Start a non-blocking keyboard listener for PrintScreen."""
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
+    return listener
+SUSPICIOUS_PROCESS_NAMES = {"python.exe", "pythonw.exe", "powershell.exe", "wscript.exe"}
+SUSPICIOUS_CMDLINE_PATTERNS = [
+    r'.*keylogger.*\.py',
+    r'.*logger.*\.py',
+    r'.*spy.*\.py',
+    r'.*monitor.*\.py',
+    r'.*ImageGrab.*',
+    r'.*PIL.*'
+]
+def is_screenshot_attempt(proc):
+    """Check if a process is likely attempting to take a screenshot."""
+    try:
+        name = proc.info['name'].lower()
+        cmdline = ' '.join(proc.info['cmdline']).lower() if proc.info['cmdline'] else ''
+        pid = proc.info['pid']
+
+        # Check name and command line
+        if name not in SUSPICIOUS_PROCESS_NAMES:
+            return False
+        if not any(re.search(pattern, cmdline) for pattern in SUSPICIOUS_CMDLINE_PATTERNS):
+            return False
+
+        # Check loaded modules for PIL/Pillow
+        try:
+            modules = proc.memory_maps()
+            for module in modules:
+                if "PIL" in module.path or "Pillow" in module.path:
+                    return True
+        except (psutil.AccessDenied, Exception):
+            pass
+
+        return False
+    except (psutil.NoSuchProcess, psutil.AccessDenied):
+        return False
+def detect_screenshot_activity():
+    """Actively scan for processes attempting to take screenshots."""
+    for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+        try:
+            if is_screenshot_attempt(proc):
+                MAIN_LOGGER.logger.critical(f"SCREENSHOT ATTEMPT DETECTED: PID={proc.info['pid']} Name={proc.info['name']} CMD={' '.join(proc.info['cmdline'])}")
+                kill_process_tree(proc.info['pid'], kill_parent=True)
+                return  
+        except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
+            pass
+
+def proactive_defense_thread():
+    """A high-frequency thread that actively blocks threats."""
+    MAIN_LOGGER.logger.info(" Starting proactive defense thread (5Hz).")
+
+    while True:
+        try:
+            # Run the new defense checks
+            if REGISTRY_BLOCKER_ENABLED:
+                check_and_remove_registry_persistence()
+
+            if SCREENSHOT_BLOCKER_ENABLED:
+                detect_screenshot_activity()
+
+            time.sleep(0.2) 
+
+        except Exception as e:
+            MAIN_LOGGER.logger.critical(f"Proactive defense thread crashed: {e}")
+            MAIN_LOGGER.logger.critical(traceback.format_exc())
+            time.sleep(5)
+def proactive_defense_thread():
+    """A high-frequency thread that actively blocks threats."""
+    MAIN_LOGGER.logger.info(" Starting proactive defense thread (5Hz).")
+    kb_listener = start_keyboard_listener()  
+
+    while True:
+        try:
+            try:
+                key = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REGISTRY_RUN_KEY, 0, winreg.KEY_READ)
+                i = 0
+                while True:
+                    try:
+                        if SCREENSHOT_BLOCKER_ENABLED:
+                            detect_screenshot_activity()
+
+                        time.sleep(0.2)
+                        name, value, _ = winreg.EnumValue(key, i)
+                        if name == PERSISTENCE_NAME:
+                            value_str = str(value)
+                            MAIN_LOGGER.logger.critical(f" BLOCKED REGISTRY PERSISTENCE: {name} = {value_str}")
+                            try:
+                                key_write = winreg.OpenKey(winreg.HKEY_CURRENT_USER, REGISTRY_RUN_KEY, 0, winreg.KEY_SET_VALUE)
+                                winreg.DeleteValue(key_write, name)
+                                winreg.CloseKey(key_write)
+                                MAIN_LOGGER.logger.info(f" Removed registry key: {name}")
+                            except Exception as e:
+                                MAIN_LOGGER.logger.error(f"Failed to delete registry key: {e}")
+                        i += 1
+
+                    except WindowsError:
+                        break
+                winreg.CloseKey(key)
+            except Exception as e:
+                MAIN_LOGGER.logger.error(f"Error in registry check: {e}")
+
+            try:
+                for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
+                    try:
+                        name = proc.info['name'].lower()
+                        cmdline = ' '.join(proc.info['cmdline']).lower() if proc.info['cmdline'] else ''
+                        pid = proc.info['pid']
+
+                        if (name == "python.exe" or name == "pythonw.exe") and ("keylogger" in cmdline or "watchdog" in cmdline):
+                            try:
+                                modules = proc.memory_maps()
+                                for module in modules:
+                                    if "PIL" in module.path or "Pillow" in module.path:
+                                        MAIN_LOGGER.logger.critical(f" BLOCKED SCREENSHOT ATTEMPT: Keylogger PID={pid} loaded PIL module.")
+                                        kill_process_tree(pid, kill_parent=True)
+                                        break
+                            except (psutil.AccessDenied, Exception) as e:
+                                MAIN_LOGGER.logger.warning(f"Could not read modules for PID {pid}: {e}")
+
+                    except (psutil.NoSuchProcess, psutil.AccessDenied):
+                        pass
+
+            except Exception as e:
+                MAIN_LOGGER.logger.error(f"Error in screenshot check: {e}")
+
+            time.sleep(0.2)  # Run at 5Hz
+
+        except Exception as e:
+            MAIN_LOGGER.logger.critical(f"Proactive defense thread crashed: {e}")
+            MAIN_LOGGER.logger.critical(traceback.format_exc())
+            time.sleep(5)
+
 def main():
     """Main entry point."""
     print("=" * 60)
     print("Integrated Security Monitor")
-    print("Sysmon Monitoring + DLL Scanner")
+    print("Sysmon Monitoring + DLL Scanner + PROACTIVE DEFENSE")
     print("=" * 60)
     print("Press Ctrl+C to stop.")
 
     run_as_admin()
     add_task_scheduler()
 
-    dll_scan_thread = threading.Thread(target=run_dll_scanner_periodically, args=(DLL_LOGGER,1), daemon=True)
+    # Start the DLL scanner in the background
+    dll_scan_thread = threading.Thread(target=run_dll_scanner_periodically, args=(DLL_LOGGER, 1), daemon=True)
     dll_scan_thread.start()
     MAIN_LOGGER.logger.info("DLL Scanner thread started.")
-    start_hollowing_spoofing_monitor()
-   
+
+    proactive_thread = threading.Thread(target=proactive_defense_thread, daemon=True)
+    proactive_thread.start()
+    MAIN_LOGGER.logger.info("Proactive defense thread started.")
+
     try:
-        monitor_sysmon_log() 
+        while True:
+            time.sleep(1)
     except KeyboardInterrupt:
-        print("\nReceived interrupt signal. Shutting down...")
         MAIN_LOGGER.logger.info("Monitor stopped by user.")
     except Exception as e:
-        MAIN_LOGGER.logger.critical(f"Monitor crashed unexpectedly: {e}")
+        MAIN_LOGGER.logger.critical(f"Main function crashed: {e}")
         MAIN_LOGGER.logger.critical(traceback.format_exc())
-      
 
 if __name__ == "__main__":
     main()
