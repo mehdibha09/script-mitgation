@@ -1,0 +1,85 @@
+<Sysmon schemaversion="4.82">
+  <EventFiltering>
+
+    <!-- [1] Création de processus suspects -->
+    <ProcessCreate onmatch="include">
+      <Image condition="end with">python.exe</Image>
+      <Image condition="end with">pythonw.exe</Image>
+      <Image condition="end with">wscript.exe</Image>
+      <Image condition="end with">cscript.exe</Image>
+      <Image condition="end with">cmd.exe</Image>
+      <Image condition="end with">powershell.exe</Image>
+      <CommandLine condition="contains">.py</CommandLine>
+      <CommandLine condition="contains">.vbs</CommandLine>
+      <CommandLine condition="contains">%appdata%</CommandLine>
+      <CommandLine condition="contains">%temp%</CommandLine>
+      <CommandLine condition="contains">%programdata%</CommandLine>
+    </ProcessCreate>
+
+    <!-- [2] Création de fichiers suspects -->
+    <FileCreate onmatch="include">
+      <TargetFilename condition="end with">.locked</TargetFilename>
+      <TargetFilename condition="end with">.enc</TargetFilename>
+      <TargetFilename condition="end with">.crypt</TargetFilename>
+      <TargetFilename condition="end with">.encrypted</TargetFilename>
+      <TargetFilename condition="end with">watchdog.vbs</TargetFilename>
+      <TargetFilename condition="end with">README.txt</TargetFilename>
+    </FileCreate>
+
+    <!-- [3] Persistence par registre -->
+    <RegistryEvent onmatch="include">
+      <TargetObject condition="contains">\CurrentVersion\Run</TargetObject>
+    </RegistryEvent>
+
+    <!-- [4] Création massive de fichiers -->
+    <FileCreateTime onmatch="exclude">
+      <Image condition="end with">explorer.exe</Image>
+    </FileCreateTime>
+
+    <!-- [5] Suppression de fichiers (potentiellement ransomware) -->
+    <FileDelete onmatch="exclude">
+      <Image condition="end with">explorer.exe</Image>
+    </FileDelete>
+
+    <!-- [6] Connexions réseau suspectes (reverse shell, C2) -->
+    <NetworkConnect onmatch="include">
+      <Image condition="contains">python</Image>
+      <Image condition="end with">powershell.exe</Image>
+      <Image condition="end with">cmd.exe</Image>
+      <Image condition="end with">wscript.exe</Image>
+      <Image condition="end with">cscript.exe</Image>
+      <Image condition="end with">rundll32.exe</Image>
+
+      <!-- Ports de reverse shell & C2 -->
+      <DestinationPort condition="is">21</DestinationPort>
+      <DestinationPort condition="is">22</DestinationPort>
+      <DestinationPort condition="is">53</DestinationPort>
+      <DestinationPort condition="is">80</DestinationPort>
+      <DestinationPort condition="is">443</DestinationPort>
+      <DestinationPort condition="is">4444</DestinationPort>
+      <DestinationPort condition="is">5555</DestinationPort>
+      <DestinationPort condition="is">8080</DestinationPort>
+      <DestinationPort condition="is">8443</DestinationPort>
+      <DestinationPort condition="is">9999</DestinationPort> <!-- reverse shell Python -->
+
+      <!-- Exclure localhost -->
+      <DestinationIp condition="is not">127.0.0.1</DestinationIp>
+      <DestinationIp condition="is not">::1</DestinationIp>
+    </NetworkConnect>
+
+    <!-- [7] Tentative d'injection clavier (keylogger) -->
+    <ImageLoad onmatch="include">
+      <ImageLoaded condition="contains">user32.dll</ImageLoaded> <!-- utilisé par SetWindowsHookEx -->
+      <Image condition="contains">python</Image>
+      <Image condition="end with">powershell.exe</Image>
+      <Image condition="end with">wscript.exe</Image>
+    </ImageLoad>
+
+    <!-- [8] ProcessAccess utilisé par keylogger pour espionner -->
+    <ProcessAccess onmatch="include">
+      <CallTrace condition="contains">user32.dll</CallTrace>
+      <SourceImage condition="contains">python</SourceImage>
+    </ProcessAccess>
+
+  </EventFiltering>
+</Sysmon>
