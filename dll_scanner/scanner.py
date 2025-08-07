@@ -1,6 +1,3 @@
-
-
-
 import os
 import subprocess
 import hashlib
@@ -242,9 +239,10 @@ def run_dll_scanner_periodically(logger_instance, interval_seconds=60):
     scanner = DLLSecurityScanner(logger_instance)
     try:
         while True:
+            print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] --- Initiating DLL Scan Cycle ---")
+            results = scanner.scan_and_delete_suspicious_dlls(risk_threshold=50)
             if results['suspicious']!=0 or results['deleted']!=0:
-                print(f"\n[{datetime.now().strftime('%Y-%m-%d %H:%M:%S')}] --- Initiating DLL Scan Cycle ---")
-                results = scanner.scan_and_delete_suspicious_dlls(risk_threshold=50)
+              
                 print(f"--- Scan Cycle Summary ---")
                 print(f"  Cycle ID: {results.get('cycle_id', 'N/A')}")
                 print(f"  Scanned: {results['scanned']} DLLs")
