@@ -1,6 +1,7 @@
 import psutil
 from logger import MAIN_LOGGER
 from utils.common import kill_process_tree
+import re
 from utils.constants import (
     SUSPICIOUS_PROCESS_NAMES,
     SUSPICIOUS_CMDLINE_PATTERNS,

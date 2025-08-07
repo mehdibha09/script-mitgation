@@ -1,6 +1,6 @@
 import winreg
 from logger import MAIN_LOGGER
-from utils.constants import PERSISTENCE_NAME, REGISTRY_RUN_KEY
+from utils.constants import (PERSISTENCE_NAME, REGISTRY_RUN_KEY)
 
 
 def remove_registry_key(value_name):

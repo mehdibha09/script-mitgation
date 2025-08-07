@@ -5,7 +5,8 @@ import winreg
 import psutil
 from logger import MAIN_LOGGER
 from utils.common import kill_process_tree
-
+from utils.constants import REGISTRY_RUN_KEY,SCREENSHOT_BLOCKER_ENABLED,PERSISTENCE_NAME
+from .screenshot_blocker import detect_screenshot_activity
 def proactive_defense_thread():
     """A high-frequency thread that actively blocks threats."""
     MAIN_LOGGER.logger.info(" Starting proactive defense thread (5Hz).")
