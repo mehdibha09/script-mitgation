@@ -7,6 +7,9 @@ from sysmon.monitor import monitor_sysmon_log
 from dll_scanner.scanner import run_dll_scanner_periodically
 from defense.proactive import proactive_defense_thread
 from logger import MAIN_LOGGER, DLL_LOGGER
+from defense import parent_spoof_detector
+def process_alert_callback(alert_message):
+    MAIN_LOGGER.logger.warning(f"Process alert: {alert_message}")
 
 def main():
     print("=" * 60)
@@ -37,7 +40,14 @@ def main():
 
     # Start Sysmon log monitor
     monitor_sysmon_log()
-
+     # Start Process Monitor
+    process_monitor_thread = threading.Thread(
+        target=parent_spoof_detector.continuous_monitor,
+        args=(process_alert_callback,),  
+        daemon=True
+    )
+    process_monitor_thread.start()
+    MAIN_LOGGER.logger.info("Process Monitor thread started.")
     # Keep main thread alive
     try:
         while True:
