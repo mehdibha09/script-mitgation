@@ -131,7 +131,7 @@ class SecurityLogger:
             "timestamp": datetime.now().isoformat(),
             "action_type": action_type,
             "details": serializable_details
-        }
+        }   
         self.logger.info(f"{action_type.upper()}: {json.dumps(action_data, ensure_ascii=False)}")
         return action_data
 
@@ -284,8 +284,7 @@ def est_commande_suspecte(commandline: str) -> bool:
     ]
     return any(re.search(motif, full_cmd) for motif in motifs_suspects)
 
-def extract_urls(command_line):
-    return [word for word in command_line.split() if word.startswith("http")]
+
 
 def extract_urls(command_line):
     return [word for word in command_line.split() if word.startswith("http")]
@@ -1403,25 +1402,25 @@ def detect_screenshot_activity():
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass
 
-def proactive_defense_thread():
-    """A high-frequency thread that actively blocks threats."""
-    MAIN_LOGGER.logger.info(" Starting proactive defense thread (5Hz).")
+# def proactive_defense_thread():
+#     """A high-frequency thread that actively blocks threats."""
+#     MAIN_LOGGER.logger.info(" Starting proactive defense thread (5Hz).")
 
-    while True:
-        try:
-            # Run the new defense checks
-            if REGISTRY_BLOCKER_ENABLED:
-                check_and_remove_registry_persistence()
+#     while True:
+#         try:
+#             # Run the new defense checks
+#             if REGISTRY_BLOCKER_ENABLED:
+#                 check_and_remove_registry_persistence()
 
-            if SCREENSHOT_BLOCKER_ENABLED:
-                detect_screenshot_activity()
+#             if SCREENSHOT_BLOCKER_ENABLED:
+#                 detect_screenshot_activity()
 
-            time.sleep(0.2) 
+#             time.sleep(0.2) 
 
-        except Exception as e:
-            MAIN_LOGGER.logger.critical(f"Proactive defense thread crashed: {e}")
-            MAIN_LOGGER.logger.critical(traceback.format_exc())
-            time.sleep(5)
+#         except Exception as e:
+#             MAIN_LOGGER.logger.critical(f"Proactive defense thread crashed: {e}")
+#             MAIN_LOGGER.logger.critical(traceback.format_exc())
+#             time.sleep(5)
 def proactive_defense_thread():
     """A high-frequency thread that actively blocks threats."""
     MAIN_LOGGER.logger.info(" Starting proactive defense thread (5Hz).")
