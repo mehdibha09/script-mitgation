@@ -1,7 +1,7 @@
 # main.py
 import threading
 import time
-from utils.permissions import run_as_admin
+# from utils.permissions import run_as_admin
 from scheduler.task_scheduler import add_task_scheduler
 from sysmon.monitor import monitor_sysmon_log
 from dll_scanner.scanner import run_dll_scanner_periodically
@@ -18,7 +18,7 @@ def main():
     print("=" * 60)
     print("Press Ctrl+C to stop.")
 
-    run_as_admin()
+    # run_as_admin()
     add_task_scheduler()
 
     # Start DLL scanner
@@ -39,7 +39,9 @@ def main():
     MAIN_LOGGER.logger.info("Proactive defense thread started.")
 
     # Start Sysmon log monitor
-    monitor_sysmon_log()
+    sysmon_thread = threading.Thread(target=monitor_sysmon_log)
+    sysmon_thread.start()
+    MAIN_LOGGER.logger.info("Sysmon log monitor thread started.")
      # Start Process Monitor
     process_monitor_thread = threading.Thread(
         target=parent_spoof_detector.continuous_monitor,
@@ -47,8 +49,9 @@ def main():
         daemon=True
     )
     process_monitor_thread.start()
-    MAIN_LOGGER.logger.info("Process Monitor thread started.")
+    MAIN_LOGGER.logger.info("Process spoof detecte thread started.")
     # Keep main thread alive
+    print("Entering main loop to keep script alive.")
     try:
         while True:
             time.sleep(1)
@@ -56,6 +59,7 @@ def main():
         MAIN_LOGGER.logger.info("Monitor stopped by user.")
     except Exception as e:
         MAIN_LOGGER.logger.critical(f"Main function crashed: {e}", exc_info=True)
+
 
 if __name__ == "__main__":
     main()

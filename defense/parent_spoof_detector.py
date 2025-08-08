@@ -242,7 +242,8 @@ def detect_suspicious_processes(alert_callback=None):
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess):
             pass 
         except Exception as e:
-            logging.error(f"Error checking process PID {proc.info.get('pid', 'Unknown')}: {e}")
+            # logging.error(f"Error checking process PID {proc.info.get('pid', 'Unknown')}: {e}")
+            pass
 
     # --- 8. Check for Rapid Process Creation ---
     for proc_name, count in process_creation_counter.items():
