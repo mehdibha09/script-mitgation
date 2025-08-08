@@ -1,4 +1,4 @@
-# process_monitor.py
+# parent spoof detector.py
 import psutil
 import logging
 import os
@@ -10,6 +10,8 @@ import win32api
 import win32security
 import win32crypt
 import pywintypes
+import subprocess
+import requests
 from utils.constants import (
     SUSPICIOUS_PARENT_CHILD,
     SUSPICIOUS_PROCESS_NAMES,
@@ -17,6 +19,8 @@ from utils.constants import (
     SUSPICIOUS_PATHS,
     TARGET_FOR_INJECTION,
     SIGCHECK_PATH,
+    VIRUSTOTAL_API_KEY,
+    VIRUSTOTAL_URL
   )
 """
 explanation :
@@ -40,7 +44,27 @@ def calculate_sha256(file_path):
         logging.debug(f"Could not calculate hash for {file_path}")
         return None
 
-import subprocess
+def check_virustotal(hash_value):
+    """Query VirusTotal using SHA-256 hash."""
+    if not VIRUSTOTAL_API_KEY:
+        logging.warning("VirusTotal API key not set. Skipping VT check.")
+        return None
+
+    headers = {"x-apikey": VIRUSTOTAL_API_KEY}
+    try:
+        response = requests.get(VIRUSTOTAL_URL + hash_value, headers=headers, timeout=10)
+
+        if response.status_code == 200:
+            data = response.json()
+            stats = data.get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
+            return stats  # {'malicious': 5, 'suspicious': 1, 'undetected': 60}
+        elif response.status_code == 404:
+            return {"status": "not_found"}
+        else:
+            return {"error": f"VT API error {response.status_code}"}
+    except Exception as e:
+        logging.error(f"VirusTotal check error: {e}")
+        return None
 
 
 def is_unsigned_or_invalid_sig(path):
@@ -195,25 +219,32 @@ def detect_suspicious_processes(alert_callback=None):
             # --- 5. Check Digital Signature ---
             #using windows crypto api to check digital signature
             
-            if is_unsigned_or_invalid_sig(exe_path):
-                if not exe_path or not os.path.exists(exe_path):
-                    return True
-                alert_info = {
-                    "type": "Unsigned Binary",
-                    "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
-                    "severity": "Medium", # Could be legitimate unsigned software
-                    "details": {
-                        "pid": pid,
-                        "ppid": ppid,
-                        "name": name,
-                        "exe": exe_path,
-                        "cmdline": cmdline_str,
-                        "timestamp": current_time
+            if exe_path and os.path.exists(exe_path):
+                unsigned = is_unsigned_or_invalid_sig(exe_path)
+
+                if unsigned:
+                    sha256 = calculate_sha256(exe_path)
+                    vt_result = check_virustotal(sha256) if sha256 else None
+
+                    alert_info = {
+                        "type": "Unsigned Binary",
+                        "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
+                        "severity": "Medium",
+                        "details": {
+                            "pid": pid,
+                            "ppid": ppid,
+                            "name": name,
+                            "exe": exe_path,
+                            "cmdline": cmdline_str,
+                            "sha256": sha256,
+                            "virustotal": vt_result,
+                            "timestamp": current_time
+                        }
                     }
-                }
-                if alert_callback:
-                    alert_callback(alert_info)
-                alerts_generated += 1
+                    if alert_callback:
+                        alert_callback(alert_info)
+                    alerts_generated += 1
+
 
             # --- 6. Check for Process Hollowing Targets Being Spawned ---
            

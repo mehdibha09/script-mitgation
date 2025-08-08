@@ -2,6 +2,11 @@ import os
 
 # --- Dépendance externe : sigcheck ---
 SIGCHECK_PATH = r"C:\Tools\sigcheck.exe"  # ⚠️ Assure-toi qu'il existe à ce chemin
+import requests
+
+VIRUSTOTAL_API_KEY = os.getenv("VT_API_KEY")  
+VIRUSTOTAL_URL = "https://www.virustotal.com/api/v3/files/"
+
 
 # --- Relations Parent-Enfant suspectes ---
 SUSPICIOUS_PARENT_CHILD = {
