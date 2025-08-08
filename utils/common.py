@@ -11,7 +11,7 @@ import re
 import base64
 from urllib.parse import urlparse
 import ipaddress
-
+from pathlib import Path
 
 from utils.constants import (
     PROCESSUS_LEGITIMES,
@@ -153,10 +153,10 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
         except Exception as e:
             MAIN_LOGGER.logger.error(f"[ERROR] Exception killing {proc_to_kill.pid}: {e}")
 
-# Example corrected logic (conceptual)
+
 def est_legitime(proc: psutil.Process) -> bool:
     """
-    Vérifie si un processus est légitime (chemin + nom + utilisateur)
+    Vérifie si un processus est légitime (chemin, nom, utilisateur).
     """
     try:
         with proc.oneshot():
@@ -164,40 +164,39 @@ def est_legitime(proc: psutil.Process) -> bool:
             exe = (proc.exe() or "").lower()
             user = (proc.username() or "").lower()
     except psutil.Error:
-        MAIN_LOGGER.logger.warning(f"[⚠️] Impossible d'accéder à {proc.pid}. Considéré légitime par précaution.")
-        return True  # Fallback safe: ne tue pas si doute
-
-    from pathlib import Path
-    exe_path = Path(exe)
-
-    # --- Protection absolue ---
-    if name == "explorer.exe":
-        MAIN_LOGGER.logger.info(f"[✅] 'explorer.exe' protégé (PID {proc.pid})")
+        MAIN_LOGGER.logger.warning(f"[⚠️] Impossible d'accéder au processus {proc.pid}. Considéré légitime par précaution.")
         return True
 
-    # --- Vérification si nom légitime connu ---
-    if name in PROCESSUS_LEGITIMES:
-        is_system_user = user in UTILISATEURS_SYSTEME
+    exe_path = Path(exe)
 
+    # --- Cas protégé absolu ---
+    if name == "explorer.exe":
+        MAIN_LOGGER.logger.info(f"[✅] Processus 'explorer.exe' protégé (PID {proc.pid})")
+        return True
+
+    # --- Vérification pour processus connus ---
+    if name in PROCESSUS_LEGITIMES:
         try:
-            is_system_path = any(exe_path.is_relative_to(Path(p)) for p in [
-                r"c:\windows\system32", r"c:\windows\syswow64"
-            ])
+            is_system_path = any(
+                exe_path.is_relative_to(Path(p))
+                for p in [r"c:\windows\system32", r"c:\windows\syswow64", r"c:\program files", r"c:\program files (x86)"]
+            )
         except Exception:
             is_system_path = False
 
-        if is_system_user and is_system_path:
-            MAIN_LOGGER.logger.debug(f"[✔] Processus légitime détecté : {name} (PID {proc.pid})")
+        is_system_user = user in UTILISATEURS_SYSTEME
+
+        if is_system_path and is_system_user:
+            MAIN_LOGGER.logger.debug(f"[✔] Processus légitime confirmé : {name} (PID {proc.pid})")
             return True
         else:
             MAIN_LOGGER.logger.warning(
-                f"[⚠️] {name} (PID {proc.pid}) détecté dans contexte anormal : "
-                f"user={user}, chemin={exe}"
+                f"[❗] Contexte douteux pour processus légitime : {name} "
+                f"(PID {proc.pid}) | User: {user} | Path: {exe}"
             )
-            # 🔧 Politique actuelle : ne pas tuer les noms "protégés" même en contexte douteux
-            # Pour politique stricte : return False ici
-            return True  # 🔒 Si tu veux durcir : return False
+            # Par précaution, considérer légitime même si contexte douteux.
+            return True
 
-    # --- Cas par défaut (non listé) ---
-    MAIN_LOGGER.logger.debug(f"[🕵️‍♂️] Processus non listé : {name} (PID {proc.pid})")
+    # --- Processus non listé => considérer comme suspect ---
+    MAIN_LOGGER.logger.debug(f"[🕵️‍♂️] Processus inconnu ou non listé : {name} (PID {proc.pid})")
     return False

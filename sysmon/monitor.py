@@ -77,7 +77,7 @@ def monitor_sysmon_log():
     last_event_id = 0
     MAIN_LOGGER.logger.info("[*] Starting Sysmon monitoring (Winevt API)...")
 
-    event_id_query = "*[System[( EventID-1 or EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
+    event_id_query = "*[System[( EventID=1 or EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
 
     try:
         while True:

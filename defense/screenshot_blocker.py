@@ -34,13 +34,18 @@ def is_screenshot_attempt(proc):
         cmdline = ' '.join(proc.info['cmdline']).lower() if proc.info['cmdline'] else ''
         pid = proc.info['pid']
 
-        # Check name and command line
+        # Check if process name is suspicious
         if name not in SUSPICIOUS_PROCESS_NAMES:
             return False
-        if not any(re.search(pattern, cmdline) for pattern in SUSPICIOUS_CMDLINE_PATTERNS):
+        
+        # Check suspicious cmdline patterns (extract first element of tuple)
+        if not any(
+            pattern[0] and re.search(pattern[0], cmdline, re.IGNORECASE)
+            for pattern in SUSPICIOUS_CMDLINE_PATTERNS
+        ):
             return False
 
-        # Check loaded modules for PIL/Pillow
+        # Check loaded modules for PIL/Pillow (screenshot libs)
         try:
             modules = proc.memory_maps()
             for module in modules:
