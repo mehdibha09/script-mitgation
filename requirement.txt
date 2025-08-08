@@ -5,7 +5,7 @@ pip install psutil
 pip install pywin32
 pip install py2exe
 pip install cx_Freeze ....
-
+installer https://learn.microsoft.com/en-us/sysinternals/downloads/sigcheck et modifier path dans constants.py
 ## 2. Nettoyer les anciens événements Windows
 Avant de lancer le script pour la première fois, efface les anciens événements :
 wevtutil cl Microsoft-Windows-Sysmon/Operational
@@ -20,3 +20,4 @@ Le fichier .exe sera dans le dossier "dist".
 ## 4. Résoudre l'erreur vcruntime140.dll
 Si tu vois une erreur "vcruntime140.dll manquant", installe :
 https://aka.ms/vs/17/release/vc_redist.x64.exe
+
