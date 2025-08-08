@@ -247,6 +247,9 @@ def detect_registre(event_data):
             else:
                 proc = None
 
+            if proc.name().lower() in {"msedge.exe", "chrome.exe", "firefox.exe"}:
+                MAIN_LOGGER.logger.info(f"[ℹ️] Modification registre par navigateur ignorée : {proc.name()} (PID {proc.pid})")
+                return
             if proc:
                 if not est_legitime(proc):
                     kill_process_tree(proc.pid, kill_parent=True)
