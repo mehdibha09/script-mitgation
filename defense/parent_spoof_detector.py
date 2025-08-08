@@ -226,7 +226,7 @@ def detect_suspicious_processes(alert_callback=None):
                     sha256 = calculate_sha256(exe_path)
                     vt_result = check_virustotal(sha256) if sha256 else None
 
-                    alert_info = {
+                    """ alert_info = {
                         "type": "Unsigned Binary",
                         "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
                         "severity": "Medium",
@@ -240,7 +240,7 @@ def detect_suspicious_processes(alert_callback=None):
                             "virustotal": vt_result,
                             "timestamp": current_time
                         }
-                    }
+                    }"""
                     if alert_callback:
                         alert_callback(alert_info)
                     alerts_generated += 1
