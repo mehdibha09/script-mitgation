@@ -251,7 +251,7 @@ def run_dll_scanner_periodically(logger_instance, interval_seconds=60):
                 print(f"  Errors: {results['errors']}")
                 print(f"  Duration: {results.get('duration_seconds', 'N/A'):.2f} seconds")
                 print(f"--- Waiting {interval_seconds} seconds ---\n")
-            time.sleep(interval_seconds)
+            time.sleep(60)
     except Exception as e:
         logger_instance.logger.critical(f"DLL Scanner crashed: {e}")
         logger_instance.logger.critical(traceback.format_exc())
