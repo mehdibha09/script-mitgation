@@ -6,72 +6,25 @@ import hashlib
 import time
 import threading
 from collections import defaultdict
-
-# --- Configuration ---
-
-SUSPICIOUS_PARENT_CHILD = {
-    ("explorer.exe", "powershell.exe"),
-    ("explorer.exe", "cmd.exe"),
-    ("explorer.exe", "mshta.exe"),
-    ("explorer.exe", "cscript.exe"), 
-    ("explorer.exe", "wscript.exe"),
-    ("svchost.exe", "python.exe"), 
-    ("svchost.exe", "rundll32.exe"), 
-    ("winlogon.exe", "explorer.exe"), 
-    ("winlogon.exe", "powershell.exe"),
-    ("lsass.exe", "rundll32.exe"), 
-    ("lsass.exe", "powershell.exe"),
-    ("csrss.exe", "rundll32.exe"), 
-    ("csrss.exe", "powershell.exe"),
-}
-
-SUSPICIOUS_PROCESS_NAMES = {
-    "mimikatz.exe", "psexec.exe", "at.exe", "schtasks.exe", 
-    "powershell.exe", "cmd.exe", "mshta.exe", "cscript.exe", "wscript.exe", 
-    "rundll32.exe", "regsvr32.exe", "bitsadmin.exe"}
-
-# Suspicious command line arguments or patterns
-SUSPICIOUS_CMDLINE_PATTERNS = [
-    ("-enc", "powershell.exe"), ("-encodedcommand", "powershell.exe"), ("-e ", "powershell.exe"), # PowerShell encoded commands
-    ("FromBase64String", None),
-    ("IEX", None), ("Invoke-Expression", None),
-    ("/c ", "cmd.exe"), ("/k ", "cmd.exe"), 
-    ("rundll32.exe", "javascript:"), 
-    ("rundll32.exe", "vbscript:"), 
-    ("-s", "powershell.exe"), # PowerShell scripts
-    ("-nop", "powershell.exe"), # No profile
-    ("-noni", "powershell.exe"), # No interactive
-    ("-w hidden", "powershell.exe"), # Hidden window
-    ("-windowstyle hidden", "powershell.exe"), # Hidden window style
-    ("-ExecutionPolicy Bypass", "powershell.exe"), # Bypass execution policy
-    ("-NoLogo", "powershell.exe"), # No logo
-    ("-NoProfile", "powershell.exe"), # No profile
-    ("-File ", "powershell.exe"), # File execution
-    ("-Command ", "powershell.exe"), # Command execution
-    ("-EncodedCommand ", "powershell.exe"), # Encoded command execution
-    ]
-
-# Suspicious directories where processes should not typically originate
-SUSPICIOUS_PATHS = [
-    os.path.expanduser("~\\AppData\\Local\\Temp\\"),
-    os.path.expanduser("~\\AppData\\Roaming\\"),
-    os.path.expanduser("~\\Desktop\\"),
-    "C:\\Windows\\Temp\\",
-    "C:\\Windows\\System32\\",
-    "C:\\Windows\\SysWOW64\\",
-    "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\",
-    "C:\\Program Files\\Common Files\\",
-    "C:\\Program Files (x86)\\Common Files\\",
-    "C:\\Program Files\\",
-    "C:\\Program Files (x86)\\",
-    "C:\\Users\\Public\\Documents\\",
-    "C:\\Users\\Public\\Downloads\\",]
-
-# Processes that are commonly used by malware for injection or hollowing
-TARGET_FOR_INJECTION = {
-    "explorer.exe", "svchost.exe", "lsass.exe", "winlogon.exe", "csrss.exe",
-    "rundll32.exe", "powershell.exe", "cmd.exe", "mshta.exe", "cscript.exe", "wscript.exe"
-}
+import win32api
+import win32security
+import win32crypt
+import pywintypes
+from utils.constants import (
+    SUSPICIOUS_PARENT_CHILD,
+    SUSPICIOUS_PROCESS_NAMES,
+    SUSPICIOUS_CMDLINE_PATTERNS,
+    SUSPICIOUS_PATHS,
+    TARGET_FOR_INJECTION,
+    SIGCHECK_PATH,
+  )
+"""
+explanation :
+This module provides functionality to detect suspicious parent-child process relationships,
+it defines lists of rules for suspicious parent-child pairs, process names, command line(like an explorrer.exe with powershell.exe),
+also it defines suspicious file paths like temp , %appdata% and so on 
+The detection logic scans running processes, checking for suspicious activity based on the defined rules.
+"""
 
 # --- Helper Functions ---
 
@@ -87,21 +40,34 @@ def calculate_sha256(file_path):
         logging.debug(f"Could not calculate hash for {file_path}")
         return None
 
-def is_unsigned_or_invalid_sig(path):
-    """Placeholder for signature checking.
-    A real implementation would use tools like `sigcheck` or libraries like `pefile`.
-    """
+import subprocess
 
+
+def is_unsigned_or_invalid_sig(path):
+    """
+    Uses Microsoft Sigcheck to verify if an executable is signed and valid.
+    Returns True if the file is unsigned or has an invalid signature.
+    """
     if not path or not os.path.exists(path):
-        return True 
-    if path.lower().endswith('.exe'):
-       
-        trusted_dirs = [os.getenv('SystemRoot', 'C:\\Windows'), os.path.join(os.getenv('SystemRoot', 'C:\\Windows'), 'System32')]
-        if any(path.lower().startswith(d.lower()) for d in trusted_dirs):
-            return False 
-        
-        return True 
-    return False 
+        return True  # File doesn't exist → treat as suspicious
+
+    try:
+        # Run sigcheck silently, no banner, only signature info
+        result = subprocess.run(
+            [SIGCHECK_PATH, "-q", "-nobanner", "-i", path],
+            capture_output=True,
+            text=True
+        )
+
+        # Check if the output says it's signed
+        if "Verified: Signed" in result.stdout:
+            return False  # Signed and valid
+        else:
+            return True   # Unsigned or invalid
+    except Exception as e:
+        logging.error(f"Error verifying signature for {path}: {e}")
+        return True
+
 
 # --- Core Detection Logic ---
 
@@ -226,8 +192,12 @@ def detect_suspicious_processes(alert_callback=None):
                         alerts_generated += 1
                         break 
 
-            # --- 5. Check Digital Signature (Simplified Placeholder) ---
+            # --- 5. Check Digital Signature ---
+            #using windows crypto api to check digital signature
+            
             if is_unsigned_or_invalid_sig(exe_path):
+                if not exe_path or not os.path.exists(exe_path):
+                    return True
                 alert_info = {
                     "type": "Unsigned Binary",
                     "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
