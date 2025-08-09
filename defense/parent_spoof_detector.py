@@ -303,24 +303,24 @@ def detect_suspicious_processes(alert_callback=None):
 
             # --- 6. Check for Process Hollowing Targets Being Spawned ---
            
-            if name in TARGET_FOR_INJECTION:
+            # if name in TARGET_FOR_INJECTION:
                 
-                alert_info = {                    "type": "Process Hollowing Target",
-                    "description": f"Process {name} (PID:{pid}) is a common target for injection or hollowing.",
-                    "severity": "High",
-                    "details": {
-                        "pid": pid,
-                        "ppid": ppid,
-                        "name": name,
-                        "exe": exe_path,
-                        "cmdline": cmdline_str,
-                        "timestamp": current_time
-                    }
-                }
-                if alert_callback:
-                    alert_callback(alert_info)
-                kill_process(pid)
-                alerts_generated += 1
+            #     alert_info = {                    "type": "Process Hollowing Target",
+            #         "description": f"Process {name} (PID:{pid}) is a common target for injection or hollowing.",
+            #         "severity": "High",
+            #         "details": {
+            #             "pid": pid,
+            #             "ppid": ppid,
+            #             "name": name,
+            #             "exe": exe_path,
+            #             "cmdline": cmdline_str,
+            #             "timestamp": current_time
+            #         }
+            #     }
+            #     if alert_callback:
+            #         alert_callback(alert_info)
+            #     kill_process(pid)
+            #     alerts_generated += 1
                 
 
 
