@@ -6,7 +6,10 @@ import requests
 
 VIRUSTOTAL_API_KEY = os.getenv("VT_API_KEY")  
 VIRUSTOTAL_URL = "https://www.virustotal.com/api/v3/files/"
-
+VIRUSTOTAL_API_KEY = "TA_CLE_API_ICI"
+# --- Paramètres Rate Limiting ---
+MAX_REQUESTS = 4
+TIME_LIMIT = 60  # secondes
 
 # --- Relations Parent-Enfant suspectes ---
 SUSPICIOUS_PARENT_CHILD = {

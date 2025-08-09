@@ -4,12 +4,7 @@ import logging
 import os
 import hashlib
 import time
-import threading
 from collections import defaultdict
-import win32api
-import win32security
-import win32crypt
-import pywintypes
 import subprocess
 import requests
 from utils.constants import (
@@ -21,7 +16,11 @@ from utils.constants import (
     SIGCHECK_PATH,
     VIRUSTOTAL_API_KEY,
     VIRUSTOTAL_URL
+    MAX_REQUESTS
+    TIME_LIMIT
   )
+import collections
+import threading
 """
 explanation :
 This module provides functionality to detect suspicious parent-child process relationships,
@@ -29,6 +28,10 @@ it defines lists of rules for suspicious parent-child pairs, process names, comm
 also it defines suspicious file paths like temp , %appdata% and so on 
 The detection logic scans running processes, checking for suspicious activity based on the defined rules.
 """
+
+
+request_times = collections.deque()
+waiting_queue = collections.deque()
 
 # --- Helper Functions ---
 
@@ -43,6 +46,30 @@ def calculate_sha256(file_path):
     except (PermissionError, FileNotFoundError, OSError):
         logging.debug(f"Could not calculate hash for {file_path}")
         return None
+
+def can_make_request():
+    """Retourne True si une requête VT peut être exécutée maintenant."""
+    current_time = time.time()
+    while request_times and current_time - request_times[0] > TIME_LIMIT:
+        request_times.popleft()
+    return len(request_times) < MAX_REQUESTS
+
+def queue_or_execute_request(hash_value):
+    """Exécute ou met en file d'attente la requête VT."""
+    if can_make_request():
+        request_times.append(time.time())
+        return check_virustotal(hash_value)
+    else:
+        logging.warning(f"Limite VirusTotal atteinte, mise en attente : {hash_value}")
+        waiting_queue.append(hash_value)
+        return None
+def process_waiting_queue():
+    """Vider la liste d’attente quand possible."""
+    while waiting_queue and can_make_request():
+        hv = waiting_queue.popleft()
+        logging.info(f"Exécution d'une requête en attente : {hv}")
+        request_times.append(time.time())
+        check_virustotal(hv)
 
 def check_virustotal(hash_value):
     """Query VirusTotal using SHA-256 hash."""
@@ -65,7 +92,7 @@ def check_virustotal(hash_value):
     except Exception as e:
         logging.error(f"VirusTotal check error: {e}")
         return None
-
+    
 
 def is_unsigned_or_invalid_sig(path):
     """
@@ -221,12 +248,12 @@ def detect_suspicious_processes(alert_callback=None):
             
             if exe_path and os.path.exists(exe_path):
                 unsigned = is_unsigned_or_invalid_sig(exe_path)
-
+                #check limite api max per 1 minute 4 requeste 
                 if unsigned:
                     sha256 = calculate_sha256(exe_path)
-                    vt_result = check_virustotal(sha256) if sha256 else None
+                    vt_result = queue_or_execute_request(sha256) if sha256 else None
 
-                    """ alert_info = {
+                    alert_info = {
                         "type": "Unsigned Binary",
                         "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
                         "severity": "Medium",
@@ -240,7 +267,7 @@ def detect_suspicious_processes(alert_callback=None):
                             "virustotal": vt_result,
                             "timestamp": current_time
                         }
-                    }"""
+                    }
                     if alert_callback:
                         alert_callback(alert_info)
                     alerts_generated += 1
@@ -297,10 +324,20 @@ def detect_suspicious_processes(alert_callback=None):
     return alerts_generated
 
 # --- Continuous Monitoring ---
+def vt_queue_worker():
+        while True:
+            process_waiting_queue()
+            time.sleep(5)  # vérifie toutes les 5 sec
 
 def continuous_monitor(alert_callback, scan_interval=10):
     """Continuously monitors processes."""
     logging.info("Starting continuous process monitoring...")
+
+        # Thread pour traiter la queue VirusTotal
+ 
+
+    threading.Thread(target=vt_queue_worker, daemon=True).start()
+
     try:
         while True:
             num_alerts = detect_suspicious_processes(alert_callback)
