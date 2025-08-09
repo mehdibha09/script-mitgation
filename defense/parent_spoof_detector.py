@@ -84,11 +84,19 @@ def check_virustotal(hash_value):
         if response.status_code == 200:
             data = response.json()
             stats = data.get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
-            return stats  # {'malicious': 5, 'suspicious': 1, 'undetected': 60}
+            # check stat containe malicous or suspicious 
+            if not stats:
+                logging.warning(f"No analysis stats found for {hash_value}")
+                return False
+            # Example stats: {'malicious': 5, 'suspicious': 1
+            if stats.get("malicious", 0) > 0 or stats.get("suspicious", 0) > 0:
+                return True
+            else:
+                return False
         elif response.status_code == 404:
-            return {"status": "not_found"}
+            return False
         else:
-            return {"error": f"VT API error {response.status_code}"}
+            return False
     except Exception as e:
         logging.error(f"VirusTotal check error: {e}")
         return None
@@ -252,25 +260,32 @@ def detect_suspicious_processes(alert_callback=None):
                 if unsigned:
                     sha256 = calculate_sha256(exe_path)
                     vt_result = queue_or_execute_request(sha256) if sha256 else None
+                    if vt_result is False:
+                        # Erreur critique ou refus → on sort complètement
+                        return
 
-                    alert_info = {
-                        "type": "Unsigned Binary",
-                        "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
-                        "severity": "Medium",
-                        "details": {
-                            "pid": pid,
-                            "ppid": ppid,
-                            "name": name,
-                            "exe": exe_path,
-                            "cmdline": cmdline_str,
-                            "sha256": sha256,
-                            "virustotal": vt_result,
-                            "timestamp": current_time
+                    elif vt_result is None:
+                        # Requête mise en attente → pas d'alerte maintenant
+                        logging.debug(f"VT check pour {exe_path} en attente, alerte non générée.")
+                    else:
+                        alert_info = {
+                            "type": "Unsigned Binary",
+                            "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
+                            "severity": "Medium",
+                            "details": {
+                                "pid": pid,
+                                "ppid": ppid,
+                                "name": name,
+                                "exe": exe_path,
+                                "cmdline": cmdline_str,
+                                "sha256": sha256,
+                                "virustotal": vt_result,
+                                "timestamp": current_time
+                            }
                         }
-                    }
-                    if alert_callback:
-                        alert_callback(alert_info)
-                    alerts_generated += 1
+                        if alert_callback:
+                            alert_callback(alert_info)
+                        alerts_generated += 1
 
 
             # --- 6. Check for Process Hollowing Targets Being Spawned ---

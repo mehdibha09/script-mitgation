@@ -2,9 +2,8 @@ import os
 
 # --- Dépendance externe : sigcheck ---
 SIGCHECK_PATH = r"C:\Tools\sigcheck.exe"  # ⚠️ Assure-toi qu'il existe à ce chemin
-import requests
 
-VIRUSTOTAL_API_KEY = os.getenv("VT_API_KEY")  
+VIRUSTOTAL_API_KEY = "63cd3b2efe64cabf3646e065b8edc15847e7077268f5fb95bbd4785a92bafa38"  
 VIRUSTOTAL_URL = "https://www.virustotal.com/api/v3/files/"
 VIRUSTOTAL_API_KEY = "TA_CLE_API_ICI"
 # --- Paramètres Rate Limiting ---
