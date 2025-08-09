@@ -87,7 +87,7 @@ def sauvegarder_binaire_suspect(path):
             os.makedirs("samples_suspects", exist_ok=True)
             dst = f"samples_suspects/{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}_{os.path.basename(path)}"
             shutil.copy2(path, dst)
-            MAIN_LOGGER.logger.info(f"[🔍] Binaire suspect sauvegardé : {dst}")
+           # MAIN_LOGGER.logger.info(f"[🔍] Binaire suspect sauvegardé : {dst}")
     except Exception as e:
         MAIN_LOGGER.logger.warning(f"[!] Échec de sauvegarde binaire : {e}")
 

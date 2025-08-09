@@ -82,7 +82,7 @@ SUSPICIOUS_PROCESS_NAMES = {
     # Interpréteurs ou scripts souvent utilisés dans des attaques
     "powershell.exe", "pwsh.exe", "cmd.exe", "cscript.exe", "wscript.exe",
     "mshta.exe", "rundll32.exe", "regsvr32.exe", "regedit.exe", "wsl.exe",
-    "bash.exe", "sh.exe", "curl.exe", "wget.exe", "python.exe", "pythonw.exe",
+    "bash.exe", "sh.exe", "curl.exe", "wget.exe",
     "python3.exe", "python3.11.exe", "node.exe", "java.exe", "javaw.exe",
     "msbuild.exe", "installutil.exe",
 
