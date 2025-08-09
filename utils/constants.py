@@ -13,14 +13,11 @@ TIME_LIMIT = 60  # secondes
 SUSPICIOUS_PARENT_CHILD = {
     # Explorer.exe ne devrait pas lancer d’interpréteurs ou d’outils système critiques
     ("explorer.exe", "powershell.exe"),
-    ("explorer.exe", "cmd.exe"),
     ("explorer.exe", "mshta.exe"),
     ("explorer.exe", "cscript.exe"),
     ("explorer.exe", "wscript.exe"),
     ("explorer.exe", "rundll32.exe"),
     ("explorer.exe", "regsvr32.exe"),
-    ("explorer.exe", "python.exe"),
-    ("explorer.exe", "pythonw.exe"),
 
     # svchost.exe détourné pour lancer des payloads
     ("svchost.exe", "powershell.exe"),

@@ -44,8 +44,8 @@ def calculate_sha256(file_path):
                 sha256_hash.update(chunk)
         return sha256_hash.hexdigest()
     except (PermissionError, FileNotFoundError, OSError):
-        logging.debug(f"Could not calculate hash for {file_path}")
         return None
+
 def kill_process(pid):
     """Terminate a process by PID."""
     try:
@@ -55,6 +55,7 @@ def kill_process(pid):
         logging.warning(f"[!] Process {pid} terminated successfully.")
     except (psutil.NoSuchProcess, psutil.AccessDenied) as e:
         logging.error(f"[!] Could not terminate process {pid}: {e}")
+
 def can_make_request():
     """Retourne True si une requête VT peut être exécutée maintenant."""
     current_time = time.time()
@@ -68,14 +69,12 @@ def queue_or_execute_request(hash_value):
         request_times.append(time.time())
         return check_virustotal(hash_value)
     else:
-        logging.warning(f"Limite VirusTotal atteinte, mise en attente : {hash_value}")
         waiting_queue.append(hash_value)
         return None
 def process_waiting_queue():
     """Vider la liste d’attente quand possible."""
     while waiting_queue and can_make_request():
         hv = waiting_queue.popleft()
-        logging.info(f"Exécution d'une requête en attente : {hv}")
         request_times.append(time.time())
         check_virustotal(hv)
 
@@ -94,7 +93,6 @@ def check_virustotal(hash_value):
             stats = data.get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
             # check stat containe malicous or suspicious 
             if not stats:
-                logging.warning(f"No analysis stats found for {hash_value}")
                 return False
             # Example stats: {'malicious': 5, 'suspicious': 1
             if stats.get("malicious", 0) > 0 or stats.get("suspicious", 0) > 0:
@@ -277,7 +275,7 @@ def detect_suspicious_processes(alert_callback=None):
                     
                     elif vt_result is None:
                         # Requête mise en attente → pas d'alerte maintenant
-                        logging.debug(f"VT check pour {exe_path} en attente, alerte non générée.")
+                        pass
                     else:
                         if vt_result and isinstance(vt_result, dict):
                             if vt_result.get("malicious", 0) > 0:
