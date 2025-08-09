@@ -67,7 +67,8 @@ def detect_keylogger_activity(event_data):
         dest_ip = event_data.get("DestinationIp", "")
         dest_port = int(event_data.get("DestinationPort", 0))
         payload = event_data.get("Payload", "") or ""
-
+        if dest_port == 443:
+            return False
         chemin_exec = image
         nom_processus = os.path.basename(image)
 

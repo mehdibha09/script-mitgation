@@ -43,12 +43,12 @@ def main():
     sysmon_thread.start()
     MAIN_LOGGER.logger.info("Sysmon log monitor thread started.")
      # Start Process Monitor
-    # process_monitor_thread = threading.Thread(
-    #     target=parent_spoof_detector.continuous_monitor,
-    #     args=(process_alert_callback,),  
-    #     daemon=True
-    # )
-    # process_monitor_thread.start()
+    process_monitor_thread = threading.Thread(
+        target=parent_spoof_detector.continuous_monitor,
+        args=(process_alert_callback,),  
+        daemon=True
+    )
+    process_monitor_thread.start()
     MAIN_LOGGER.logger.info("Process spoof detecte thread started.")
     #Keep main thread alive
     print("Entering main loop to keep script alive.")

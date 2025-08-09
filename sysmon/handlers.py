@@ -138,7 +138,6 @@ def detect_event_id_11(event_data):
 
 def mitigation_event_id_3(event_data):
     """Mitigation sur événement Sysmon ID 3 (NetworkConnect)"""
-    print("test conexion")
     if detect_smb_propagation(event_data):
         return
     if mitiger_connexion_reseau(event_data):

@@ -109,49 +109,42 @@ def est_commande_suspecte(commandline: str) -> bool:
     return any(re.search(motif, full_cmd) for motif in motifs_suspects)
 
 def kill_process_tree(pid: int, kill_parent: bool = True):
-    """Kill a process tree using psutil."""
+    """Kill a process tree using psutil, but never kill the current process itself."""
     try:
         parent = psutil.Process(pid)
         MAIN_LOGGER.logger.info(f"[INFO] Killing process tree for PID {pid} ({parent.name()})")
     except psutil.NoSuchProcess:
-        #MAIN_LOGGER.logger.warning(f"[WARN] Process PID {pid} not found.")
         return
     except psutil.AccessDenied:
-        #MAIN_LOGGER.logger.error(f"[ERROR] Access denied to process PID {pid}. Cannot kill tree.")
-        return # Cannot proceed if we can't access the parent
+        return
 
     current_pid = os.getpid()
-    # Collect processes to kill
     to_kill = []
     try:
-        # Get children recursively
         children = parent.children(recursive=True)
         to_kill.extend([p for p in children if p.pid != current_pid])
-    except psutil.Error as e:
+    except psutil.Error:
         pass
-        #MAIN_LOGGER.logger.error(f"[ERROR] Failed to get children of PID {pid}: {e}")
 
-    # Optionally add the parent itself
+    # Add parent only if not current process and if kill_parent=True
     if kill_parent and parent.pid != current_pid:
         to_kill.append(parent)
 
-    # Kill collected processes
-    killed_pids = []
+    # Extra safety: remove current process from kill list just in case
+    to_kill = [p for p in to_kill if p.pid != current_pid]
+
     MAIN_LOGGER.logger.debug(f"[DEBUG] kill_process_tree called for PID {pid}, kill_parent={kill_parent}")
     for proc_to_kill in to_kill:
         try:
-            proc_to_kill.kill() # This sends SIGKILL on Unix, terminates on Windows
-            killed_pids.append(proc_to_kill.pid)
+            proc_to_kill.kill()
             MAIN_LOGGER.logger.info(f"[🔪] Killed {proc_to_kill.name()} (PID {proc_to_kill.pid})")
         except psutil.NoSuchProcess:
-             # Process might have died already
             MAIN_LOGGER.logger.debug(f"[DEBUG] Process {proc_to_kill.pid} seems to have died already.")
         except psutil.AccessDenied:
-            """MAIN_LOGGER.logger.warning(
-                f"[⚠️] Access denied killing {proc_to_kill.name()} (PID {proc_to_kill.pid})."
-            )"""
+            pass
         except Exception as e:
             MAIN_LOGGER.logger.error(f"[ERROR] Exception killing {proc_to_kill.pid}: {e}")
+
 
 
 def est_legitime(proc: psutil.Process) -> bool:
