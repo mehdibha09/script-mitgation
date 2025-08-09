@@ -132,7 +132,7 @@ def is_unsigned_or_invalid_sig(path):
         else:
             return True   # Unsigned or invalid
     except Exception as e:
-        logging.error(f"Error verifying signature for {path}: {e}")
+        #logging.error(f"Error verifying signature for {path}: {e}")
         return True
 
 
@@ -190,7 +190,7 @@ def detect_suspicious_processes(alert_callback=None):
                         }
                     }
                     if alert_callback:
-                        alert_callback(alert_info)
+                       alert_callback(alert_info)
                     kill_process(pid)
                     alerts_generated += 1
             except (psutil.NoSuchProcess, psutil.AccessDenied, ValueError):
@@ -212,7 +212,7 @@ def detect_suspicious_processes(alert_callback=None):
                     }
                 }
                 if alert_callback:
-                    alert_callback(alert_info)
+                   alert_callback(alert_info)
                 kill_process(pid)
                 alerts_generated += 1
 
@@ -233,8 +233,8 @@ def detect_suspicious_processes(alert_callback=None):
                             "timestamp": current_time
                         }
                     }
-                    if alert_callback:
-                        alert_callback(alert_info)
+                   # if alert_callback:
+                    #    alert_callback(alert_info)
                     alerts_generated += 1
                     break 
 
@@ -258,6 +258,7 @@ def detect_suspicious_processes(alert_callback=None):
                         }
                         if alert_callback:
                             alert_callback(alert_info)
+                            pass
                         alerts_generated += 1
                         break 
 
@@ -297,30 +298,30 @@ def detect_suspicious_processes(alert_callback=None):
                             }
                         }
                         if alert_callback:
-                            alert_callback(alert_info)
+                           alert_callback(alert_info)
                         alerts_generated += 1
 
 
             # --- 6. Check for Process Hollowing Targets Being Spawned ---
            
-            if name in TARGET_FOR_INJECTION:
+            # if name in TARGET_FOR_INJECTION:
                 
-                alert_info = {                    "type": "Process Hollowing Target",
-                    "description": f"Process {name} (PID:{pid}) is a common target for injection or hollowing.",
-                    "severity": "High",
-                    "details": {
-                        "pid": pid,
-                        "ppid": ppid,
-                        "name": name,
-                        "exe": exe_path,
-                        "cmdline": cmdline_str,
-                        "timestamp": current_time
-                    }
-                }
-                if alert_callback:
-                    alert_callback(alert_info)
-                kill_process(pid)
-                alerts_generated += 1
+            #     alert_info = {                    "type": "Process Hollowing Target",
+            #         "description": f"Process {name} (PID:{pid}) is a common target for injection or hollowing.",
+            #         "severity": "High",
+            #         "details": {
+            #             "pid": pid,
+            #             "ppid": ppid,
+            #             "name": name,
+            #             "exe": exe_path,
+            #             "cmdline": cmdline_str,
+            #             "timestamp": current_time
+            #         }
+            #     }
+            #     if alert_callback:
+            #         alert_callback(alert_info)
+            #     kill_process(pid)
+            #     alerts_generated += 1
                 
 
 

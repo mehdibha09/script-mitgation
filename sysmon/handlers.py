@@ -78,7 +78,7 @@ def detect_processus_suspect(event_data):
         # Hash et sauvegarde binaire
         image_path = event_data.get("Image", "")
         sha256 = get_hash(image_path)
-        MAIN_LOGGER.logger.info(f"      SHA256 du binaire : {sha256}")
+        #MAIN_LOGGER.logger.info(f"      SHA256 du binaire : {sha256}")
         sauvegarder_binaire_suspect(image_path)
 
         # Vérification et terminaison du processus si pas légitime
@@ -89,8 +89,8 @@ def detect_processus_suspect(event_data):
                     kill_process_tree(int(pid_str), kill_parent=True)
                 else:
                     MAIN_LOGGER.logger.info(f"[INFO] Process {pid_str} is legitimate.")
-            except psutil.NoSuchProcess:
-                MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} disparu avant action.")
+            #except psutil.NoSuchProcess:
+                #MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} disparu avant action.")
             except psutil.AccessDenied:
                 MAIN_LOGGER.logger.error(f"[ERROR] Accès refusé au processus {pid_str}.")
             except Exception as e:
