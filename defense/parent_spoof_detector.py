@@ -46,7 +46,15 @@ def calculate_sha256(file_path):
     except (PermissionError, FileNotFoundError, OSError):
         logging.debug(f"Could not calculate hash for {file_path}")
         return None
-
+def kill_process(pid):
+    """Terminate a process by PID."""
+    try:
+        proc = psutil.Process(pid)
+        proc.terminate()
+        proc.wait(timeout=3)
+        logging.warning(f"[!] Process {pid} terminated successfully.")
+    except (psutil.NoSuchProcess, psutil.AccessDenied) as e:
+        logging.error(f"[!] Could not terminate process {pid}: {e}")
 def can_make_request():
     """Retourne True si une requête VT peut être exécutée maintenant."""
     current_time = time.time()
@@ -183,6 +191,7 @@ def detect_suspicious_processes(alert_callback=None):
                     }
                     if alert_callback:
                         alert_callback(alert_info)
+                    kill_process(pid)
                     alerts_generated += 1
             except (psutil.NoSuchProcess, psutil.AccessDenied, ValueError):
                 pass 
@@ -204,6 +213,7 @@ def detect_suspicious_processes(alert_callback=None):
                 }
                 if alert_callback:
                     alert_callback(alert_info)
+                kill_process(pid)
                 alerts_generated += 1
 
             # --- 3. Check Suspicious Command Line Arguments ---
@@ -263,11 +273,14 @@ def detect_suspicious_processes(alert_callback=None):
                     if vt_result is False:
                         # Erreur critique ou refus → on sort complètement
                         return
-
+                    
                     elif vt_result is None:
                         # Requête mise en attente → pas d'alerte maintenant
                         logging.debug(f"VT check pour {exe_path} en attente, alerte non générée.")
                     else:
+                        if vt_result and isinstance(vt_result, dict):
+                            if vt_result.get("malicious", 0) > 0:
+                                kill_process(pid)
                         alert_info = {
                             "type": "Unsigned Binary",
                             "description": f"Potentially unsigned or unverifiable binary detected: {exe_path}",
@@ -304,6 +317,10 @@ def detect_suspicious_processes(alert_callback=None):
                         "timestamp": current_time
                     }
                 }
+                if alert_callback:
+                    alert_callback(alert_info)
+                kill_process(pid)
+                alerts_generated += 1
                 
 
 
@@ -337,6 +354,7 @@ def detect_suspicious_processes(alert_callback=None):
             alerts_generated += 1
 
     return alerts_generated
+
 
 # --- Continuous Monitoring ---
 def vt_queue_worker():
