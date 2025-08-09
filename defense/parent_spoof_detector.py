@@ -8,16 +8,16 @@ from collections import defaultdict
 import subprocess
 import requests
 from utils.constants import (
+    MAX_REQUESTS,
     SUSPICIOUS_PARENT_CHILD,
     SUSPICIOUS_PROCESS_NAMES,
     SUSPICIOUS_CMDLINE_PATTERNS,
     SUSPICIOUS_PATHS,
     TARGET_FOR_INJECTION,
     SIGCHECK_PATH,
+    TIME_LIMIT,
     VIRUSTOTAL_API_KEY,
     VIRUSTOTAL_URL
-    MAX_REQUESTS
-    TIME_LIMIT
   )
 import collections
 import threading
