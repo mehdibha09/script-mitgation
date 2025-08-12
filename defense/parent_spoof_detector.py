@@ -107,7 +107,7 @@ def check_virustotal(hash_value):
         logging.error(f"VirusTotal check error: {e}")
         return None
     
-
+#to verify later 
 def is_unsigned_or_invalid_sig(path):
     """
     Uses Microsoft Sigcheck to verify if an executable is signed and valid.
