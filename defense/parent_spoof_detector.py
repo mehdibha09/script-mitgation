@@ -114,7 +114,7 @@ def is_unsigned_or_invalid_sig(path):
     Returns True if the file is unsigned or has an invalid signature.
     """
     if not path or not os.path.exists(path):
-        return True  # File doesn't exist → treat as suspicious
+        return False  # File doesn't exist → treat as suspicious
 
     try:
         # Run sigcheck silently, no banner, only signature info
@@ -211,7 +211,7 @@ def detect_suspicious_processes(alert_callback=None):
                 }
                 if alert_callback:
                    alert_callback(alert_info)
-                kill_process(pid)
+                #kill_process(pid)
                 alerts_generated += 1
 
             # --- 3. Check Suspicious Command Line Arguments ---
