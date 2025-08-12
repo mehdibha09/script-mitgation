@@ -48,25 +48,25 @@ def detect_processus_suspect(event_data):
         (nom_processus == "wscript.exe" and "python" in parent_image) or
         is_keylogger
     ):
-        MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious process detected (ID 1): {nom_processus}")
-        MAIN_LOGGER.logger.info(f"      CommandLine: {ligne_commande}")
+        #MAIN_LOGGER.logger.warning(f"[⚠️] Suspicious process detected (ID 1): {nom_processus}")
+        #MAIN_LOGGER.logger.info(f"      CommandLine: {ligne_commande}")
 
         # Kill direct si keylogger détecté
         if is_keylogger and pid_str and pid_str.isdigit():
             try:
                 proc = psutil.Process(int(pid_str))
                 proc.terminate()
-                MAIN_LOGGER.logger.warning(f"[🚨] Keylogger process killed (PID {pid_str})")
+                #MAIN_LOGGER.logger.warning(f"[🚨] Keylogger process killed (PID {pid_str})")
                 return
             except Exception as e:
-                MAIN_LOGGER.logger.error(f"[!] Erreur kill keylogger PID {pid_str}: {e}")
+               # MAIN_LOGGER.logger.error(f"[!] Erreur kill keylogger PID {pid_str}: {e}")
                 return
 
         # Vérifie présence d’URL malveillante dans la ligne de commande
         urls = extract_urls(ligne_commande)
         for url in urls:
             if est_url_suspecte(url):
-                MAIN_LOGGER.logger.warning(f"[⚠️] URL suspecte détectée dans la ligne de commande : {url}")
+                #MAIN_LOGGER.logger.warning(f"[⚠️] URL suspecte détectée dans la ligne de commande : {url}")
                 try:
                     #if analyse_code_url(url):  # Cette fonction doit être définie par toi
                         if pid_str and pid_str.isdigit():
@@ -92,31 +92,35 @@ def detect_processus_suspect(event_data):
             #except psutil.NoSuchProcess:
                 #MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} disparu avant action.")
             except psutil.AccessDenied:
-                MAIN_LOGGER.logger.error(f"[ERROR] Accès refusé au processus {pid_str}.")
+               # MAIN_LOGGER.logger.error(f"[ERROR] Accès refusé au processus {pid_str}.")
+               pass
             except Exception as e:
-                MAIN_LOGGER.logger.error(f"[!] Erreur gestion processus {pid_str}: {e}")
+                #MAIN_LOGGER.logger.error(f"[!] Erreur gestion processus {pid_str}: {e}")
+                pass
 
 def detect_event_id_11(event_data):
     """Detect suspicious file creations (Sysmon Event ID 11)."""
     fichier = (event_data.get("TargetFilename") or "").lower().strip()
     pid_str = event_data.get("ProcessId")
     if fichier.endswith((".locked", ".enc", ".crypt", ".encrypted")):
-        MAIN_LOGGER.logger.critical(f"[🧨] Encrypted file detected: {fichier}")
+        MAIN_LOGGER.logger.critical(f"[*] Encrypted file detected: {fichier}")
         if pid_str and pid_str.isdigit():
             try:
                 proc = psutil.Process(int(pid_str))
                 # No need to check legitimacy here, creating .locked files is highly suspicious
                 kill_process_tree(int(pid_str), kill_parent=True)
             except psutil.NoSuchProcess:
-                 MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} (file creator) disappeared.")
+                # MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} (file creator) disappeared.")
+                pass
             except psutil.AccessDenied:
                  pass
-                 MAIN_LOGGER.logger.error(f"[ERROR] Access denied killing process {pid_str} (file creator).")
+               #  MAIN_LOGGER.logger.error(f"[ERROR] Access denied killing process {pid_str} (file creator).")
             except Exception as e:
                 pass
-                MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid_str} (file creator): {e}")
+                #MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid_str} (file creator): {e}")
         else:
-            MAIN_LOGGER.logger.warning("[WARN] Invalid or missing ProcessId for encrypted file creation")
+            #MAIN_LOGGER.logger.warning("[WARN] Invalid or missing ProcessId for encrypted file creation")
+            pass
         return True
     if re.match(r"^\\\\[^\\]+\\(admin\$|c\$|ipc\$)\\", fichier):
         MAIN_LOGGER.logger.warning(f"[🚨] File creation on admin share: {fichier} (PID={pid_str})")
@@ -128,11 +132,14 @@ def detect_event_id_11(event_data):
                 # Consider if we should kill even if legitimate? Depends on policy.
                 # For now, stick to legitimacy check.
             except psutil.NoSuchProcess:
-                 MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} (admin share creator) disappeared.")
+                 #MAIN_LOGGER.logger.warning(f"[WARN] Process {pid_str} (admin share creator) disappeared.")
+                 pass
             except psutil.AccessDenied:
-                 MAIN_LOGGER.logger.error(f"[ERROR] Access denied checking process {pid_str} (admin share creator).")
+                 #MAIN_LOGGER.logger.error(f"[ERROR] Access denied checking process {pid_str} (admin share creator).")
+                 pass
             except Exception as e:
-                MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid_str} (admin share creator): {e}")
+                #MAIN_LOGGER.logger.error(f"[!] Error handling PID {pid_str} (admin share creator): {e}")
+                pass
         return True
     return False
 
@@ -223,7 +230,7 @@ def detect_registre(event_data):
                         except Exception as e:
                             # Si suppression échoue, écrase avec chaîne vide
                             winreg.SetValueEx(key, nom_valeur, 0, winreg.REG_SZ, "")
-                            MAIN_LOGGER.logger.warning(f"[!] Écrasé avec valeur vide : {nom_valeur}")
+                            #MAIN_LOGGER.logger.warning(f"[!] Écrasé avec valeur vide : {nom_valeur}")
                 elif event_type == "createkey":
                     parent_path = "\\".join(parts[1:-1])
                     with _open_reg_key(hive, parent_path, winreg.KEY_ALL_ACCESS) as parent_key:
@@ -255,6 +262,7 @@ def detect_registre(event_data):
                 else:
                     MAIN_LOGGER.logger.info(f"[INFO] Processus légitime modifiant le registre : {proc.pid}")
             else:
-                MAIN_LOGGER.logger.warning("[] Impossible d’identifier le processus à tuer (PID manquant ou non trouvé).")
+               # MAIN_LOGGER.logger.warning("[] Impossible d’identifier le processus à tuer (PID manquant ou non trouvé).")
+               pass
         except Exception as e:
             pass

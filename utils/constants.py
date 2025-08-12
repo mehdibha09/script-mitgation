@@ -80,7 +80,7 @@ SUSPICIOUS_PROCESS_NAMES = {
     "nbtstat.exe", "ipconfig.exe", "netstat.exe", "net.exe", "arp.exe",
 
     # Interpréteurs ou scripts souvent utilisés dans des attaques
-    "powershell.exe", "pwsh.exe", "cmd.exe", "cscript.exe", "wscript.exe",
+    "powershell.exe", "pwsh.exe", "cscript.exe", "wscript.exe",
     "mshta.exe", "rundll32.exe", "regsvr32.exe", "regedit.exe", "wsl.exe",
     "bash.exe", "sh.exe", "curl.exe", "wget.exe",
     "python3.exe", "python3.11.exe", "node.exe", "java.exe", "javaw.exe",
@@ -172,11 +172,6 @@ SUSPICIOUS_CMDLINE_PATTERNS = [
     ("start-bitstransfer", "powershell.exe"),
     ("add-type", "powershell.exe"),
 
-    # --- CMD obfuscation / persistence / injection ---
-    ("/c ", "cmd.exe"), ("/k ", "cmd.exe"),
-    ("cmd.exe", "powershell"), ("cmd.exe", "mshta"),
-    ("cmd.exe", "wscript"), ("cmd.exe", "cscript"),
-    ("cmd.exe", "certutil"), ("cmd.exe", "bitsadmin"),
 
     # --- Rundll32 attacks / LOLBins ---
     ("rundll32.exe", "javascript:"), ("rundll32.exe", "vbscript:"),
