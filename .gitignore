@@ -9,3 +9,6 @@ __pycache__/
 
 .vscode/
 samples_suspects
+
+last_event.json
+suspects_paths.txt

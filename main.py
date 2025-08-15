@@ -1,7 +1,6 @@
-# main.py
 import threading
 import time
-# from utils.permissions import run_as_admin
+from utils.permissions import run_as_admin
 from scheduler.task_scheduler import add_task_scheduler
 from sysmon.monitor import monitor_sysmon_log
 from dll_scanner.scanner import run_dll_scanner_periodically
@@ -17,8 +16,7 @@ def main():
     print("Sysmon Monitoring + DLL Scanner + PROACTIVE DEFENSE")
     print("=" * 60)
     print("Press Ctrl+C to stop.")
-
-    # run_as_admin()
+    run_as_admin()
     add_task_scheduler()
 
     # Start DLL scanner

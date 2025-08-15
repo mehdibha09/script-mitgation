@@ -163,56 +163,56 @@ def detect_suspicious_processes(alert_callback=None):
             # Skip system idle process and system process
             if pid in [0, 4] or name in ['system idle process', 'system']:
                 continue
-
+            # erreur ici ----------------------------------------------------
             # --- 1. Check Parent-Child Relationships ---
-            try:
-                parent_proc = psutil.Process(ppid)
-                parent_name = parent_proc.name().lower()
-                parent_exe = parent_proc.exe()
-                pair = (parent_name, name)
+            # try:
+            #     parent_proc = psutil.Process(ppid)
+            #     parent_name = parent_proc.name().lower()
+            #     parent_exe = parent_proc.exe()
+            #     pair = (parent_name, name)
 
-                if pair in SUSPICIOUS_PARENT_CHILD:
-                    alert_info = {
-                        "type": "Suspicious Parent-Child",
-                        "description": f"Suspicious parent-child process pair detected: {parent_name} (PID:{ppid}) -> {name} (PID:{pid})",
-                        "severity": "High",
-                        "details": {
-                            "pid": pid,
-                            "ppid": ppid,
-                            "name": name,
-                            "exe": exe_path,
-                            "cmdline": cmdline_str,
-                            "parent_name": parent_name,
-                            "parent_exe": parent_exe,
-                            "timestamp": current_time
-                        }
-                    }
-                    if alert_callback:
-                       alert_callback(alert_info)
-                    kill_process(pid)
-                    alerts_generated += 1
-            except (psutil.NoSuchProcess, psutil.AccessDenied, ValueError):
-                pass 
+            #     if pair in SUSPICIOUS_PARENT_CHILD:
+            #         alert_info = {
+            #             "type": "Suspicious Parent-Child",
+            #             "description": f"Suspicious parent-child process pair detected: {parent_name} (PID:{ppid}) -> {name} (PID:{pid})",
+            #             "severity": "High",
+            #             "details": {
+            #                 "pid": pid,
+            #                 "ppid": ppid,
+            #                 "name": name,
+            #                 "exe": exe_path,
+            #                 "cmdline": cmdline_str,
+            #                 "parent_name": parent_name,
+            #                 "parent_exe": parent_exe,
+            #                 "timestamp": current_time
+            #             }
+            #         }
+            #         if alert_callback:
+            #            alert_callback(alert_info)
+            #         kill_process(pid)
+            #         alerts_generated += 1
+            # except (psutil.NoSuchProcess, psutil.AccessDenied, ValueError):
+            #     pass 
 
             # --- 2. Check Suspicious Process Names ---
-            if name in SUSPICIOUS_PROCESS_NAMES:
-                alert_info = {
-                    "type": "Suspicious Process Name",
-                    "description": f"Suspicious process name detected: {name}",
-                    "severity": "High",
-                    "details": {
-                        "pid": pid,
-                        "ppid": ppid,
-                        "name": name,
-                        "exe": exe_path,
-                        "cmdline": cmdline_str,
-                        "timestamp": current_time
-                    }
-                }
-                if alert_callback:
-                   alert_callback(alert_info)
-                #kill_process(pid)
-                alerts_generated += 1
+            # if name in SUSPICIOUS_PROCESS_NAMES:
+            #     alert_info = {
+            #         "type": "Suspicious Process Name",
+            #         "description": f"Suspicious process name detected: {name}",
+            #         "severity": "High",
+            #         "details": {
+            #             "pid": pid,
+            #             "ppid": ppid,
+            #             "name": name,
+            #             "exe": exe_path,
+            #             "cmdline": cmdline_str,
+            #             "timestamp": current_time
+            #         }
+            #     }
+            #     if alert_callback:
+            #        alert_callback(alert_info)
+            #     #kill_process(pid)
+            #     alerts_generated += 1
 
             # --- 3. Check Suspicious Command Line Arguments ---
             for pattern, target_proc in SUSPICIOUS_CMDLINE_PATTERNS:

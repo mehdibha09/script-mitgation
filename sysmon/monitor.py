@@ -24,6 +24,9 @@ from utils.constants import (
     ERROR_NO_MORE_ITEMS,
     )
 
+import json
+LAST_EVENT_FILE = "last_event.json"
+
 
 
 wevtapi = windll.wevtapi
@@ -68,17 +71,51 @@ def render_event(event_handle):
         MAIN_LOGGER.logger.error(f"EvtRender failed with error: {ctypes.GetLastError()}")
         return None
     
-    return buf.value    
+    return buf.value  
 
+def load_last_event_id(channel="Microsoft-Windows-Sysmon/Operational"):
+    """Charge le dernier EventRecordID connu, ajuste si les logs ont été supprimés."""
+    last_event_id = 0
+    try:
+        with open(LAST_EVENT_FILE, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            last_event_id = int(data.get("last_event_id", 0))
+    except Exception:
+        last_event_id = 0
+
+    # Vérifier le premier EventRecordID actuel
+    query_handle = EvtQuery(None, channel, "*[System[EventRecordID >= 0]]", EVT_QUERY_CHANNEL_PATH)
+    if query_handle:
+        first_handle = (wintypes.HANDLE * 1)()
+        returned = wintypes.DWORD()
+        if EvtNext(query_handle, 1, first_handle, 0, 0, byref(returned)):
+            xml = render_event(first_handle[0])
+            if xml:
+                import re
+                match = re.search(r"<EventRecordID>(\d+)</EventRecordID>", xml)
+                if match:
+                    first_id = int(match.group(1))
+                    if last_event_id < first_id:
+                        last_event_id = first_id  # Ajuster si logs supprimés
+        EvtClose(query_handle)
+    return last_event_id
+
+
+def save_last_event_id(last_event_id: int):
+    """Sauvegarde le dernier EventRecordID traité dans un fichier JSON."""
+    try:
+        with open(LAST_EVENT_FILE, "w", encoding="utf-8") as f:
+            json.dump({"last_event_id": last_event_id}, f)
+    except Exception:
+        pass
 
 def monitor_sysmon_log():
     """Main Sysmon monitoring loop."""
     channel = "Microsoft-Windows-Sysmon/Operational"
-    last_event_id = 0
     MAIN_LOGGER.logger.info("[*] Starting Sysmon monitoring (Winevt API)...")
 
     event_id_query = "*[System[( EventID=1 or EventID=3 or EventID=11 or EventID=12 or EventID=13 or EventID=14 or EventID=17 or EventID=18)]]"
-
+    last_event_id = load_last_event_id()
     try:
         while True:
             query_string = f"{event_id_query} and *[System[EventRecordID > {last_event_id}]]"
@@ -99,7 +136,11 @@ def monitor_sysmon_log():
                     if not success:
                         error_code = ctypes.GetLastError()
                         if error_code == ERROR_NO_MORE_ITEMS:
-                            break 
+                            break
+                        elif error_code == 1460:  # Timeout
+                            MAIN_LOGGER.logger.warning("[!] EvtNext timeout, retrying in 1s")
+                            time.sleep(1)
+                            continue
                         else:
                             MAIN_LOGGER.logger.error(f"[!] EvtNext failed with error code: {error_code}")
                             break
@@ -117,6 +158,7 @@ def monitor_sysmon_log():
                             event_record_id = get_event_record_id(xml_event)
                             if event_record_id and event_record_id > last_event_id:
                                 last_event_id = event_record_id
+                                save_last_event_id(last_event_id)
                                 if event_id == 1:
                                     detect_processus_suspect(event_data)
                                 elif event_id == 11:

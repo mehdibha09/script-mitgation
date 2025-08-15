@@ -1,10 +1,6 @@
-
-
-
 import os
 from logger import MAIN_LOGGER
 import datetime
-import shutil
 import hashlib
 import psutil
 import re
@@ -84,12 +80,14 @@ def get_hash(file_path):
 def sauvegarder_binaire_suspect(path):
     try:
         if os.path.exists(path):
-            os.makedirs("samples_suspects", exist_ok=True)
-            dst = f"samples_suspects/{datetime.datetime.now().strftime('%Y%m%d_%H%M%S')}_{os.path.basename(path)}"
-            shutil.copy2(path, dst)
-           # MAIN_LOGGER.logger.info(f"[🔍] Binaire suspect sauvegardé : {dst}")
+            log_file = os.path.join("suspects_paths.txt")
+            with open(log_file, "a", encoding="utf-8") as f:
+                f.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - {path}\n")
     except Exception as e:
-        MAIN_LOGGER.logger.warning(f"[!] Échec de sauvegarde binaire : {e}")
+        # Pas de MAIN_LOGGER pour éviter affichage console
+        with open(os.path.join("samples_suspects", "suspects_paths_errors.txt"), "a", encoding="utf-8") as err_file:
+            err_file.write(f"{datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')} - Erreur : {e}\n")
+
 
 def est_commande_suspecte(commandline: str) -> bool:
     """Check if a command line is suspicious."""
@@ -109,29 +107,33 @@ def est_commande_suspecte(commandline: str) -> bool:
     return any(re.search(motif, full_cmd) for motif in motifs_suspects)
 
 def kill_process_tree(pid: int, kill_parent: bool = True):
-    """Kill a process tree using psutil, but never kill the current process itself."""
+    """Kill a process tree using psutil, but protect only the children of this script."""
     try:
         parent = psutil.Process(pid)
-        MAIN_LOGGER.logger.info(f"[INFO] Killing process tree for PID {pid} ({parent.name()})")
-    except psutil.NoSuchProcess:
-        return
-    except psutil.AccessDenied:
+    except (psutil.NoSuchProcess, psutil.AccessDenied):
         return
 
     current_pid = os.getpid()
+    current_proc = psutil.Process(current_pid)
+    
+    # Construire l'ensemble des PID à protéger : juste les enfants du script de mitigation
+    protected_pids = {current_pid}
+    try:
+        for child in current_proc.children(recursive=True):
+            protected_pids.add(child.pid)
+    except Exception:
+        pass
+
     to_kill = []
     try:
         children = parent.children(recursive=True)
-        to_kill.extend([p for p in children if p.pid != current_pid])
+        to_kill.extend([p for p in children if p.pid not in protected_pids])
     except psutil.Error:
         pass
 
-    # Add parent only if not current process and if kill_parent=True
-    if kill_parent and parent.pid != current_pid:
+    # Ajouter le parent seulement si kill_parent=True et pas dans la liste protégée
+    if kill_parent and parent.pid not in protected_pids:
         to_kill.append(parent)
-
-    # Extra safety: remove current process from kill list just in case
-    to_kill = [p for p in to_kill if p.pid != current_pid]
 
     MAIN_LOGGER.logger.debug(f"[DEBUG] kill_process_tree called for PID {pid}, kill_parent={kill_parent}")
     for proc_to_kill in to_kill:
@@ -141,10 +143,9 @@ def kill_process_tree(pid: int, kill_parent: bool = True):
         except psutil.NoSuchProcess:
             MAIN_LOGGER.logger.debug(f"[DEBUG] Process {proc_to_kill.pid} seems to have died already.")
         except psutil.AccessDenied:
-            pass
+            MAIN_LOGGER.logger.warning(f"[⚠️] Access denied to kill PID {proc_to_kill.pid}")
         except Exception as e:
             MAIN_LOGGER.logger.error(f"[ERROR] Exception killing {proc_to_kill.pid}: {e}")
-
 
 
 def est_legitime(proc: psutil.Process) -> bool:

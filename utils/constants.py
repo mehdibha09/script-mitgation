@@ -1,5 +1,4 @@
 import os
-
 # --- Dépendance externe : sigcheck ---
 SIGCHECK_PATH = r"C:\Tools\sigcheck.exe"  # ⚠️ Assure-toi qu'il existe à ce chemin
 
